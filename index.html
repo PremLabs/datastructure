@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Learn Python DSA with an interactive sorting visualizer. Play Bubble Sort, Selection Sort, Insertion Sort, and Merge Sort step by step.">
+  <title>DSA Playground — Learn Sorting Visually</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#18233b;--line:#283653;--text:#f2f5ff;--muted:#9ba9c7;--cyan:#55d6ff;--violet:#9c8cff;--green:#5ee6a8;--yellow:#ffd166;--red:#ff7d8d}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#24335d 0,transparent 55%),var(--bg);color:var(--text);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+    button,select,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 15px;color:var(--text);background:var(--panel2);transition:.18s}button:hover{border-color:var(--cyan);transform:translateY(-1px)}button:disabled{opacity:.4;cursor:not-allowed;transform:none}.primary{background:linear-gradient(120deg,#4e67f5,#8b5cf6);border:0;font-weight:700}.shell{max-width:1120px;margin:auto;padding:24px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:850;letter-spacing:-.04em;font-size:20px}.brand span{color:var(--cyan)}.pill{border:1px solid var(--line);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:12px}.hero{text-align:center;padding:56px 10px 32px}.eyebrow{color:var(--cyan);font-weight:800;text-transform:uppercase;letter-spacing:.15em;font-size:12px}.hero h1{font-size:clamp(34px,6vw,62px);line-height:1.05;letter-spacing:-.055em;margin:12px auto;max-width:800px}.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#b8a7ff);color:transparent;background-clip:text}.hero p{color:var(--muted);max-width:620px;margin:16px auto}.panel{background:linear-gradient(160deg,rgba(22,32,56,.96),rgba(15,23,41,.96));border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 20px 60px #0002}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.field{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px;font-weight:700}.field select,.field input{background:#0c1427;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:42px}.field select{min-width:185px}.visual-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0 8px}.visual-head h2{font-size:18px;margin:0}.status{color:var(--muted);font-size:13px}.bars{height:300px;display:flex;align-items:flex-end;gap:7px;padding:20px 6px 8px;border-bottom:1px solid var(--line);overflow:hidden}.bar-wrap{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:7px}.bar{width:100%;max-width:58px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#66d8ff,#5865f2);box-shadow:0 5px 22px #5865f233;transition:height .18s,background .18s;position:relative}.bar.active{background:linear-gradient(180deg,#ffe08a,#ff9e57);box-shadow:0 0 24px #ffd16655}.bar.sorted{background:linear-gradient(180deg,#80f4bf,#20b981);box-shadow:0 0 20px #5ee6a833}.bar-value{font-size:12px;color:#eaf0ff;font-weight:800}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;background:var(--cyan)}.dot.active{background:var(--yellow)}.dot.sorted{background:var(--green)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.metric{padding:14px;border:1px solid var(--line);border-radius:14px;background:#0d1528}.metric small{display:block;color:var(--muted)}.metric strong{font-size:23px}.explain{margin-top:16px;background:#0d1528;border:1px solid var(--line);border-radius:14px;padding:14px;color:#dce6ff;min-height:52px}.lower{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}.lower h3{margin:0 0 12px;font-size:16px}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#080e1c;padding:16px;border-radius:12px;color:#b8c9ee;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.complexity{display:grid;grid-template-columns:1fr auto;gap:10px;font-size:14px;padding:9px 0;border-bottom:1px solid var(--line)}.complexity span{color:var(--muted)}.footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;padding:26px 4px}.footer img{vertical-align:middle}.hint{font-size:12px;color:var(--muted);margin-top:10px}
+    @media(max-width:700px){.shell{padding:14px}.hero{padding:38px 4px 24px}.panel{padding:14px;border-radius:17px}.bars{height:245px;gap:4px;padding-inline:0}.bar-value{font-size:10px}.lower{grid-template-columns:1fr}.metrics{gap:7px}.metric{padding:10px}.metric strong{font-size:19px}.toolbar>*{flex:1}.toolbar button{padding:10px}.field select{min-width:0;width:100%}.topbar .pill{display:none}}
+  </style>
+  <!-- Google Analytics: replace G-XXXXXXXXXX with your existing GA4 Measurement ID. -->
+  <script>
+    const GA_MEASUREMENT_ID = "G-XXXXXXXXXX";
+    if (GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== "G-XXXXXXXXXX") {
+      const gaScript = document.createElement("script");
+      gaScript.async = true;
+      gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
+      document.head.appendChild(gaScript);
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag("js", new Date());
+      gtag("config", GA_MEASUREMENT_ID);
+    }
+  </script>
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar" aria-label="Main navigation"><div class="brand">Prem<span>Labs</span> / DSA</div><div class="pill">INTERACTIVE LEARNING LAB</div><a href="https://github.com/PremLabs/datastructure" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;font-size:13px">View source ↗</a></nav>
+    <header class="hero"><div class="eyebrow">Understand it. Visualize it. Master it.</div><h1>Algorithms, made <em>visual.</em></h1><p>Explore sorting algorithms one step at a time. Watch every comparison, swap, and merge — and learn the logic behind the code.</p></header>
+    <section class="panel" aria-label="Sorting algorithm playground">
+      <div class="toolbar">
+        <label class="field">ALGORITHM<select id="algorithm"><option value="bubble">Bubble Sort</option><option value="selection">Selection Sort</option><option value="insertion">Insertion Sort</option><option value="merge">Merge Sort</option></select></label>
+        <label class="field">ARRAY SIZE<select id="size"><option value="8">8 values</option><option value="12" selected>12 values</option><option value="18">18 values</option><option value="24">24 values</option></select></label>
+        <label class="field">SPEED<select id="speed"><option value="900">Slow</option><option value="450" selected>Normal</option><option value="120">Fast</option></select></label>
+        <button id="randomize">↻ Randomize</button><button id="play" class="primary">▶ Play</button><button id="step">Step →</button><button id="reset">Reset</button>
+      </div>
+      <div class="visual-head"><h2 id="algorithmTitle">Bubble Sort</h2><div class="status" id="status" aria-live="polite">Ready to sort</div></div>
+      <div class="bars" id="bars" role="img" aria-label="Animated array bars"></div>
+      <div class="legend"><span><i class="dot"></i>Unsorted values</span><span><i class="dot active"></i>Current comparison / key</span><span><i class="dot sorted"></i>Sorted values</span></div>
+      <div class="metrics"><div class="metric"><small>Comparisons</small><strong id="comparisons">0</strong></div><div class="metric"><small>Swaps / shifts</small><strong id="swaps">0</strong></div><div class="metric"><small>Progress</small><strong id="progress">0%</strong></div></div>
+      <div class="explain" id="explanation" aria-live="polite">Press Play to see how the algorithm works, or use Step to inspect each operation.</div>
+      <div class="hint">Tip: use Step to follow the algorithm slowly, or change the array size to experiment.</div>
+    </section>
+    <section class="lower">
+      <article class="panel"><h3>Python implementation</h3><pre class="code" id="code"></pre></article>
+      <article class="panel"><h3>Complexity guide</h3><div class="complexity"><span>Best time</span><strong id="best">O(n)</strong></div><div class="complexity"><span>Average time</span><strong id="average">O(n²)</strong></div><div class="complexity"><span>Worst time</span><strong id="worst">O(n²)</strong></div><div class="complexity"><span>Extra space</span><strong id="space">O(1)</strong></div><p style="color:var(--muted);font-size:13px;margin-bottom:0" id="description">Repeatedly compare adjacent values and swap them if they are out of order.</p></article>
+    </section>
+    <footer class="footer"><span>Built for curious minds · Python DSA Playground</span><span>Visitor count: <img src="https://visitor-badge.laobi.icu/badge?page_id=PremLabs.datastructure&left_color=%23121a2e&right_color=%2355d6ff&left_text=visits" alt="Public website visit counter" loading="lazy"></span></footer>
+  </main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const codeSamples = {
+    bubble: 'def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        swapped = False\n        for j in range(n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n                swapped = True\n        if not swapped:\n            break\n    return arr',
+    selection: 'def selection_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        min_idx = i\n        for j in range(i + 1, n):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr',
+    insertion: 'def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n    return arr',
+    merge: 'def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    while left and right:\n        if left[0] <= right[0]:\n            result.append(left.pop(0))\n        else:\n            result.append(right.pop(0))\n    return result + left + right'
+  };
+  const meta = {
+    bubble:{title:'Bubble Sort',best:'O(n)',average:'O(n²)',worst:'O(n²)',space:'O(1)',description:'Compare neighboring values and swap them when they are in the wrong order.'},
+    selection:{title:'Selection Sort',best:'O(n²)',average:'O(n²)',worst:'O(n²)',space:'O(1)',description:'Find the smallest value in the unsorted section and place it next.'},
+    insertion:{title:'Insertion Sort',best:'O(n)',average:'O(n²)',worst:'O(n²)',space:'O(1)',description:'Take the next key, shift larger values right, and insert the key in its correct position.'},
+    merge:{title:'Merge Sort',best:'O(n log n)',average:'O(n log n)',worst:'O(n log n)',space:'O(n)',description:'Divide the array into halves, sort each half recursively, then merge the sorted halves.'}
+  };
+  let original=[], arr=[], ops=[], index=0, timer=null, comparisons=0, swaps=0, sortedSet=new Set();
+  const pause=()=>{if(timer!==null){clearTimeout(timer);timer=null;} $('play').textContent='▶ Play';};
+  function makeOps(values, type) {
+    const a=values.slice(), out=[]; let comp=0, swap=0;
+    const push=(desc, active=[], sorted=[])=>out.push({a:a.slice(),desc,active:[...active],sorted:[...sorted],comparisons:comp,swaps:swap});
+    if(type==='bubble'){
+      for(let i=0;i<a.length;i++){let changed=false;for(let j=0;j<a.length-i-1;j++){comp++;if(a[j]>a[j+1]){[a[j],a[j+1]]=[a[j+1],a[j]];swap++;changed=true;push('Swap '+a[j+1]+' and '+a[j]+' because they are out of order.',[j,j+1],Array.from({length:i},(_,k)=>a.length-1-k));}else push('Compare '+a[j]+' and '+a[j+1]+': no swap needed.',[j,j+1],Array.from({length:i},(_,k)=>a.length-1-k));}if(!changed)break;} }
+    else if(type==='selection'){
+      for(let i=0;i<a.length;i++){let m=i;for(let j=i+1;j<a.length;j++){comp++;push('Compare '+a[j]+' with current minimum '+a[m]+'.',[m,j],Array.from({length:i},(_,k)=>k));if(a[j]<a[m])m=j;}if(m!==i){[a[i],a[m]]=[a[m],a[i]];swap++;push('Place minimum '+a[i]+' at position '+(i+1)+'.',[i,m],Array.from({length:i+1},(_,k)=>k));}else push(a[i]+' is already the minimum for this pass.',[i],Array.from({length:i+1},(_,k)=>k));} }
+    else if(type==='insertion'){
+      for(let i=1;i<a.length;i++){const key=a[i];let j=i-1;push('Pick '+key+' as the key to insert into the sorted section.',[i],Array.from({length:i},(_,k)=>k));while(j>=0){comp++;if(a[j]>key){a[j+1]=a[j];swap++;push('Shift '+a[j]+' one position right.',[j,j+1],Array.from({length:i},(_,k)=>k));j--;}else{push(key+' belongs after '+a[j]+'.',[j,i],Array.from({length:i},(_,k)=>k));break;}}a[j+1]=key;push('Insert key '+key+' into its correct position.',[j+1],Array.from({length:i+1},(_,k)=>k));} }
+    else {
+      function mergeSort(lo,hi){if(hi-lo<=1)return a.slice(lo,hi);const mid=Math.floor((lo+hi)/2);push('Divide the section into two smaller parts.',Array.from({length:hi-lo},(_,k)=>lo+k));const left=mergeSort(lo,mid),right=mergeSort(mid,hi);let i=0,j=0;const merged=[];while(i<left.length&&j<right.length){comp++;if(left[i]<=right[j])merged.push(left[i++]);else merged.push(right[j++]);push('Compare the front values of the two halves and take the smaller one.',[lo+i-1,mid+j-1].filter(x=>x>=lo&&x<hi));}while(i<left.length)merged.push(left[i++]);while(j<right.length)merged.push(right[j++]);for(let k=0;k<merged.length;k++)a[lo+k]=merged[k];swap+=merged.length;push('Merge this section in sorted order.',Array.from({length:hi-lo},(_,k)=>lo+k),Array.from({length:hi-lo},(_,k)=>lo+k));return merged;}mergeSort(0,a.length);
+    }
+    push('All done — the array is sorted! 🎉',[],Array.from({length:a.length},(_,k)=>k));
+    return out;
+  }
+  function render(op){
+    arr=op.a.slice(); comparisons=op.comparisons;swaps=op.swaps;
+    $('bars').innerHTML='';
+    const max=Math.max(...arr,1);
+    arr.forEach((v,i)=>{const w=document.createElement('div');w.className='bar-wrap';const label=document.createElement('span');label.className='bar-value';label.textContent=v;const b=document.createElement('div');b.className='bar';b.style.height=Math.max(7,v/max*78)+'%';if(op.active.includes(i))b.classList.add('active');if(op.sorted.includes(i))b.classList.add('sorted');b.title='Value '+v;w.append(label,b);$('bars').append(w);});
+    $('comparisons').textContent=comparisons;$('swaps').textContent=swaps;$('progress').textContent=Math.round((index/Math.max(ops.length-1,1))*100)+'%';$('status').textContent='Step '+index+' of '+(ops.length-1);$('explanation').textContent=op.desc;
+  }
+  function rebuild(random=true){pause();const n=+$('size').value;if(random||!original.length){original=Array.from({length:n},()=>Math.floor(Math.random()*90)+10);}arr=original.slice();ops=makeOps(original,$('algorithm').value);index=0;const m=meta[$('algorithm').value];$('algorithmTitle').textContent=m.title;$('code').textContent=codeSamples[$('algorithm').value];$('best').textContent=m.best;$('average').textContent=m.average;$('worst').textContent=m.worst;$('space').textContent=m.space;$('description').textContent=m.description;render(ops[0]);}
+  function step(){if(index<ops.length-1){index++;render(ops[index]);}if(index>=ops.length-1)pause();}
+  function play(){if(timer!==null){pause();return;}if(index>=ops.length-1)index=0;$('play').textContent='Ⅱ Pause';const tick=()=>{if(timer===null)return;if(index>=ops.length-1){pause();return;}index++;render(ops[index]);timer=setTimeout(tick,+$('speed').value);};timer=setTimeout(tick,+$('speed').value);}
+  $('play').addEventListener('click',play);$('step').addEventListener('click',()=>{pause();step();});$('reset').addEventListener('click',()=>{pause();index=0;render(ops[0]);});$('randomize').addEventListener('click',()=>rebuild(true));$('algorithm').addEventListener('change',()=>rebuild(false));$('size').addEventListener('change',()=>rebuild(true));$('speed').addEventListener('change',()=>{if(timer!==null){pause();play();}});
+  rebuild(true);
+  // Send useful interaction events to GA4 when the existing Measurement ID is configured.
+  const track=(name,params={})=>{if(typeof window.gtag==='function')window.gtag('event',name,params);};
+  $('algorithm').addEventListener('change',e=>track('select_algorithm',{algorithm:e.target.value}));
+  $('play').addEventListener('click',()=>track('play_visualization',{algorithm:$('algorithm').value}));
+  $('step').addEventListener('click',()=>track('step_visualization',{algorithm:$('algorithm').value}));
+  $('randomize').addEventListener('click',()=>track('randomize_array',{array_size:$('size').value}));
+})();
+</script>
+</body>
+</html>

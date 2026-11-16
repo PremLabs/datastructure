@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binary Tree Traversal Explained Visually: Inorder, Preorder, Postorder, Level Order | PremLabs</title>
+  <meta name="description" content="Learn binary trees with animated inorder, preorder, postorder and level-order traversals. Includes tree terminology, complexity and code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/binary-tree/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Binary Tree Traversal Explained Visually: Inorder, Preorder, Postorder, Level Order | PremLabs">
+  <meta property="og:description" content="Learn binary trees with animated inorder, preorder, postorder and level-order traversals. Includes tree terminology, complexity and code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/binary-tree/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Binary Tree Traversal Explained Visually: Inorder, Preorder, Postorder, Level Order | PremLabs">
+  <meta name="twitter:description" content="Learn binary trees with animated inorder, preorder, postorder and level-order traversals. Includes tree terminology, complexity and code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/binary-tree/#article", "headline": "Binary Tree Traversal Explained Visually: Inorder, Preorder, Postorder, Level Order", "name": "Binary Trees & Traversals", "description": "Learn binary trees with animated inorder, preorder, postorder and level-order traversals. Includes tree terminology, complexity and code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/binary-tree/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/binary-tree/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Intermediate", "teaches": "Binary Trees & Traversals", "about": {"@type": "Thing", "name": "Binary Trees & Traversals"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Binary Trees & Traversals", "item": "https://premlabs.github.io/datastructure/binary-tree/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between a binary tree and a binary search tree?", "acceptedAnswer": {"@type": "Answer", "text": "A binary tree only limits each node to two children. A binary search tree adds an ordering rule: everything in the left subtree is smaller than the node and everything in the right subtree is larger."}}, {"@type": "Question", "name": "Which traversal gives sorted output?", "acceptedAnswer": {"@type": "Answer", "text": "In-order traversal of a binary search tree visits the keys in ascending order."}}, {"@type": "Question", "name": "What is the difference between DFS and BFS on a tree?", "acceptedAnswer": {"@type": "Answer", "text": "DFS (pre-, in-, post-order) goes deep along one branch before backtracking and uses a stack. BFS (level-order) visits nodes level by level and uses a queue."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/" aria-current="page">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Trees</p>
+<h1>Binary Trees &amp; Traversals</h1>
+<p class="lede">A binary tree is a hierarchy in which every node has at most two children, called left and right. Learning to traverse one is the foundation for search trees, heaps, and most recursive problem solving.</p>
+<ul class="facts"><li>Level: <b>Intermediate</b></li><li>Read time: <b>10 min</b></li><li>Traversal: <b>O(n)</b></li><li>Space: <b>O(h)</b></li></ul>
+
+<h2 id="what">What is a binary tree?</h2>
+<p>Arrays and linked lists are linear: each item has one successor. Trees are hierarchical, like a family tree or a folder structure. A tree is made of <strong>nodes</strong> connected by <strong>edges</strong>, starting from a single <strong>root</strong>. In a binary tree each node has up to two children.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td>Root</td><td>The top node, which has no parent</td></tr>
+<tr><td>Leaf</td><td>A node with no children</td></tr>
+<tr><td>Depth of a node</td><td>Number of edges from the root down to it</td></tr>
+<tr><td>Height of a tree</td><td>Number of edges on the longest path from the root to a leaf</td></tr>
+<tr><td>Subtree</td><td>A node together with all its descendants: itself a tree</td></tr>
+</tbody></table></div>
+<p>That last row matters most. Every subtree is a smaller tree, so tree algorithms are naturally recursive: do something with the node, then solve the same problem for the left subtree and the right subtree.</p>
+<h2 id="visual">Try it: four traversals of one tree</h2>
+<p>A traversal visits every node exactly once. The order is what distinguishes them. Run each and compare the output line.</p>
+
+<div data-viz="traversal" aria-label="Interactive Binary Trees &amp; Traversals visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="traversals">The four traversals</h2>
+<h3>Depth-first: in-order, pre-order, post-order</h3>
+<p>All three go as deep as possible before backing up. They differ only in when the node itself is processed relative to its children:</p>
+<ul>
+<li><strong>Pre-order</strong> (node, left, right): the parent comes before its children. Used to copy a tree or write it to a file.</li>
+<li><strong>In-order</strong> (left, node, right): on a <a href="../binary-search-tree/">binary search tree</a> this yields the keys in sorted order.</li>
+<li><strong>Post-order</strong> (left, right, node): children come before the parent. Used to delete a tree, or to compute something that depends on the children first, such as the size of a folder.</li>
+</ul>
+<p>In code the three functions are identical except for the position of one line. The recursion uses the call stack, so space is O(h) where h is the height.</p>
+<h3>Breadth-first: level-order</h3>
+<p>Visit the root, then all nodes at depth 1, then depth 2, and so on. This needs a <a href="../queue/">queue</a>: dequeue a node, process it, enqueue its children. Space is O(w) where w is the widest level, which can be n/2 for a full tree.</p>
+<h2 id="shapes">Tree shapes</h2>
+<ul>
+<li><strong>Full:</strong> every node has zero or two children.</li>
+<li><strong>Complete:</strong> every level is full except possibly the last, which fills from the left. <a href="../heap/">Heaps</a> are complete trees.</li>
+<li><strong>Perfect:</strong> all leaves at the same depth; a perfect tree of height h has 2<sup>h+1</sup> − 1 nodes.</li>
+<li><strong>Balanced:</strong> the height is O(log n). This is what keeps tree operations fast.</li>
+<li><strong>Degenerate:</strong> every node has one child. It is a linked list in disguise, with height n − 1.</li>
+</ul>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Any traversal</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Each node is visited once</td></tr><tr><td>Space, depth-first</td><td><code>O(log n) balanced</code></td><td><code>O(n) degenerate</code></td><td>Recursion depth equals height</td></tr><tr><td>Space, level-order</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Queue holds up to one full level</td></tr><tr><td>Height / size / count leaves</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>One traversal</td></tr></tbody></table></div>
+<h2 id="code">Binary Trees &amp; Traversals in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>from collections import deque
+
+
+class TreeNode:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def inorder(node, out):                   # left, node, right
+    if node:
+        inorder(node.left, out)
+        out.append(node.value)
+        inorder(node.right, out)
+    return out
+
+def preorder(node, out):                  # node, left, right
+    if node:
+        out.append(node.value)
+        preorder(node.left, out)
+        preorder(node.right, out)
+    return out
+
+def postorder(node, out):                 # left, right, node
+    if node:
+        postorder(node.left, out)
+        postorder(node.right, out)
+        out.append(node.value)
+    return out
+
+def level_order(root):                    # breadth-first, uses a queue
+    out, queue = [], deque([root] if root else [])
+    while queue:
+        node = queue.popleft()
+        out.append(node.value)
+        if node.left:
+            queue.append(node.left)
+        if node.right:
+            queue.append(node.right)
+    return out
+
+def height(node):                         # edges on the longest path down
+    if node is None:
+        return -1
+    return 1 + max(height(node.left), height(node.right))
+
+
+#         8
+#       /   \
+#      3     10
+#     / \      \
+#    1   6      14
+#       / \    /
+#      4   7  13
+root = TreeNode(8,
+                TreeNode(3, TreeNode(1), TreeNode(6, TreeNode(4), TreeNode(7))),
+                TreeNode(10, None, TreeNode(14, TreeNode(13))))
+
+print(inorder(root, []))      # [1, 3, 4, 6, 7, 8, 10, 13, 14]
+print(preorder(root, []))     # [8, 3, 1, 6, 4, 7, 10, 14, 13]
+print(postorder(root, []))    # [1, 4, 7, 6, 3, 13, 14, 10, 8]
+print(level_order(root))      # [8, 3, 10, 1, 6, 14, 4, 7, 13]
+print(height(root))           # 3</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Queue;
+
+public class BinaryTree {
+    static class TreeNode {
+        int value; TreeNode left, right;
+        TreeNode(int value, TreeNode left, TreeNode right) { this.value = value; this.left = left; this.right = right; }
+        TreeNode(int value) { this(value, null, null); }
+    }
+
+    static void inorder(TreeNode node, List&lt;Integer&gt; out) {      // left, node, right
+        if (node == null) return;
+        inorder(node.left, out);
+        out.add(node.value);
+        inorder(node.right, out);
+    }
+
+    static void preorder(TreeNode node, List&lt;Integer&gt; out) {     // node, left, right
+        if (node == null) return;
+        out.add(node.value);
+        preorder(node.left, out);
+        preorder(node.right, out);
+    }
+
+    static void postorder(TreeNode node, List&lt;Integer&gt; out) {    // left, right, node
+        if (node == null) return;
+        postorder(node.left, out);
+        postorder(node.right, out);
+        out.add(node.value);
+    }
+
+    static List&lt;Integer&gt; levelOrder(TreeNode root) {             // breadth-first, uses a queue
+        List&lt;Integer&gt; out = new ArrayList&lt;&gt;();
+        Queue&lt;TreeNode&gt; queue = new ArrayDeque&lt;&gt;();
+        if (root != null) queue.offer(root);
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+            out.add(node.value);
+            if (node.left != null) queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+        return out;
+    }
+
+    static int height(TreeNode node) {                           // edges on the longest path down
+        return node == null ? -1 : 1 + Math.max(height(node.left), height(node.right));
+    }
+
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(8,
+            new TreeNode(3, new TreeNode(1), new TreeNode(6, new TreeNode(4), new TreeNode(7))),
+            new TreeNode(10, null, new TreeNode(14, new TreeNode(13), null)));
+
+        List&lt;Integer&gt; out = new ArrayList&lt;&gt;();
+        inorder(root, out);
+        System.out.println(out);                  // [1, 3, 4, 6, 7, 8, 10, 13, 14]
+        System.out.println(levelOrder(root));     // [8, 3, 10, 1, 6, 14, 4, 7, 13]
+        System.out.println(height(root));         // 3
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>class TreeNode {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+function inorder(node, out = []) {         // left, node, right
+  if (node) { inorder(node.left, out); out.push(node.value); inorder(node.right, out); }
+  return out;
+}
+
+function preorder(node, out = []) {        // node, left, right
+  if (node) { out.push(node.value); preorder(node.left, out); preorder(node.right, out); }
+  return out;
+}
+
+function postorder(node, out = []) {       // left, right, node
+  if (node) { postorder(node.left, out); postorder(node.right, out); out.push(node.value); }
+  return out;
+}
+
+function levelOrder(root) {                // breadth-first, uses a queue
+  const out = [], queue = root ? [root] : [];
+  for (let head = 0; head &lt; queue.length; head++) {
+    const node = queue[head];
+    out.push(node.value);
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+  return out;
+}
+
+const height = node =&gt;                     // edges on the longest path down
+  node ? 1 + Math.max(height(node.left), height(node.right)) : -1;
+
+const T = (v, l, r) =&gt; new TreeNode(v, l, r);
+const root = T(8, T(3, T(1), T(6, T(4), T(7))), T(10, null, T(14, T(13))));
+
+console.log(inorder(root));                // [1, 3, 4, 6, 7, 8, 10, 13, 14]
+console.log(preorder(root));               // [8, 3, 1, 6, 4, 7, 10, 14, 13]
+console.log(postorder(root));              // [1, 4, 7, 6, 3, 13, 14, 10, 8]
+console.log(levelOrder(root));             // [8, 3, 10, 1, 6, 14, 4, 7, 13]
+console.log(height(root));                 // 3</code></pre></div>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Forgetting the base case <code>if node is None: return</code>.</li><li>Confusing height and depth, or counting nodes where the definition counts edges.</li><li>Using recursion on a very deep, unbalanced tree and overflowing the call stack.</li><li>Using an array's <code>shift()</code> as the queue in level-order traversal, which makes it O(n²).</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Find the maximum depth of a binary tree.</summary><p>1 + max(depth(left), depth(right)), with an empty tree at depth 0.</p></details><details><summary>Invert (mirror) a binary tree.</summary><p>Swap the left and right child of every node, recursively.</p></details><details><summary>Check whether two trees are identical.</summary><p>Both empty, or equal values and recursively identical left and right subtrees.</p></details><details><summary>Return the level-order traversal as a list of levels.</summary><p>BFS, processing the queue one level (its current length) at a time.</p></details><details><summary>Find the lowest common ancestor of two nodes.</summary><p>Recurse: if a node sees one target on each side, it is the answer; otherwise pass up whichever side found something.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the difference between a binary tree and a binary search tree?</summary><p>A binary tree only limits each node to two children. A binary search tree adds an ordering rule: everything in the left subtree is smaller than the node and everything in the right subtree is larger.</p></details><details><summary>Which traversal gives sorted output?</summary><p>In-order traversal of a binary search tree visits the keys in ascending order.</p></details><details><summary>What is the difference between DFS and BFS on a tree?</summary><p>DFS (pre-, in-, post-order) goes deep along one branch before backtracking and uses a stack. BFS (level-order) visits nodes level by level and uses a queue.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../hash-table/" rel="prev"><small>Previous</small>Hash Tables</a><a class="next" href="../binary-search-tree/" rel="next"><small>Next</small>Binary Search Trees</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

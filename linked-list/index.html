@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linked List Explained Visually: Singly &amp; Doubly Linked Lists with Code | PremLabs</title>
+  <meta name="description" content="Learn linked lists with an interactive diagram. See nodes and pointers change on insert, delete and search, with complexity analysis and code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/linked-list/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Linked List Explained Visually: Singly &amp; Doubly Linked Lists with Code | PremLabs">
+  <meta property="og:description" content="Learn linked lists with an interactive diagram. See nodes and pointers change on insert, delete and search, with complexity analysis and code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/linked-list/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Linked List Explained Visually: Singly &amp; Doubly Linked Lists with Code | PremLabs">
+  <meta name="twitter:description" content="Learn linked lists with an interactive diagram. See nodes and pointers change on insert, delete and search, with complexity analysis and code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/linked-list/#article", "headline": "Linked List Explained Visually: Singly & Doubly Linked Lists with Code", "name": "Linked Lists", "description": "Learn linked lists with an interactive diagram. See nodes and pointers change on insert, delete and search, with complexity analysis and code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/linked-list/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/linked-list/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Beginner", "teaches": "Linked Lists", "about": {"@type": "Thing", "name": "Linked Lists"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Linked Lists", "item": "https://premlabs.github.io/datastructure/linked-list/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "When is a linked list better than an array?", "acceptedAnswer": {"@type": "Answer", "text": "When you frequently insert or remove items at the front or at positions you already hold a reference to. Those operations are O(1) in a linked list and O(n) in an array."}}, {"@type": "Question", "name": "Why is searching a linked list O(n) even if it is sorted?", "acceptedAnswer": {"@type": "Answer", "text": "Binary search needs to jump to the middle element in constant time. A linked list can only reach the middle by walking there, so the advantage disappears."}}, {"@type": "Question", "name": "What is a dummy (sentinel) node?", "acceptedAnswer": {"@type": "Answer", "text": "An extra node placed before the real head. It guarantees every real node has a predecessor, which removes the special-case code for inserting or deleting at the head."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/" aria-current="page">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Linear structures</p>
+<h1>Linked Lists</h1>
+<p class="lede">A linked list is a chain of nodes where each node holds a value and a pointer to the next node. It gives up instant access by index in exchange for cheap insertion and removal.</p>
+<ul class="facts"><li>Level: <b>Beginner</b></li><li>Read time: <b>10 min</b></li><li>Insert at head: <b>O(1)</b></li><li>Access: <b>O(n)</b></li></ul>
+
+<h2 id="what">What is a linked list?</h2>
+<p>Think of a treasure hunt. Each clue tells you where the next clue is hidden. You cannot jump to clue number five; you have to follow the chain from the first one. A linked list stores data the same way. Each <strong>node</strong> contains a value and a reference (<code>next</code>) to the following node. The list itself only remembers the first node, called the <strong>head</strong>. The last node's <code>next</code> is <code>null</code>.</p>
+<p>The nodes can live anywhere in memory. That means adding a node never requires moving the others: you create it and adjust one or two pointers.</p>
+<h2 id="visual">Try it: watch the pointers</h2>
+<p>Add a value at the head, then at the tail. The first is instant; the second has to walk the whole list.</p>
+
+<div data-viz="linkedlist" aria-label="Interactive Linked Lists visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="how">How the operations work</h2>
+<h3>Insert at the head: O(1)</h3>
+<p>Create a node, point it at the current head, then make it the new head. Two assignments, whatever the list's length.</p>
+<h3>Insert at the tail: O(n) or O(1)</h3>
+<p>With only a head pointer you must walk to the end first. Keep an extra <code>tail</code> pointer and appending becomes O(1). Most real implementations do.</p>
+<h3>Delete: O(1) once you are there</h3>
+<p>To remove a node you make the previous node point past it. Finding that previous node is the O(n) part. The code below uses a <em>dummy node</em> in front of the head so that deleting the first node is not a special case. This trick removes a whole class of bugs.</p>
+<h3>Search and access: O(n)</h3>
+<p>There is no arithmetic that leads to the k-th node. You follow <code>next</code> k times.</p>
+<h2 id="types">Singly, doubly and circular lists</h2>
+<ul>
+<li><strong>Singly linked:</strong> each node has <code>next</code> only. Smallest memory use, one-way traversal.</li>
+<li><strong>Doubly linked:</strong> each node also has <code>prev</code>. You can walk backwards and delete a node in O(1) given only a reference to it. Java's <code>LinkedList</code> and the list behind an LRU cache are doubly linked.</li>
+<li><strong>Circular:</strong> the last node points back to the first. Useful for round-robin scheduling.</li>
+</ul>
+<h2 id="vs-array">Linked list or array?</h2>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>Array</th><th>Linked list</th></tr></thead>
+<tbody>
+<tr><td>Access k-th element</td><td>O(1)</td><td>O(n)</td></tr>
+<tr><td>Insert / delete at front</td><td>O(n)</td><td>O(1)</td></tr>
+<tr><td>Insert / delete in middle (position known)</td><td>O(n)</td><td>O(1)</td></tr>
+<tr><td>Memory per element</td><td>Just the value</td><td>Value plus one or two pointers</td></tr>
+<tr><td>Cache behaviour</td><td>Excellent (contiguous)</td><td>Poor (scattered)</td></tr>
+</tbody></table></div>
+<p>In practice arrays win more often than the table suggests, because modern processors are very fast at scanning contiguous memory. Reach for a linked list when you hold references to nodes and need to splice them in and out, as queues, LRU caches and adjacency lists do.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Access k-th element</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Follow k pointers</td></tr><tr><td>Search</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>No shortcut, even if sorted</td></tr><tr><td>Insert at head</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td></td></tr><tr><td>Insert at tail</td><td><code>O(1) with tail pointer</code></td><td><code>O(n) without</code></td><td></td></tr><tr><td>Delete given previous node</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td>One pointer change</td></tr><tr><td>Delete by value</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Find, then unlink</td></tr></tbody></table></div>
+<h2 id="code">Linked Lists in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>class Node:
+    def __init__(self, value, next=None):
+        self.value = value
+        self.next = next
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def add_first(self, value):           # O(1)
+        self.head = Node(value, self.head)
+
+    def add_last(self, value):            # O(n) without a tail pointer
+        node = Node(value)
+        if self.head is None:
+            self.head = node
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = node
+
+    def remove(self, value):              # O(n) to find, O(1) to unlink
+        dummy = Node(None, self.head)     # dummy node removes the head special case
+        prev = dummy
+        while prev.next and prev.next.value != value:
+            prev = prev.next
+        if prev.next is None:
+            return False
+        prev.next = prev.next.next
+        self.head = dummy.next
+        return True
+
+    def reverse(self):                    # O(n) time, O(1) space
+        prev, current = None, self.head
+        while current:
+            current.next, prev, current = prev, current, current.next
+        self.head = prev
+
+    def __iter__(self):
+        current = self.head
+        while current:
+            yield current.value
+            current = current.next
+
+
+items = LinkedList()
+for v in (3, 15):
+    items.add_last(v)
+items.add_first(8)                        # 8 -&gt; 3 -&gt; 15
+items.remove(3)                           # 8 -&gt; 15
+items.reverse()                           # 15 -&gt; 8
+print(list(items))</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>public class LinkedList {
+    private static class Node {
+        int value;
+        Node next;
+        Node(int value, Node next) { this.value = value; this.next = next; }
+    }
+
+    private Node head;
+
+    public void addFirst(int value) {              // O(1)
+        head = new Node(value, head);
+    }
+
+    public void addLast(int value) {               // O(n) without a tail pointer
+        Node node = new Node(value, null);
+        if (head == null) { head = node; return; }
+        Node current = head;
+        while (current.next != null) current = current.next;
+        current.next = node;
+    }
+
+    public boolean remove(int value) {             // O(n) to find, O(1) to unlink
+        Node dummy = new Node(0, head);            // removes the head special case
+        Node prev = dummy;
+        while (prev.next != null &amp;&amp; prev.next.value != value) prev = prev.next;
+        if (prev.next == null) return false;
+        prev.next = prev.next.next;
+        head = dummy.next;
+        return true;
+    }
+
+    public void reverse() {                        // O(n) time, O(1) space
+        Node prev = null, current = head;
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+
+    @Override public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Node n = head; n != null; n = n.next) sb.append(n.value).append(n.next != null ? &quot; -&gt; &quot; : &quot;&quot;);
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        LinkedList items = new LinkedList();
+        items.addLast(3); items.addLast(15);
+        items.addFirst(8);                         // 8 -&gt; 3 -&gt; 15
+        items.remove(3);                           // 8 -&gt; 15
+        items.reverse();                           // 15 -&gt; 8
+        System.out.println(items);
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>class Node {
+  constructor(value, next = null) {
+    this.value = value;
+    this.next = next;
+  }
+}
+
+class LinkedList {
+  head = null;
+
+  addFirst(value) {                        // O(1)
+    this.head = new Node(value, this.head);
+  }
+
+  addLast(value) {                         // O(n) without a tail pointer
+    const node = new Node(value);
+    if (!this.head) { this.head = node; return; }
+    let current = this.head;
+    while (current.next) current = current.next;
+    current.next = node;
+  }
+
+  remove(value) {                          // O(n) to find, O(1) to unlink
+    const dummy = new Node(null, this.head); // removes the head special case
+    let prev = dummy;
+    while (prev.next &amp;&amp; prev.next.value !== value) prev = prev.next;
+    if (!prev.next) return false;
+    prev.next = prev.next.next;
+    this.head = dummy.next;
+    return true;
+  }
+
+  reverse() {                              // O(n) time, O(1) space
+    let prev = null, current = this.head;
+    while (current) {
+      [current.next, prev, current] = [prev, current, current.next];
+    }
+    this.head = prev;
+  }
+
+  *[Symbol.iterator]() {
+    for (let n = this.head; n; n = n.next) yield n.value;
+  }
+}
+
+const items = new LinkedList();
+items.addLast(3); items.addLast(15);
+items.addFirst(8);                         // 8 -&gt; 3 -&gt; 15
+items.remove(3);                           // 8 -&gt; 15
+items.reverse();                           // 15 -&gt; 8
+console.log([...items]);</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a linked list when</h3><ul><li>You add and remove at the ends or at known positions far more than you index.</li><li>You are implementing a queue, deque or LRU cache.</li><li>You cannot afford the occasional O(n) resize of a dynamic array.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>You need random access or binary search (use an <a href="../arrays/">array</a>).</li><li>Memory is tight: pointers can double the size of small elements.</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Losing the rest of the list by overwriting <code>next</code> before saving it. When reversing, store <code>current.next</code> first.</li><li>Forgetting the empty list and single-node cases.</li><li>Not updating <code>head</code> (or <code>tail</code>) when the first (or last) node is removed.</li><li>Dereferencing <code>null</code>: always check <code>node</code> before reading <code>node.next</code>.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Reverse a linked list.</summary><p>Walk the list with three pointers (previous, current, next), flipping each <code>next</code> to point backwards. O(n) time, O(1) space. It is in the code above.</p></details><details><summary>Detect a cycle.</summary><p>Floyd's algorithm: move one pointer one step and another two steps at a time. If they ever meet there is a cycle.</p></details><details><summary>Find the middle node in one pass.</summary><p>Same slow and fast pointers: when the fast one reaches the end, the slow one is in the middle.</p></details><details><summary>Merge two sorted lists.</summary><p>Use a dummy head and repeatedly attach the smaller of the two front nodes.</p></details><details><summary>Remove the n-th node from the end.</summary><p>Advance one pointer n steps, then move both until the first reaches the end.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>When is a linked list better than an array?</summary><p>When you frequently insert or remove items at the front or at positions you already hold a reference to. Those operations are O(1) in a linked list and O(n) in an array.</p></details><details><summary>Why is searching a linked list O(n) even if it is sorted?</summary><p>Binary search needs to jump to the middle element in constant time. A linked list can only reach the middle by walking there, so the advantage disappears.</p></details><details><summary>What is a dummy (sentinel) node?</summary><p>An extra node placed before the real head. It guarantees every real node has a predecessor, which removes the special-case code for inserting or deleting at the head.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../arrays/" rel="prev"><small>Previous</small>Arrays</a><a class="next" href="../stack/" rel="next"><small>Next</small>Stacks</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

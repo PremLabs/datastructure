@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Stack Data Structure Explained Visually (LIFO) with Python, Java &amp; JavaScript | PremLabs</title>
+  <meta name="description" content="Learn the stack data structure with an interactive push/pop visualizer. Covers LIFO, the call stack, balanced brackets, complexity and code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/stack/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Stack Data Structure Explained Visually (LIFO) with Python, Java &amp; JavaScript | PremLabs">
+  <meta property="og:description" content="Learn the stack data structure with an interactive push/pop visualizer. Covers LIFO, the call stack, balanced brackets, complexity and code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/stack/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stack Data Structure Explained Visually (LIFO) with Python, Java &amp; JavaScript | PremLabs">
+  <meta name="twitter:description" content="Learn the stack data structure with an interactive push/pop visualizer. Covers LIFO, the call stack, balanced brackets, complexity and code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/stack/#article", "headline": "Stack Data Structure Explained Visually (LIFO) with Python, Java & JavaScript", "name": "Stacks", "description": "Learn the stack data structure with an interactive push/pop visualizer. Covers LIFO, the call stack, balanced brackets, complexity and code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/stack/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/stack/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Beginner", "teaches": "Stacks", "about": {"@type": "Thing", "name": "Stacks"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Stacks", "item": "https://premlabs.github.io/datastructure/stack/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What does LIFO mean?", "acceptedAnswer": {"@type": "Answer", "text": "Last in, first out. The item added most recently is the first one removed, like the top plate on a pile."}}, {"@type": "Question", "name": "What is the difference between a stack and a queue?", "acceptedAnswer": {"@type": "Answer", "text": "A stack removes the newest item (LIFO). A queue removes the oldest item (FIFO)."}}, {"@type": "Question", "name": "What causes a stack overflow?", "acceptedAnswer": {"@type": "Answer", "text": "The call stack running out of space, usually because a recursive function calls itself too many times without reaching its base case."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/" aria-current="page">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Linear structures</p>
+<h1>Stacks</h1>
+<p class="lede">A stack is a collection where you add and remove items from the same end, so the most recently added item is always the first to come out: last in, first out (LIFO).</p>
+<ul class="facts"><li>Level: <b>Beginner</b></li><li>Read time: <b>7 min</b></li><li>Push / pop: <b>O(1)</b></li><li>Order: <b>LIFO</b></li></ul>
+
+<h2 id="what">What is a stack?</h2>
+<p>A stack of plates is the standard picture, and it is accurate. You put a plate on top; you take a plate from the top. The plate at the bottom has been there longest and will be the last to go. A stack allows only three things:</p>
+<ul>
+<li><strong>push</strong>: put an item on top</li>
+<li><strong>pop</strong>: remove and return the top item</li>
+<li><strong>peek</strong>: look at the top item without removing it</li>
+</ul>
+<p>That restriction is the point. Because you never touch anything but the top, every operation is O(1), and the structure naturally remembers things in reverse order of arrival.</p>
+<h2 id="visual">Try it: push and pop</h2>
+<p>Push three different values, then pop three times. They come back in reverse.</p>
+
+<div data-viz="stack" aria-label="Interactive Stacks visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="how">How a stack is implemented</h2>
+<p>A stack is an <em>abstract data type</em>: it describes behaviour, not storage. The usual backing store is a dynamic array, with the top of the stack at the end, because appending and removing at the end of an array are both O(1). A linked list with push and pop at the head works equally well.</p>
+<p>In practice you rarely write your own: Python uses a <code>list</code> (<code>append</code>/<code>pop</code>), Java uses <code>ArrayDeque</code> (the older <code>Stack</code> class is synchronised and best avoided), and JavaScript uses an <code>Array</code> (<code>push</code>/<code>pop</code>).</p>
+<h2 id="where">Where stacks appear</h2>
+<ul>
+<li><strong>The call stack.</strong> Every function call pushes a frame holding its local variables and return address. Returning pops it. A recursion that never stops overflows this stack, which is where the term stack overflow comes from.</li>
+<li><strong>Undo and back buttons.</strong> Each action is pushed; undo pops the latest one.</li>
+<li><strong>Parsing.</strong> Matching brackets, evaluating expressions and parsing HTML all rely on "the most recently opened thing must close first".</li>
+<li><strong>Depth-first search.</strong> DFS on a <a href="../graph/">graph</a> or tree uses a stack, explicit or via recursion.</li>
+</ul>
+<h3>Worked example: balanced brackets</h3>
+<p>Scan the text left to right. Push every opening bracket. On a closing bracket, pop and check that it matches. If the stack is empty too early, or not empty at the end, the brackets are unbalanced. The code below implements this in all three languages.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Push</td><td><code>O(1)*</code></td><td><code>O(n)</code></td><td>*Amortised when array-backed</td></tr><tr><td>Pop</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td></td></tr><tr><td>Peek</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td></td></tr><tr><td>Search for a value</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Not what a stack is for</td></tr></tbody></table></div>
+<h2 id="code">Stacks in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>class Stack:
+    def __init__(self):
+        self._items = []
+
+    def push(self, value):                # O(1) amortised
+        self._items.append(value)
+
+    def pop(self):                        # O(1)
+        if not self._items:
+            raise IndexError(&quot;pop from empty stack&quot;)
+        return self._items.pop()
+
+    def peek(self):                       # O(1)
+        if not self._items:
+            raise IndexError(&quot;peek at empty stack&quot;)
+        return self._items[-1]
+
+    def is_empty(self):
+        return not self._items
+
+
+def is_balanced(text):
+    &quot;&quot;&quot;Classic stack problem: are the brackets in text balanced?&quot;&quot;&quot;
+    pairs = {&quot;)&quot;: &quot;(&quot;, &quot;]&quot;: &quot;[&quot;, &quot;}&quot;: &quot;{&quot;}
+    stack = Stack()
+    for ch in text:
+        if ch in &quot;([{&quot;:
+            stack.push(ch)
+        elif ch in pairs:
+            if stack.is_empty() or stack.pop() != pairs[ch]:
+                return False
+    return stack.is_empty()
+
+
+print(is_balanced(&quot;{[()]}&quot;))              # True
+print(is_balanced(&quot;([)]&quot;))                # False</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Map;
+
+public class StackDemo {
+    // In Java, prefer ArrayDeque over the legacy java.util.Stack class.
+    static boolean isBalanced(String text) {
+        Map&lt;Character, Character&gt; pairs = Map.of(&#x27;)&#x27;, &#x27;(&#x27;, &#x27;]&#x27;, &#x27;[&#x27;, &#x27;}&#x27;, &#x27;{&#x27;);
+        Deque&lt;Character&gt; stack = new ArrayDeque&lt;&gt;();
+        for (char ch : text.toCharArray()) {
+            if (ch == &#x27;(&#x27; || ch == &#x27;[&#x27; || ch == &#x27;{&#x27;) {
+                stack.push(ch);                            // O(1)
+            } else if (pairs.containsKey(ch)) {
+                if (stack.isEmpty() || stack.pop() != pairs.get(ch)) return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
+        stack.push(4); stack.push(9); stack.push(2);
+        System.out.println(stack.peek());                  // 2
+        System.out.println(stack.pop());                   // 2
+        System.out.println(stack.pop());                   // 9
+
+        System.out.println(isBalanced(&quot;{[()]}&quot;));          // true
+        System.out.println(isBalanced(&quot;([)]&quot;));            // false
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>class Stack {
+  #items = [];
+
+  push(value) { this.#items.push(value); }        // O(1) amortised
+
+  pop() {                                         // O(1)
+    if (this.isEmpty()) throw new Error(&#x27;pop from empty stack&#x27;);
+    return this.#items.pop();
+  }
+
+  peek() {                                        // O(1)
+    if (this.isEmpty()) throw new Error(&#x27;peek at empty stack&#x27;);
+    return this.#items[this.#items.length - 1];
+  }
+
+  isEmpty() { return this.#items.length === 0; }
+}
+
+// Classic stack problem: are the brackets in text balanced?
+function isBalanced(text) {
+  const pairs = { &#x27;)&#x27;: &#x27;(&#x27;, &#x27;]&#x27;: &#x27;[&#x27;, &#x27;}&#x27;: &#x27;{&#x27; };
+  const stack = new Stack();
+  for (const ch of text) {
+    if (&#x27;([{&#x27;.includes(ch)) stack.push(ch);
+    else if (ch in pairs) {
+      if (stack.isEmpty() || stack.pop() !== pairs[ch]) return false;
+    }
+  }
+  return stack.isEmpty();
+}
+
+console.log(isBalanced(&#x27;{[()]}&#x27;));                // true
+console.log(isBalanced(&#x27;([)]&#x27;));                  // false</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a stack when</h3><ul><li>The most recent item must be handled first.</li><li>You need to reverse an order or backtrack.</li><li>You are converting recursion to iteration.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>Items must be processed in arrival order (use a <a href="../queue/">queue</a>).</li><li>You need the smallest or largest item (use a <a href="../heap/">heap</a>).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Popping or peeking an empty stack. Check first.</li><li>Using Java's legacy <code>Stack</code> class in new code instead of <code>ArrayDeque</code>.</li><li>Deep recursion on large inputs in Python or JavaScript, which have limited call stacks. Use an explicit stack.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Check whether brackets are balanced.</summary><p>Push openers, pop and compare on closers. Shown in the code above.</p></details><details><summary>Design a stack that returns its minimum in O(1).</summary><p>Keep a second stack that stores the minimum so far alongside each push.</p></details><details><summary>Evaluate a postfix (reverse Polish) expression.</summary><p>Push numbers; on an operator pop two operands, apply it and push the result.</p></details><details><summary>Find the next greater element for each array item.</summary><p>A monotonic stack: keep indexes whose answer is unknown; pop them when a larger value arrives.</p></details><details><summary>Implement a queue using two stacks.</summary><p>Push onto an inbox stack; when the outbox is empty, pour the inbox into it, which reverses the order.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What does LIFO mean?</summary><p>Last in, first out. The item added most recently is the first one removed, like the top plate on a pile.</p></details><details><summary>What is the difference between a stack and a queue?</summary><p>A stack removes the newest item (LIFO). A queue removes the oldest item (FIFO).</p></details><details><summary>What causes a stack overflow?</summary><p>The call stack running out of space, usually because a recursive function calls itself too many times without reaching its base case.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../linked-list/" rel="prev"><small>Previous</small>Linked Lists</a><a class="next" href="../queue/" rel="next"><small>Next</small>Queues</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

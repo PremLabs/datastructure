@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trie (Prefix Tree) Explained Visually: Insert, Search &amp; Autocomplete with Code | PremLabs</title>
+  <meta name="description" content="Interactive trie tutorial. See how words share prefixes, how insert, search and startsWith work, and build autocomplete in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/trie/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Trie (Prefix Tree) Explained Visually: Insert, Search &amp; Autocomplete with Code | PremLabs">
+  <meta property="og:description" content="Interactive trie tutorial. See how words share prefixes, how insert, search and startsWith work, and build autocomplete in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/trie/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Trie (Prefix Tree) Explained Visually: Insert, Search &amp; Autocomplete with Code | PremLabs">
+  <meta name="twitter:description" content="Interactive trie tutorial. See how words share prefixes, how insert, search and startsWith work, and build autocomplete in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/trie/#article", "headline": "Trie (Prefix Tree) Explained Visually: Insert, Search & Autocomplete with Code", "name": "Tries (Prefix Trees)", "description": "Interactive trie tutorial. See how words share prefixes, how insert, search and startsWith work, and build autocomplete in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/trie/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/trie/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Intermediate", "teaches": "Tries (Prefix Trees)", "about": {"@type": "Thing", "name": "Tries (Prefix Trees)"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Tries (Prefix Trees)", "item": "https://premlabs.github.io/datastructure/trie/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a trie used for?", "acceptedAnswer": {"@type": "Answer", "text": "Autocomplete, spell checking, prefix matching such as IP routing, and any task that asks which stored strings begin with a given prefix."}}, {"@type": "Question", "name": "What is the difference between a trie and a hash table?", "acceptedAnswer": {"@type": "Answer", "text": "A hash table finds exact keys in O(1) on average but cannot search by prefix or return keys in order. A trie finds a key in O(L) and can list every key that shares a prefix."}}, {"@type": "Question", "name": "How is trie pronounced?", "acceptedAnswer": {"@type": "Answer", "text": "Usually like 'try', to distinguish it from 'tree', though the name comes from the middle of the word retrieval."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/" aria-current="page">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Trees</p>
+<h1>Tries (Prefix Trees)</h1>
+<p class="lede">A trie, or prefix tree, stores strings character by character along the paths of a tree, so words with a common prefix share the same nodes. Looking up a word takes time proportional to its length, not to the number of words stored.</p>
+<ul class="facts"><li>Level: <b>Intermediate</b></li><li>Read time: <b>9 min</b></li><li>Insert / search: <b>O(L)</b></li><li>L: <b>word length</b></li></ul>
+
+<h2 id="what">What is a trie?</h2>
+<p>Type "ca" into a search box and suggestions appear: car, cart, cat. A <a href="../hash-table/">hash table</a> cannot do this, because hashing "ca" says nothing about keys that merely start with "ca". A trie can.</p>
+<p>In a trie each edge is labelled with a character. The root represents the empty string, and walking down from the root spells out a prefix. A node carries a flag saying whether a complete word ends there. That flag is necessary because one word can be a prefix of another: after inserting "cart", the path c → a → r exists whether or not "car" itself was inserted.</p>
+<h2 id="visual">Try it: shared prefixes</h2>
+<p>The trie starts with car, cat, cart, do and dog. Insert "card" and see that only one new node is created. Then try <em>Starts with</em> on "ca".</p>
+
+<div data-viz="trie" aria-label="Interactive Tries (Prefix Trees) visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="how">How the operations work</h2>
+<h3>Insert</h3>
+<p>Start at the root. For each character, follow the matching child, creating it if it does not exist. Mark the final node as the end of a word. Cost: O(L) for a word of length L.</p>
+<h3>Search</h3>
+<p>Follow the characters from the root. If a child is missing, the word is not present. If you reach the end, the answer is the node's end-of-word flag.</p>
+<h3>Starts with (prefix search)</h3>
+<p>The same walk, without checking the flag. If the path exists, at least one stored word begins with that prefix. Every word below that node is a completion, which is exactly what autocomplete collects.</p>
+<h2 id="children">Storing the children</h2>
+<ul>
+<li><strong>Fixed array of 26</strong> (for lowercase a–z): fastest lookup, but wastes memory when most slots are empty.</li>
+<li><strong>Hash map per node:</strong> flexible for any alphabet, including Unicode. Used in the Python and JavaScript code below.</li>
+<li><strong>Sorted map</strong> (Java <code>TreeMap</code>): results come out in alphabetical order for free.</li>
+</ul>
+<h2 id="tradeoffs">Trade-offs</h2>
+<p>A trie's lookup time does not depend on how many words it holds, and it answers prefix questions that hashing cannot. The price is memory: one node per character, each with its own child container. A <em>compressed trie</em> (radix tree) merges chains of single-child nodes into one edge labelled with a whole substring; IP routing tables and some in-memory databases use that variant.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Insert a word</td><td><code>O(L)</code></td><td><code>O(L)</code></td><td>L = length of the word</td></tr><tr><td>Search a word</td><td><code>O(L)</code></td><td><code>O(L)</code></td><td>Independent of the number of words</td></tr><tr><td>Prefix check (startsWith)</td><td><code>O(L)</code></td><td><code>O(L)</code></td><td></td></tr><tr><td>List words with a prefix</td><td><code>O(L + k)</code></td><td><code>O(L + k)</code></td><td>k = total characters in the results</td></tr><tr><td>Space</td><td><code>O(total characters)</code></td><td><code>O(total characters)</code></td><td>Less when prefixes are shared</td></tr></tbody></table></div>
+<h2 id="code">Tries (Prefix Trees) in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_word = False
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):               # O(L), L = len(word)
+        node = self.root
+        for ch in word:
+            node = node.children.setdefault(ch, TrieNode())
+        node.is_word = True
+
+    def _find(self, prefix):
+        node = self.root
+        for ch in prefix:
+            node = node.children.get(ch)
+            if node is None:
+                return None
+        return node
+
+    def search(self, word):               # O(L): whole word stored?
+        node = self._find(word)
+        return node is not None and node.is_word
+
+    def starts_with(self, prefix):        # O(L): any word with this prefix?
+        return self._find(prefix) is not None
+
+    def autocomplete(self, prefix):       # every stored word under the prefix
+        results = []
+        def collect(node, path):
+            if node.is_word:
+                results.append(path)
+            for ch in sorted(node.children):
+                collect(node.children[ch], path + ch)
+        start = self._find(prefix)
+        if start:
+            collect(start, prefix)
+        return results
+
+
+trie = Trie()
+for word in (&quot;car&quot;, &quot;cat&quot;, &quot;cart&quot;, &quot;do&quot;, &quot;dog&quot;):
+    trie.insert(word)
+print(trie.search(&quot;car&quot;), trie.search(&quot;ca&quot;))   # True False
+print(trie.starts_with(&quot;ca&quot;))                  # True
+print(trie.autocomplete(&quot;ca&quot;))                 # [&#x27;car&#x27;, &#x27;cart&#x27;, &#x27;cat&#x27;]</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class Trie {
+    private static class Node {
+        Map&lt;Character, Node&gt; children = new TreeMap&lt;&gt;();   // TreeMap keeps letters sorted
+        boolean isWord;
+    }
+
+    private final Node root = new Node();
+
+    public void insert(String word) {                      // O(L), L = word length
+        Node node = root;
+        for (char ch : word.toCharArray()) {
+            node = node.children.computeIfAbsent(ch, k -&gt; new Node());
+        }
+        node.isWord = true;
+    }
+
+    private Node find(String prefix) {
+        Node node = root;
+        for (char ch : prefix.toCharArray()) {
+            node = node.children.get(ch);
+            if (node == null) return null;
+        }
+        return node;
+    }
+
+    public boolean search(String word) {                   // O(L): whole word stored?
+        Node node = find(word);
+        return node != null &amp;&amp; node.isWord;
+    }
+
+    public boolean startsWith(String prefix) {             // O(L)
+        return find(prefix) != null;
+    }
+
+    public List&lt;String&gt; autocomplete(String prefix) {      // every stored word under the prefix
+        List&lt;String&gt; results = new ArrayList&lt;&gt;();
+        Node start = find(prefix);
+        if (start != null) collect(start, new StringBuilder(prefix), results);
+        return results;
+    }
+
+    private void collect(Node node, StringBuilder path, List&lt;String&gt; results) {
+        if (node.isWord) results.add(path.toString());
+        for (Map.Entry&lt;Character, Node&gt; e : node.children.entrySet()) {
+            path.append(e.getKey());
+            collect(e.getValue(), path, results);
+            path.deleteCharAt(path.length() - 1);          // backtrack
+        }
+    }
+
+    public static void main(String[] args) {
+        Trie trie = new Trie();
+        for (String word : new String[]{&quot;car&quot;, &quot;cat&quot;, &quot;cart&quot;, &quot;do&quot;, &quot;dog&quot;}) trie.insert(word);
+        System.out.println(trie.search(&quot;car&quot;) + &quot; &quot; + trie.search(&quot;ca&quot;));  // true false
+        System.out.println(trie.startsWith(&quot;ca&quot;));                         // true
+        System.out.println(trie.autocomplete(&quot;ca&quot;));                       // [car, cart, cat]
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>class TrieNode {
+  children = new Map();
+  isWord = false;
+}
+
+class Trie {
+  root = new TrieNode();
+
+  insert(word) {                           // O(L), L = word.length
+    let node = this.root;
+    for (const ch of word) {
+      if (!node.children.has(ch)) node.children.set(ch, new TrieNode());
+      node = node.children.get(ch);
+    }
+    node.isWord = true;
+  }
+
+  #find(prefix) {
+    let node = this.root;
+    for (const ch of prefix) {
+      node = node.children.get(ch);
+      if (!node) return null;
+    }
+    return node;
+  }
+
+  search(word) {                           // O(L): whole word stored?
+    const node = this.#find(word);
+    return node !== null &amp;&amp; node.isWord;
+  }
+
+  startsWith(prefix) {                     // O(L)
+    return this.#find(prefix) !== null;
+  }
+
+  autocomplete(prefix) {                   // every stored word under the prefix
+    const results = [];
+    const collect = (node, path) =&gt; {
+      if (node.isWord) results.push(path);
+      for (const ch of [...node.children.keys()].sort()) collect(node.children.get(ch), path + ch);
+    };
+    const start = this.#find(prefix);
+    if (start) collect(start, prefix);
+    return results;
+  }
+}
+
+const trie = new Trie();
+[&#x27;car&#x27;, &#x27;cat&#x27;, &#x27;cart&#x27;, &#x27;do&#x27;, &#x27;dog&#x27;].forEach(word =&gt; trie.insert(word));
+console.log(trie.search(&#x27;car&#x27;), trie.search(&#x27;ca&#x27;));  // true false
+console.log(trie.startsWith(&#x27;ca&#x27;));                  // true
+console.log(trie.autocomplete(&#x27;ca&#x27;));                // [ &#x27;car&#x27;, &#x27;cart&#x27;, &#x27;cat&#x27; ]</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a trie when</h3><ul><li>You need autocomplete or type-ahead search.</li><li>You are building a spell checker or word game solver.</li><li>You match prefixes: IP routing, phone number lookup, command completion.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>You only need exact-match lookup (a <a href="../hash-table/">hash set</a> uses less memory).</li><li>Your keys are not sequences of symbols.</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Leaving out the end-of-word flag, so every prefix is reported as a word.</li><li>Treating <code>search</code> and <code>startsWith</code> as the same operation.</li><li>Deleting a word by removing nodes that other words still share. Clear the flag, and remove only nodes that have no children and end no word.</li><li>Allocating a 26-slot array per node for a large, sparse vocabulary.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Implement a trie with insert, search and startsWith.</summary><p>Shown in the code above; the key detail is the end-of-word flag.</p></details><details><summary>Design an autocomplete system.</summary><p>Walk to the prefix node, then depth-first collect the words beneath it, optionally keeping the top results by frequency at each node.</p></details><details><summary>Word search II: find all dictionary words in a letter grid.</summary><p>Put the dictionary in a trie and run DFS from each cell, abandoning a path as soon as it is not a prefix in the trie.</p></details><details><summary>Find the longest common prefix of a set of strings.</summary><p>Insert them all, then walk from the root while each node has exactly one child and ends no word.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is a trie used for?</summary><p>Autocomplete, spell checking, prefix matching such as IP routing, and any task that asks which stored strings begin with a given prefix.</p></details><details><summary>What is the difference between a trie and a hash table?</summary><p>A hash table finds exact keys in O(1) on average but cannot search by prefix or return keys in order. A trie finds a key in O(L) and can list every key that shares a prefix.</p></details><details><summary>How is trie pronounced?</summary><p>Usually like 'try', to distinguish it from 'tree', though the name comes from the middle of the word retrieval.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../heap/" rel="prev"><small>Previous</small>Heaps &amp; Priority Queues</a><a class="next" href="../graph/" rel="next"><small>Next</small>Graphs: BFS &amp; DFS</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

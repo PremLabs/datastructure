@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arrays in Data Structures: Visual Tutorial with Python, Java &amp; JavaScript | PremLabs</title>
+  <meta name="description" content="Understand arrays visually: index access, insert, delete and search animated step by step, with time complexity and dynamic array code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/arrays/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Arrays in Data Structures: Visual Tutorial with Python, Java &amp; JavaScript | PremLabs">
+  <meta property="og:description" content="Understand arrays visually: index access, insert, delete and search animated step by step, with time complexity and dynamic array code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/arrays/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Arrays in Data Structures: Visual Tutorial with Python, Java &amp; JavaScript | PremLabs">
+  <meta name="twitter:description" content="Understand arrays visually: index access, insert, delete and search animated step by step, with time complexity and dynamic array code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/arrays/#article", "headline": "Arrays in Data Structures: Visual Tutorial with Python, Java & JavaScript", "name": "Arrays", "description": "Understand arrays visually: index access, insert, delete and search animated step by step, with time complexity and dynamic array code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/arrays/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/arrays/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Beginner", "teaches": "Arrays", "about": {"@type": "Thing", "name": "Arrays"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Arrays", "item": "https://premlabs.github.io/datastructure/arrays/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between an array and a list?", "acceptedAnswer": {"@type": "Answer", "text": "An array is a fixed block of same-sized slots. What Python calls a list and Java calls an ArrayList is a dynamic array: an array that reallocates itself to grow. A linked list is a different structure entirely."}}, {"@type": "Question", "name": "Why does array indexing start at 0?", "acceptedAnswer": {"@type": "Answer", "text": "The index is an offset from the start of the block. The first element is zero steps from the start, so its address is start + 0 × size."}}, {"@type": "Question", "name": "Is inserting into an array always slow?", "acceptedAnswer": {"@type": "Answer", "text": "No. Appending at the end is O(1) amortised. Only inserting near the front is expensive, because everything after the insertion point has to move."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/" aria-current="page">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Linear structures</p>
+<h1>Arrays</h1>
+<p class="lede">An array stores items side by side in one block of memory, each reachable by its index in constant time. It is the simplest data structure and the one most others are built on.</p>
+<ul class="facts"><li>Level: <b>Beginner</b></li><li>Read time: <b>9 min</b></li><li>Access: <b>O(1)</b></li><li>Insert / delete: <b>O(n)</b></li></ul>
+
+<h2 id="what">What is an array?</h2>
+<p>Picture a row of numbered lockers. Every locker is the same size, they sit next to each other, and if you know the number you can walk straight to it. An array works the same way: the elements occupy consecutive memory locations, so the address of element <code>i</code> is simply <code>start + i × element_size</code>. One multiplication and one addition, regardless of how long the array is. That is why reading <code>a[500000]</code> is exactly as fast as reading <code>a[0]</code>.</p>
+<p>The same layout is the source of the array's weakness. Because there are no gaps, putting a new element in the middle means moving everything after it one place to the right. Removing one means closing the gap.</p>
+<h2 id="visual">Try it: insert, delete, access, search</h2>
+<p>Insert a value at index 0 and count the shifts. Then insert at the last index and compare.</p>
+
+<div data-viz="array" aria-label="Interactive Arrays visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="how">How the operations work</h2>
+<h3>Access by index: O(1)</h3>
+<p>The position is calculated, not searched for. This is called <em>random access</em> and it is the reason arrays are the default choice whenever you need the k-th item.</p>
+<h3>Search: O(n), or O(log n) if sorted</h3>
+<p>Without any ordering you can only check the elements one by one (linear search). If the array is sorted, <a href="../binary-search/">binary search</a> finds an element in O(log n).</p>
+<h3>Insert and delete: O(n)</h3>
+<p>Inserting at index <code>i</code> shifts <code>n − i</code> elements. At the end that is zero shifts; at the front it is all of them. Deleting works the same way in the other direction.</p>
+<h3>Static and dynamic arrays</h3>
+<p>A static array has a fixed size chosen when it is created (a Java <code>int[]</code>). A dynamic array (Python <code>list</code>, Java <code>ArrayList</code>, JavaScript <code>Array</code>) grows automatically: when the block is full it allocates a larger one, usually double the size, and copies everything across. That copy is O(n), but it happens so rarely that appending costs O(1) <em>amortised</em>. The code below implements exactly this.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Access by index</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td>Address is computed directly</td></tr><tr><td>Search (unsorted)</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Linear scan</td></tr><tr><td>Search (sorted)</td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td>Binary search</td></tr><tr><td>Append at end</td><td><code>O(1)*</code></td><td><code>O(n)</code></td><td>*Amortised; a resize copies everything</td></tr><tr><td>Insert at index</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Shifts later elements right</td></tr><tr><td>Delete at index</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Shifts later elements left</td></tr></tbody></table></div>
+<h2 id="code">Arrays in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>class DynamicArray:
+    &quot;&quot;&quot;A growable array built on a fixed-size block, like Python&#x27;s list.&quot;&quot;&quot;
+
+    def __init__(self):
+        self._capacity = 2
+        self._size = 0
+        self._data = [None] * self._capacity
+
+    def __len__(self):
+        return self._size
+
+    def get(self, index):                 # O(1)
+        if not 0 &lt;= index &lt; self._size:
+            raise IndexError(&quot;index out of range&quot;)
+        return self._data[index]
+
+    def append(self, value):              # O(1) amortised
+        if self._size == self._capacity:
+            self._resize(self._capacity * 2)
+        self._data[self._size] = value
+        self._size += 1
+
+    def insert(self, index, value):       # O(n): shifts the tail right
+        if not 0 &lt;= index &lt;= self._size:
+            raise IndexError(&quot;index out of range&quot;)
+        if self._size == self._capacity:
+            self._resize(self._capacity * 2)
+        for i in range(self._size, index, -1):
+            self._data[i] = self._data[i - 1]
+        self._data[index] = value
+        self._size += 1
+
+    def remove_at(self, index):           # O(n): shifts the tail left
+        value = self.get(index)
+        for i in range(index, self._size - 1):
+            self._data[i] = self._data[i + 1]
+        self._size -= 1
+        self._data[self._size] = None
+        return value
+
+    def _resize(self, capacity):          # O(n) copy, but rare
+        new_data = [None] * capacity
+        for i in range(self._size):
+            new_data[i] = self._data[i]
+        self._data, self._capacity = new_data, capacity
+
+
+arr = DynamicArray()
+for v in (12, 45, 7):
+    arr.append(v)
+arr.insert(1, 30)                         # 12, 30, 45, 7
+arr.remove_at(0)                          # 30, 45, 7
+print([arr.get(i) for i in range(len(arr))])</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.Arrays;
+
+public class DynamicArray {
+    private int[] data = new int[2];
+    private int size = 0;
+
+    public int size() { return size; }
+
+    public int get(int index) {                    // O(1)
+        if (index &lt; 0 || index &gt;= size) throw new IndexOutOfBoundsException();
+        return data[index];
+    }
+
+    public void append(int value) {                // O(1) amortised
+        if (size == data.length) resize(data.length * 2);
+        data[size++] = value;
+    }
+
+    public void insert(int index, int value) {     // O(n): shifts the tail right
+        if (index &lt; 0 || index &gt; size) throw new IndexOutOfBoundsException();
+        if (size == data.length) resize(data.length * 2);
+        for (int i = size; i &gt; index; i--) data[i] = data[i - 1];
+        data[index] = value;
+        size++;
+    }
+
+    public int removeAt(int index) {               // O(n): shifts the tail left
+        int value = get(index);
+        for (int i = index; i &lt; size - 1; i++) data[i] = data[i + 1];
+        size--;
+        return value;
+    }
+
+    private void resize(int capacity) {            // O(n) copy, but rare
+        data = Arrays.copyOf(data, capacity);
+    }
+
+    public static void main(String[] args) {
+        DynamicArray arr = new DynamicArray();
+        arr.append(12); arr.append(45); arr.append(7);
+        arr.insert(1, 30);                         // 12, 30, 45, 7
+        arr.removeAt(0);                           // 30, 45, 7
+        for (int i = 0; i &lt; arr.size(); i++) System.out.print(arr.get(i) + &quot; &quot;);
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>// JavaScript arrays already grow for you. This class shows what happens underneath.
+class DynamicArray {
+  #data = new Array(2);
+  #size = 0;
+
+  get length() { return this.#size; }
+
+  get(index) {                             // O(1)
+    if (index &lt; 0 || index &gt;= this.#size) throw new RangeError(&#x27;index out of range&#x27;);
+    return this.#data[index];
+  }
+
+  append(value) {                          // O(1) amortised
+    if (this.#size === this.#data.length) this.#resize(this.#data.length * 2);
+    this.#data[this.#size++] = value;
+  }
+
+  insert(index, value) {                   // O(n): shifts the tail right
+    if (index &lt; 0 || index &gt; this.#size) throw new RangeError(&#x27;index out of range&#x27;);
+    if (this.#size === this.#data.length) this.#resize(this.#data.length * 2);
+    for (let i = this.#size; i &gt; index; i--) this.#data[i] = this.#data[i - 1];
+    this.#data[index] = value;
+    this.#size++;
+  }
+
+  removeAt(index) {                        // O(n): shifts the tail left
+    const value = this.get(index);
+    for (let i = index; i &lt; this.#size - 1; i++) this.#data[i] = this.#data[i + 1];
+    this.#size--;
+    return value;
+  }
+
+  #resize(capacity) {                      // O(n) copy, but rare
+    const next = new Array(capacity);
+    for (let i = 0; i &lt; this.#size; i++) next[i] = this.#data[i];
+    this.#data = next;
+  }
+}
+
+const arr = new DynamicArray();
+[12, 45, 7].forEach(v =&gt; arr.append(v));
+arr.insert(1, 30);                         // 12, 30, 45, 7
+arr.removeAt(0);                           // 30, 45, 7
+console.log(Array.from({ length: arr.length }, (_, i) =&gt; arr.get(i)));</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use an array when</h3><ul><li>You need fast access by position.</li><li>You mostly add and remove at the end.</li><li>You iterate over all elements often: contiguous memory is very cache-friendly.</li><li>The data is sorted and you want binary search.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>You insert or delete at the front or middle constantly (consider a <a href="../linked-list/">linked list</a> or deque).</li><li>You look items up by key rather than position (use a <a href="../hash-table/">hash table</a>).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Off-by-one errors: valid indexes run from <code>0</code> to <code>length − 1</code>.</li><li>Removing items from an array while looping forward over it, which skips elements. Loop backwards or build a new array.</li><li>Using <code>insert(0, x)</code> or <code>shift()</code> inside a loop, turning an O(n) routine into O(n²).</li><li>Assuming two variables hold separate arrays when they reference the same one.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Find two numbers in an array that add up to a target.</summary><p>One pass with a hash set of numbers seen so far: O(n) time, O(n) space. If sorted, use two pointers from each end for O(1) space.</p></details><details><summary>Rotate an array by k positions in place.</summary><p>Reverse the whole array, then reverse the first k elements and the remaining n − k.</p></details><details><summary>Find the maximum sum of a contiguous subarray.</summary><p>Kadane's algorithm: keep the best sum ending at the current index; reset to the current element when the running sum would be lower.</p></details><details><summary>Remove duplicates from a sorted array in place.</summary><p>Two pointers: one reads, one writes each new distinct value.</p></details><details><summary>Why is appending to a dynamic array O(1) amortised?</summary><p>Doubling means n appends cause copies of 1 + 2 + 4 + … + n ≈ 2n elements in total, which is O(1) per append on average.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the difference between an array and a list?</summary><p>An array is a fixed block of same-sized slots. What Python calls a list and Java calls an ArrayList is a dynamic array: an array that reallocates itself to grow. A linked list is a different structure entirely.</p></details><details><summary>Why does array indexing start at 0?</summary><p>The index is an offset from the start of the block. The first element is zero steps from the start, so its address is start + 0 × size.</p></details><details><summary>Is inserting into an array always slow?</summary><p>No. Appending at the end is O(1) amortised. Only inserting near the front is expensive, because everything after the insertion point has to move.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../big-o/" rel="prev"><small>Previous</small>Big-O Notation</a><a class="next" href="../linked-list/" rel="next"><small>Next</small>Linked Lists</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

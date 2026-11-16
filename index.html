@@ -3,125 +3,90 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="Learn Python DSA with an interactive sorting visualizer. Play Bubble Sort, Selection Sort, Insertion Sort, and Merge Sort step by step.">
-  <title>DSA Playground — Learn Sorting Visually</title>
-  <style>
-    :root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#18233b;--line:#283653;--text:#f2f5ff;--muted:#9ba9c7;--cyan:#55d6ff;--violet:#9c8cff;--green:#5ee6a8;--yellow:#ffd166;--red:#ff7d8d}
-    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#24335d 0,transparent 55%),var(--bg);color:var(--text);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
-    button,select,input{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;padding:10px 15px;color:var(--text);background:var(--panel2);transition:.18s}button:hover{border-color:var(--cyan);transform:translateY(-1px)}button:disabled{opacity:.4;cursor:not-allowed;transform:none}.primary{background:linear-gradient(120deg,#4e67f5,#8b5cf6);border:0;font-weight:700}.shell{max-width:1120px;margin:auto;padding:24px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-weight:850;letter-spacing:-.04em;font-size:20px}.brand span{color:var(--cyan)}.pill{border:1px solid var(--line);padding:6px 10px;border-radius:999px;color:var(--muted);font-size:12px}.hero{text-align:center;padding:56px 10px 32px}.eyebrow{color:var(--cyan);font-weight:800;text-transform:uppercase;letter-spacing:.15em;font-size:12px}.hero h1{font-size:clamp(34px,6vw,62px);line-height:1.05;letter-spacing:-.055em;margin:12px auto;max-width:800px}.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--cyan),#b8a7ff);color:transparent;background-clip:text}.hero p{color:var(--muted);max-width:620px;margin:16px auto}.panel{background:linear-gradient(160deg,rgba(22,32,56,.96),rgba(15,23,41,.96));border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 20px 60px #0002}.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.field{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:12px;font-weight:700}.field select,.field input{background:#0c1427;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;min-height:42px}.field select{min-width:185px}.visual-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0 8px}.visual-head h2{font-size:18px;margin:0}.status{color:var(--muted);font-size:13px}.bars{height:300px;display:flex;align-items:flex-end;gap:7px;padding:20px 6px 8px;border-bottom:1px solid var(--line);overflow:hidden}.bar-wrap{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:7px}.bar{width:100%;max-width:58px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#66d8ff,#5865f2);box-shadow:0 5px 22px #5865f233;transition:height .18s,background .18s;position:relative}.bar.active{background:linear-gradient(180deg,#ffe08a,#ff9e57);box-shadow:0 0 24px #ffd16655}.bar.sorted{background:linear-gradient(180deg,#80f4bf,#20b981);box-shadow:0 0 20px #5ee6a833}.bar-value{font-size:12px;color:#eaf0ff;font-weight:800}.legend{display:flex;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.dot{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;background:var(--cyan)}.dot.active{background:var(--yellow)}.dot.sorted{background:var(--green)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.metric{padding:14px;border:1px solid var(--line);border-radius:14px;background:#0d1528}.metric small{display:block;color:var(--muted)}.metric strong{font-size:23px}.explain{margin-top:16px;background:#0d1528;border:1px solid var(--line);border-radius:14px;padding:14px;color:#dce6ff;min-height:52px}.lower{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:18px}.lower h3{margin:0 0 12px;font-size:16px}.code{white-space:pre-wrap;overflow-wrap:anywhere;background:#080e1c;padding:16px;border-radius:12px;color:#b8c9ee;font:13px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.complexity{display:grid;grid-template-columns:1fr auto;gap:10px;font-size:14px;padding:9px 0;border-bottom:1px solid var(--line)}.complexity span{color:var(--muted)}.footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:12px;padding:26px 4px}.footer img{vertical-align:middle}.hint{font-size:12px;color:var(--muted);margin-top:10px}
-    @media(max-width:700px){.shell{padding:14px}.hero{padding:38px 4px 24px}.panel{padding:14px;border-radius:17px}.bars{height:245px;gap:4px;padding-inline:0}.bar-value{font-size:10px}.lower{grid-template-columns:1fr}.metrics{gap:7px}.metric{padding:10px}.metric strong{font-size:19px}.toolbar>*{flex:1}.toolbar button{padding:10px}.field select{min-width:0;width:100%}.topbar .pill{display:none}}
-  </style>
-  <!-- Google Analytics: replace G-XXXXXXXXXX with your existing GA4 Measurement ID. -->
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
-  <!-- End Google Tag Manager -->
-  <script>
-    const GA_MEASUREMENT_ID = "G-TLJBPCN6";
-    if (GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== "G-TLJBPCN6") {
-      const gaScript = document.createElement("script");
-      gaScript.async = true;
-      gaScript.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(GA_MEASUREMENT_ID);
-      document.head.appendChild(gaScript);
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag;
-      gtag("js", new Date());
-      gtag("config", GA_MEASUREMENT_ID);
-    }
-  </script>
-  <!-- Google tag (gtag.js) -->
+  <title>Data Structures and Algorithms Tutorials with Visualizations | PremLabs</title>
+  <meta name="description" content="Free interactive data structures and algorithms tutorials with animated visualizers and tested code in Python, Java and JavaScript. From Big-O to graphs.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Data Structures and Algorithms Tutorials with Visualizations | PremLabs">
+  <meta property="og:description" content="Free interactive data structures and algorithms tutorials with animated visualizers and tested code in Python, Java and JavaScript. From Big-O to graphs.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Data Structures and Algorithms Tutorials with Visualizations | PremLabs">
+  <meta name="twitter:description" content="Free interactive data structures and algorithms tutorials with animated visualizers and tested code in Python, Java and JavaScript. From Big-O to graphs.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/site.css?v=2">
+  <script src="assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://premlabs.github.io/datastructure/#site", "name": "PremLabs Data Structures & Algorithms", "url": "https://premlabs.github.io/datastructure/", "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "inLanguage": "en"}, {"@type": "Course", "@id": "https://premlabs.github.io/datastructure/#course", "name": "Data Structures and Algorithms, Visually", "description": "A free, interactive course covering Big-O, arrays, linked lists, stacks, queues, hash tables, trees, heaps, tries, graphs, binary search and sorting, with code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/", "provider": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "inLanguage": "en", "isAccessibleForFree": true, "educationalLevel": "Beginner to intermediate", "offers": {"@type": "Offer", "price": 0, "priceCurrency": "USD", "category": "Free"}, "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "hasPart": [{"@type": "LearningResource", "name": "Big-O Notation", "url": "https://premlabs.github.io/datastructure/big-o/"}, {"@type": "LearningResource", "name": "Arrays", "url": "https://premlabs.github.io/datastructure/arrays/"}, {"@type": "LearningResource", "name": "Linked Lists", "url": "https://premlabs.github.io/datastructure/linked-list/"}, {"@type": "LearningResource", "name": "Stacks", "url": "https://premlabs.github.io/datastructure/stack/"}, {"@type": "LearningResource", "name": "Queues", "url": "https://premlabs.github.io/datastructure/queue/"}, {"@type": "LearningResource", "name": "Hash Tables", "url": "https://premlabs.github.io/datastructure/hash-table/"}, {"@type": "LearningResource", "name": "Binary Trees & Traversals", "url": "https://premlabs.github.io/datastructure/binary-tree/"}, {"@type": "LearningResource", "name": "Binary Search Trees", "url": "https://premlabs.github.io/datastructure/binary-search-tree/"}, {"@type": "LearningResource", "name": "Heaps & Priority Queues", "url": "https://premlabs.github.io/datastructure/heap/"}, {"@type": "LearningResource", "name": "Tries (Prefix Trees)", "url": "https://premlabs.github.io/datastructure/trie/"}, {"@type": "LearningResource", "name": "Graphs: BFS & DFS", "url": "https://premlabs.github.io/datastructure/graph/"}, {"@type": "LearningResource", "name": "Binary Search", "url": "https://premlabs.github.io/datastructure/binary-search/"}, {"@type": "LearningResource", "name": "Sorting Algorithms", "url": "https://premlabs.github.io/datastructure/sorting-algorithms/"}]}, {"@type": "ItemList", "name": "Tutorials", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://premlabs.github.io/datastructure/big-o/", "name": "Big-O Notation"}, {"@type": "ListItem", "position": 2, "url": "https://premlabs.github.io/datastructure/arrays/", "name": "Arrays"}, {"@type": "ListItem", "position": 3, "url": "https://premlabs.github.io/datastructure/linked-list/", "name": "Linked Lists"}, {"@type": "ListItem", "position": 4, "url": "https://premlabs.github.io/datastructure/stack/", "name": "Stacks"}, {"@type": "ListItem", "position": 5, "url": "https://premlabs.github.io/datastructure/queue/", "name": "Queues"}, {"@type": "ListItem", "position": 6, "url": "https://premlabs.github.io/datastructure/hash-table/", "name": "Hash Tables"}, {"@type": "ListItem", "position": 7, "url": "https://premlabs.github.io/datastructure/binary-tree/", "name": "Binary Trees & Traversals"}, {"@type": "ListItem", "position": 8, "url": "https://premlabs.github.io/datastructure/binary-search-tree/", "name": "Binary Search Trees"}, {"@type": "ListItem", "position": 9, "url": "https://premlabs.github.io/datastructure/heap/", "name": "Heaps & Priority Queues"}, {"@type": "ListItem", "position": 10, "url": "https://premlabs.github.io/datastructure/trie/", "name": "Tries (Prefix Trees)"}, {"@type": "ListItem", "position": 11, "url": "https://premlabs.github.io/datastructure/graph/", "name": "Graphs: BFS & DFS"}, {"@type": "ListItem", "position": 12, "url": "https://premlabs.github.io/datastructure/binary-search/", "name": "Binary Search"}, {"@type": "ListItem", "position": 13, "url": "https://premlabs.github.io/datastructure/sorting-algorithms/", "name": "Sorting Algorithms"}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-MZDBK7RPZJ');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
 </head>
 <body>
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <main class="shell">
-    <nav class="topbar" aria-label="Main navigation"><div class="brand">Prem<span>Labs</span> / DSA</div><div class="pill">INTERACTIVE LEARNING LAB</div><a href="https://github.com/PremLabs/datastructure" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none;font-size:13px">View source ↗</a></nav>
-    <header class="hero"><div class="eyebrow">Understand it. Visualize it. Master it.</div><h1>Algorithms, made <em>visual.</em></h1><p>Explore sorting algorithms one step at a time. Watch every comparison, swap, and merge — and learn the logic behind the code.</p></header>
-    <section class="panel" aria-label="Sorting algorithm playground">
-      <div class="toolbar">
-        <label class="field">ALGORITHM<select id="algorithm"><option value="bubble">Bubble Sort</option><option value="selection">Selection Sort</option><option value="insertion">Insertion Sort</option><option value="merge">Merge Sort</option></select></label>
-        <label class="field">ARRAY SIZE<select id="size"><option value="8">8 values</option><option value="12" selected>12 values</option><option value="18">18 values</option><option value="24">24 values</option></select></label>
-        <label class="field">SPEED<select id="speed"><option value="900">Slow</option><option value="450" selected>Normal</option><option value="120">Fast</option></select></label>
-        <button id="randomize">↻ Randomize</button><button id="play" class="primary">▶ Play</button><button id="step">Step →</button><button id="reset">Reset</button>
-      </div>
-      <div class="visual-head"><h2 id="algorithmTitle">Bubble Sort</h2><div class="status" id="status" aria-live="polite">Ready to sort</div></div>
-      <div class="bars" id="bars" role="img" aria-label="Animated array bars"></div>
-      <div class="legend"><span><i class="dot"></i>Unsorted values</span><span><i class="dot active"></i>Current comparison / key</span><span><i class="dot sorted"></i>Sorted values</span></div>
-      <div class="metrics"><div class="metric"><small>Comparisons</small><strong id="comparisons">0</strong></div><div class="metric"><small>Swaps / shifts</small><strong id="swaps">0</strong></div><div class="metric"><small>Progress</small><strong id="progress">0%</strong></div></div>
-      <div class="explain" id="explanation" aria-live="polite">Press Play to see how the algorithm works, or use Step to inspect each operation.</div>
-      <div class="hint">Tip: use Step to follow the algorithm slowly, or change the array size to experiment.</div>
-    </section>
-    <section class="lower">
-      <article class="panel"><h3>Python implementation</h3><pre class="code" id="code"></pre></article>
-      <article class="panel"><h3>Complexity guide</h3><div class="complexity"><span>Best time</span><strong id="best">O(n)</strong></div><div class="complexity"><span>Average time</span><strong id="average">O(n²)</strong></div><div class="complexity"><span>Worst time</span><strong id="worst">O(n²)</strong></div><div class="complexity"><span>Extra space</span><strong id="space">O(1)</strong></div><p style="color:var(--muted);font-size:13px;margin-bottom:0" id="description">Repeatedly compare adjacent values and swap them if they are out of order.</p></article>
-    </section>
-    <footer class="footer"><span>Built for curious minds · Python DSA Playground</span><span><a href="https://www.instagram.com/tech.coders/" target="_blank" rel="noreferrer">Instagram</a> · <a href="https://www.youtube.com/@PremLabs-s05w" target="_blank" rel="noreferrer">YouTube</a> · <a href="https://github.com/PremLabs" target="_blank" rel="noreferrer">GitHub</a></span><span>Visitor count: <img src="https://visitor-badge.laobi.icu/badge?page_id=PremLabs.datastructure&left_color=%23121a2e&right_color=%2355d6ff&left_text=visits" alt="Public website visit counter" loading="lazy"></span></footer>
-  </main>
-<script>
-(() => {
-  const $ = id => document.getElementById(id);
-  const codeSamples = {
-    bubble: 'def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        swapped = False\n        for j in range(n - i - 1):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n                swapped = True\n        if not swapped:\n            break\n    return arr',
-    selection: 'def selection_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        min_idx = i\n        for j in range(i + 1, n):\n            if arr[j] < arr[min_idx]:\n                min_idx = j\n        arr[i], arr[min_idx] = arr[min_idx], arr[i]\n    return arr',
-    insertion: 'def insertion_sort(arr):\n    for i in range(1, len(arr)):\n        key = arr[i]\n        j = i - 1\n        while j >= 0 and arr[j] > key:\n            arr[j + 1] = arr[j]\n            j -= 1\n        arr[j + 1] = key\n    return arr',
-    merge: 'def merge_sort(arr):\n    if len(arr) <= 1:\n        return arr\n    mid = len(arr) // 2\n    left = merge_sort(arr[:mid])\n    right = merge_sort(arr[mid:])\n    return merge(left, right)\n\ndef merge(left, right):\n    result = []\n    while left and right:\n        if left[0] <= right[0]:\n            result.append(left.pop(0))\n        else:\n            result.append(right.pop(0))\n    return result + left + right'
-  };
-  const meta = {
-    bubble:{title:'Bubble Sort',best:'O(n)',average:'O(n²)',worst:'O(n²)',space:'O(1)',description:'Compare neighboring values and swap them when they are in the wrong order.'},
-    selection:{title:'Selection Sort',best:'O(n²)',average:'O(n²)',worst:'O(n²)',space:'O(1)',description:'Find the smallest value in the unsorted section and place it next.'},
-    insertion:{title:'Insertion Sort',best:'O(n)',average:'O(n²)',worst:'O(n²)',space:'O(1)',description:'Take the next key, shift larger values right, and insert the key in its correct position.'},
-    merge:{title:'Merge Sort',best:'O(n log n)',average:'O(n log n)',worst:'O(n log n)',space:'O(n)',description:'Divide the array into halves, sort each half recursively, then merge the sorted halves.'}
-  };
-  let original=[], arr=[], ops=[], index=0, timer=null, comparisons=0, swaps=0, sortedSet=new Set();
-  const pause=()=>{if(timer!==null){clearTimeout(timer);timer=null;} $('play').textContent='▶ Play';};
-  function makeOps(values, type) {
-    const a=values.slice(), out=[]; let comp=0, swap=0;
-    const push=(desc, active=[], sorted=[])=>out.push({a:a.slice(),desc,active:[...active],sorted:[...sorted],comparisons:comp,swaps:swap});
-    if(type==='bubble'){
-      for(let i=0;i<a.length;i++){let changed=false;for(let j=0;j<a.length-i-1;j++){comp++;if(a[j]>a[j+1]){[a[j],a[j+1]]=[a[j+1],a[j]];swap++;changed=true;push('Swap '+a[j+1]+' and '+a[j]+' because they are out of order.',[j,j+1],Array.from({length:i},(_,k)=>a.length-1-k));}else push('Compare '+a[j]+' and '+a[j+1]+': no swap needed.',[j,j+1],Array.from({length:i},(_,k)=>a.length-1-k));}if(!changed)break;} }
-    else if(type==='selection'){
-      for(let i=0;i<a.length;i++){let m=i;for(let j=i+1;j<a.length;j++){comp++;push('Compare '+a[j]+' with current minimum '+a[m]+'.',[m,j],Array.from({length:i},(_,k)=>k));if(a[j]<a[m])m=j;}if(m!==i){[a[i],a[m]]=[a[m],a[i]];swap++;push('Place minimum '+a[i]+' at position '+(i+1)+'.',[i,m],Array.from({length:i+1},(_,k)=>k));}else push(a[i]+' is already the minimum for this pass.',[i],Array.from({length:i+1},(_,k)=>k));} }
-    else if(type==='insertion'){
-      for(let i=1;i<a.length;i++){const key=a[i];let j=i-1;push('Pick '+key+' as the key to insert into the sorted section.',[i],Array.from({length:i},(_,k)=>k));while(j>=0){comp++;if(a[j]>key){a[j+1]=a[j];swap++;push('Shift '+a[j]+' one position right.',[j,j+1],Array.from({length:i},(_,k)=>k));j--;}else{push(key+' belongs after '+a[j]+'.',[j,i],Array.from({length:i},(_,k)=>k));break;}}a[j+1]=key;push('Insert key '+key+' into its correct position.',[j+1],Array.from({length:i+1},(_,k)=>k));} }
-    else {
-      function mergeSort(lo,hi){if(hi-lo<=1)return a.slice(lo,hi);const mid=Math.floor((lo+hi)/2);push('Divide the section into two smaller parts.',Array.from({length:hi-lo},(_,k)=>lo+k));const left=mergeSort(lo,mid),right=mergeSort(mid,hi);let i=0,j=0;const merged=[];while(i<left.length&&j<right.length){comp++;if(left[i]<=right[j])merged.push(left[i++]);else merged.push(right[j++]);push('Compare the front values of the two halves and take the smaller one.',[lo+i-1,mid+j-1].filter(x=>x>=lo&&x<hi));}while(i<left.length)merged.push(left[i++]);while(j<right.length)merged.push(right[j++]);for(let k=0;k<merged.length;k++)a[lo+k]=merged[k];swap+=merged.length;push('Merge this section in sorted order.',Array.from({length:hi-lo},(_,k)=>lo+k),Array.from({length:hi-lo},(_,k)=>lo+k));return merged;}mergeSort(0,a.length);
-    }
-    push('All done — the array is sorted! 🎉',[],Array.from({length:a.length},(_,k)=>k));
-    return out;
-  }
-  function render(op){
-    arr=op.a.slice(); comparisons=op.comparisons;swaps=op.swaps;
-    $('bars').innerHTML='';
-    const max=Math.max(...arr,1);
-    arr.forEach((v,i)=>{const w=document.createElement('div');w.className='bar-wrap';const label=document.createElement('span');label.className='bar-value';label.textContent=v;const b=document.createElement('div');b.className='bar';b.style.height=Math.max(7,v/max*78)+'%';if(op.active.includes(i))b.classList.add('active');if(op.sorted.includes(i))b.classList.add('sorted');b.title='Value '+v;w.append(label,b);$('bars').append(w);});
-    $('comparisons').textContent=comparisons;$('swaps').textContent=swaps;$('progress').textContent=Math.round((index/Math.max(ops.length-1,1))*100)+'%';$('status').textContent='Step '+index+' of '+(ops.length-1);$('explanation').textContent=op.desc;
-  }
-  function rebuild(random=true){pause();const n=+$('size').value;if(random||!original.length){original=Array.from({length:n},()=>Math.floor(Math.random()*90)+10);}arr=original.slice();ops=makeOps(original,$('algorithm').value);index=0;const m=meta[$('algorithm').value];$('algorithmTitle').textContent=m.title;$('code').textContent=codeSamples[$('algorithm').value];$('best').textContent=m.best;$('average').textContent=m.average;$('worst').textContent=m.worst;$('space').textContent=m.space;$('description').textContent=m.description;render(ops[0]);}
-  function step(){if(index<ops.length-1){index++;render(ops[index]);}if(index>=ops.length-1)pause();}
-  function play(){if(timer!==null){pause();return;}if(index>=ops.length-1)index=0;$('play').textContent='Ⅱ Pause';const tick=()=>{if(timer===null)return;if(index>=ops.length-1){pause();return;}index++;render(ops[index]);timer=setTimeout(tick,+$('speed').value);};timer=setTimeout(tick,+$('speed').value);}
-  $('play').addEventListener('click',play);$('step').addEventListener('click',()=>{pause();step();});$('reset').addEventListener('click',()=>{pause();index=0;render(ops[0]);});$('randomize').addEventListener('click',()=>rebuild(true));$('algorithm').addEventListener('change',()=>rebuild(false));$('size').addEventListener('change',()=>rebuild(true));$('speed').addEventListener('change',()=>{if(timer!==null){pause();play();}});
-  rebuild(true);
-  // Send useful interaction events to GA4 when the existing Measurement ID is configured.
-  const track=(name,params={})=>{if(typeof window.gtag==='function')window.gtag('event',name,params);};
-  $('algorithm').addEventListener('change',e=>track('select_algorithm',{algorithm:e.target.value}));
-  $('play').addEventListener('click',()=>track('play_visualization',{algorithm:$('algorithm').value}));
-  $('step').addEventListener('click',()=>track('step_visualization',{algorithm:$('algorithm').value}));
-  $('randomize').addEventListener('click',()=>track('randomize_array',{array_size:$('size').value}));
-})();
-</script>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="#tutorials">Tutorials</a>
+    <a class="opt" href="sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<main id="main">
+<section class="hero"><p class="eyebrow">Free · Interactive · Python, Java &amp; JavaScript</p>
+<h1>Data structures,<br>made visible.</h1>
+<p class="lede">Thirteen tutorials that explain each structure in plain language, let you operate it step by step, and give you tested code in three languages. Built for interview preparation and for understanding what your code is actually doing.</p>
+<div class="actions"><a class="btn primary" href="big-o/">Start with Big-O</a><a class="btn" href="sorting-algorithms/">Open the sorting visualizer</a></div></section>
+<div class="hub" id="tutorials">
+<label for="filter" class="eyebrow" style="display:block">Find a topic</label>
+<input id="filter" class="search" type="search" placeholder="Try “heap”, “O(log n)” or “BFS”" autocomplete="off">
+<p id="empty" class="empty" hidden>No tutorial matches that search.</p>
+<section data-group><h2>Foundations</h2><ul class="cards">
+<li data-search="big-o notation how to measure an algorithm before you run it. the vocabulary every other tutorial here relies on. foundations o(1) o(log n) o(n) o(n²)"><a class="card" href="big-o/"><span class="num">01</span><h3>Big-O Notation</h3><p>How to measure an algorithm before you run it. The vocabulary every other tutorial here relies on.</p><span class="meta"><span class="tag">O(1)</span><span class="tag">O(log n)</span><span class="tag">O(n)</span><span class="tag">O(n²)</span></span></a></li>
+</ul></section>
+<section data-group><h2>Linear structures</h2><ul class="cards">
+<li data-search="arrays contiguous memory, instant access by index, and why inserting at the front is expensive. linear structures access o(1) insert o(n)"><a class="card" href="arrays/"><span class="num">02</span><h3>Arrays</h3><p>Contiguous memory, instant access by index, and why inserting at the front is expensive.</p><span class="meta"><span class="tag">Access O(1)</span><span class="tag">Insert O(n)</span></span></a></li>
+<li data-search="linked lists nodes joined by pointers. o(1) insertion where an array would shift everything. linear structures insert at head o(1) search o(n)"><a class="card" href="linked-list/"><span class="num">03</span><h3>Linked Lists</h3><p>Nodes joined by pointers. O(1) insertion where an array would shift everything.</p><span class="meta"><span class="tag">Insert at head O(1)</span><span class="tag">Search O(n)</span></span></a></li>
+<li data-search="stacks last in, first out. the structure behind undo, the call stack and bracket matching. linear structures push o(1) pop o(1)"><a class="card" href="stack/"><span class="num">04</span><h3>Stacks</h3><p>Last in, first out. The structure behind undo, the call stack and bracket matching.</p><span class="meta"><span class="tag">Push O(1)</span><span class="tag">Pop O(1)</span></span></a></li>
+<li data-search="queues first in, first out. how work is lined up fairly, from print jobs to message brokers. linear structures enqueue o(1) dequeue o(1)"><a class="card" href="queue/"><span class="num">05</span><h3>Queues</h3><p>First in, first out. How work is lined up fairly, from print jobs to message brokers.</p><span class="meta"><span class="tag">Enqueue O(1)</span><span class="tag">Dequeue O(1)</span></span></a></li>
+</ul></section>
+<section data-group><h2>Key-value structures</h2><ul class="cards">
+<li data-search="hash tables turn a key into an array index and find anything in o(1). the most useful structure in everyday code. key-value structures get o(1) avg put o(1) avg"><a class="card" href="hash-table/"><span class="num">06</span><h3>Hash Tables</h3><p>Turn a key into an array index and find anything in O(1). The most useful structure in everyday code.</p><span class="meta"><span class="tag">Get O(1) avg</span><span class="tag">Put O(1) avg</span></span></a></li>
+</ul></section>
+<section data-group><h2>Trees</h2><ul class="cards">
+<li data-search="binary trees &amp; traversals hierarchical data and the four ways to walk it: in-order, pre-order, post-order and level-order. trees traversal o(n) recursion"><a class="card" href="binary-tree/"><span class="num">07</span><h3>Binary Trees &amp; Traversals</h3><p>Hierarchical data and the four ways to walk it: in-order, pre-order, post-order and level-order.</p><span class="meta"><span class="tag">Traversal O(n)</span><span class="tag">Recursion</span></span></a></li>
+<li data-search="binary search trees a tree that keeps its keys in order, so search, insert and delete all take o(log n) when balanced. trees search o(log n) sorted order"><a class="card" href="binary-search-tree/"><span class="num">08</span><h3>Binary Search Trees</h3><p>A tree that keeps its keys in order, so search, insert and delete all take O(log n) when balanced.</p><span class="meta"><span class="tag">Search O(log n)</span><span class="tag">Sorted order</span></span></a></li>
+<li data-search="heaps &amp; priority queues always know the smallest (or largest) item. a tree stored in a plain array, with no pointers. trees push o(log n) peek o(1)"><a class="card" href="heap/"><span class="num">09</span><h3>Heaps &amp; Priority Queues</h3><p>Always know the smallest (or largest) item. A tree stored in a plain array, with no pointers.</p><span class="meta"><span class="tag">Push O(log n)</span><span class="tag">Peek O(1)</span></span></a></li>
+<li data-search="tries (prefix trees) a tree keyed by characters. the structure behind autocomplete and spell checking. trees search o(l) prefix queries"><a class="card" href="trie/"><span class="num">10</span><h3>Tries (Prefix Trees)</h3><p>A tree keyed by characters. The structure behind autocomplete and spell checking.</p><span class="meta"><span class="tag">Search O(L)</span><span class="tag">Prefix queries</span></span></a></li>
+</ul></section>
+<section data-group><h2>Graphs</h2><ul class="cards">
+<li data-search="graphs: bfs &amp; dfs anything connected to anything. model networks, then explore them with bfs and dfs. graphs bfs o(v+e) dfs o(v+e)"><a class="card" href="graph/"><span class="num">11</span><h3>Graphs: BFS &amp; DFS</h3><p>Anything connected to anything. Model networks, then explore them with BFS and DFS.</p><span class="meta"><span class="tag">BFS O(V+E)</span><span class="tag">DFS O(V+E)</span></span></a></li>
+</ul></section>
+<section data-group><h2>Algorithms</h2><ul class="cards">
+<li data-search="binary search find anything in a sorted array in about 20 steps per million items, by halving the search space. algorithms o(log n) sorted input"><a class="card" href="binary-search/"><span class="num">12</span><h3>Binary Search</h3><p>Find anything in a sorted array in about 20 steps per million items, by halving the search space.</p><span class="meta"><span class="tag">O(log n)</span><span class="tag">Sorted input</span></span></a></li>
+<li data-search="sorting algorithms five classic sorts animated bar by bar, with comparison counters so you can see o(n²) versus o(n log n). algorithms o(n log n) o(n²) stable?"><a class="card" href="sorting-algorithms/"><span class="num">13</span><h3>Sorting Algorithms</h3><p>Five classic sorts animated bar by bar, with comparison counters so you can see O(n²) versus O(n log n).</p><span class="meta"><span class="tag">O(n log n)</span><span class="tag">O(n²)</span><span class="tag">Stable?</span></span></a></li>
+</ul></section>
+<section><h2>How each tutorial is built</h2><p class="sub">The same structure on every page, so you always know where to look.</p>
+<ul class="cards">
+<li><div class="card"><h3>Plain explanation</h3><p>What the structure is, with an everyday analogy, before any code.</p></div></li>
+<li><div class="card"><h3>Interactive visual</h3><p>Insert, delete, search and traverse yourself. Each step is narrated.</p></div></li>
+<li><div class="card"><h3>Tested code</h3><p>Python, Java and JavaScript implementations that run exactly as shown.</p></div></li>
+<li><div class="card"><h3>Interview practice</h3><p>Complexity tables, common mistakes and classic interview questions with hints.</p></div></li>
+</ul></section></div></main>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
 </body>
 </html>

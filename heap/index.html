@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Heap Data Structure &amp; Priority Queue Explained Visually (Min-Heap, Max-Heap) | PremLabs</title>
+  <meta name="description" content="Interactive min-heap tutorial: watch sift-up and sift-down in both tree and array views. Covers priority queues, heapify, heap sort and code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/heap/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Heap Data Structure &amp; Priority Queue Explained Visually (Min-Heap, Max-Heap) | PremLabs">
+  <meta property="og:description" content="Interactive min-heap tutorial: watch sift-up and sift-down in both tree and array views. Covers priority queues, heapify, heap sort and code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/heap/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Heap Data Structure &amp; Priority Queue Explained Visually (Min-Heap, Max-Heap) | PremLabs">
+  <meta name="twitter:description" content="Interactive min-heap tutorial: watch sift-up and sift-down in both tree and array views. Covers priority queues, heapify, heap sort and code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/heap/#article", "headline": "Heap Data Structure & Priority Queue Explained Visually (Min-Heap, Max-Heap)", "name": "Heaps & Priority Queues", "description": "Interactive min-heap tutorial: watch sift-up and sift-down in both tree and array views. Covers priority queues, heapify, heap sort and code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/heap/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/heap/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Intermediate", "teaches": "Heaps & Priority Queues", "about": {"@type": "Thing", "name": "Heaps & Priority Queues"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Heaps & Priority Queues", "item": "https://premlabs.github.io/datastructure/heap/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between a heap and a binary search tree?", "acceptedAnswer": {"@type": "Answer", "text": "A BST keeps all keys fully ordered (left < node < right) and supports searching for any key. A heap only guarantees that each parent beats its children, which is enough to find the minimum or maximum quickly and cheaper to maintain."}}, {"@type": "Question", "name": "What is the difference between a min-heap and a max-heap?", "acceptedAnswer": {"@type": "Answer", "text": "In a min-heap each parent is smaller than or equal to its children, so the root is the minimum. In a max-heap each parent is larger, so the root is the maximum."}}, {"@type": "Question", "name": "Is a priority queue the same as a heap?", "acceptedAnswer": {"@type": "Answer", "text": "A priority queue is the abstract behaviour: remove the highest-priority item first. A heap is the data structure normally used to implement it."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/" aria-current="page">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Trees</p>
+<h1>Heaps &amp; Priority Queues</h1>
+<p class="lede">A heap is a complete binary tree in which every parent is smaller than or equal to its children (a min-heap) or larger (a max-heap). It gives instant access to the minimum or maximum and is the standard implementation of a priority queue.</p>
+<ul class="facts"><li>Level: <b>Intermediate</b></li><li>Read time: <b>11 min</b></li><li>Push / pop: <b>O(log n)</b></li><li>Peek min: <b>O(1)</b></li></ul>
+
+<h2 id="what">What is a heap?</h2>
+<p>A hospital emergency room does not treat patients in arrival order; it treats the most urgent first. A <strong>priority queue</strong> models that: you add items with priorities and always remove the most important one. A heap is the data structure that makes this efficient.</p>
+<p>A heap has two properties:</p>
+<ol>
+<li><strong>Shape:</strong> it is a <em>complete</em> binary tree. Every level is full except possibly the last, which fills from the left.</li>
+<li><strong>Order:</strong> in a min-heap every parent is ≤ its children. The smallest value is therefore always at the root.</li>
+</ol>
+<p>A heap is <em>not</em> fully sorted. Siblings have no particular order. That looseness is what makes it cheaper to maintain than a sorted array or a search tree.</p>
+<h2 id="visual">Try it: tree view and array view</h2>
+<p>Insert the value 2 and watch it climb to the root. Then extract the minimum. Keep an eye on the array below the tree: it is the real storage.</p>
+
+<div data-viz="heap" aria-label="Interactive Heaps &amp; Priority Queues visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="array">A tree stored in an array</h2>
+<p>Because the tree is complete, it can be written level by level into an array with no gaps, and the parent–child links become arithmetic. For the node at index <code>i</code>:</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Relation</th><th>Index</th></tr></thead>
+<tbody><tr><td>Left child</td><td><code>2i + 1</code></td></tr><tr><td>Right child</td><td><code>2i + 2</code></td></tr><tr><td>Parent</td><td><code>(i − 1) / 2</code>, rounded down</td></tr></tbody>
+</table></div>
+<p>No node objects, no pointers. This compact layout is why heaps are fast in practice.</p>
+<h2 id="how">How the operations work</h2>
+<h3>Insert (sift up)</h3>
+<p>Append the new value at the end of the array, which is the next free position in the tree. Then, while it is smaller than its parent, swap the two. It rises at most one level per swap, and a complete tree with n nodes has about log₂ n levels, so insertion is O(log n).</p>
+<h3>Extract min (sift down)</h3>
+<p>The minimum is at index 0. Take it, move the <em>last</em> element to the root to keep the shape complete, then repeatedly swap it with its <em>smaller</em> child until neither child is smaller. Also O(log n).</p>
+<h3>Build a heap in O(n)</h3>
+<p>Inserting n items one by one costs O(n log n). The <em>heapify</em> procedure does better: start from the last parent and sift down each node, working back to the root. Most nodes are near the bottom and move very little, and the total comes to O(n).</p>
+<h2 id="uses">What heaps are used for</h2>
+<ul>
+<li><strong>Priority queues:</strong> job schedulers, event simulations, rate limiters.</li>
+<li><strong>Top-k problems:</strong> keep a min-heap of size k while scanning; anything smaller than its root is discarded. O(n log k).</li>
+<li><strong>Dijkstra's shortest path and Prim's minimum spanning tree</strong> pull the closest unvisited vertex from a heap.</li>
+<li><strong>Heap sort:</strong> build a max-heap, then repeatedly move the root to the end. O(n log n) time, O(1) extra space.</li>
+<li><strong>Merging k sorted lists</strong> and finding a running median with two heaps.</li>
+</ul>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Peek min / max</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td>Always the root</td></tr><tr><td>Insert</td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td>Sift up</td></tr><tr><td>Extract min / max</td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td>Sift down</td></tr><tr><td>Build from n items</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Bottom-up heapify</td></tr><tr><td>Search for a value</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>No ordering between siblings</td></tr></tbody></table></div>
+<h2 id="code">Heaps &amp; Priority Queues in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>import heapq
+
+
+class MinHeap:
+    def __init__(self):
+        self._a = []
+
+    def push(self, value):                # O(log n)
+        self._a.append(value)
+        self._sift_up(len(self._a) - 1)
+
+    def pop(self):                        # O(log n): remove the minimum
+        if not self._a:
+            raise IndexError(&quot;pop from empty heap&quot;)
+        top = self._a[0]
+        last = self._a.pop()
+        if self._a:
+            self._a[0] = last
+            self._sift_down(0)
+        return top
+
+    def peek(self):                       # O(1)
+        return self._a[0]
+
+    def _sift_up(self, i):
+        while i &gt; 0:
+            parent = (i - 1) // 2
+            if self._a[parent] &lt;= self._a[i]:
+                break
+            self._a[parent], self._a[i] = self._a[i], self._a[parent]
+            i = parent
+
+    def _sift_down(self, i):
+        n = len(self._a)
+        while True:
+            smallest, left, right = i, 2 * i + 1, 2 * i + 2
+            if left &lt; n and self._a[left] &lt; self._a[smallest]:
+                smallest = left
+            if right &lt; n and self._a[right] &lt; self._a[smallest]:
+                smallest = right
+            if smallest == i:
+                return
+            self._a[smallest], self._a[i] = self._a[i], self._a[smallest]
+            i = smallest
+
+
+heap = MinHeap()
+for v in (8, 3, 14, 5, 9):
+    heap.push(v)
+print([heap.pop() for _ in range(5)])     # [3, 5, 8, 9, 14]
+
+# In practice, use the standard library:
+nums = [8, 3, 14, 5, 9]
+heapq.heapify(nums)                       # O(n)
+print(heapq.heappop(nums), heapq.nlargest(2, nums))   # 3 [14, 9]</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.PriorityQueue;
+
+public class MinHeap {
+    private final List&lt;Integer&gt; a = new ArrayList&lt;&gt;();
+
+    public void push(int value) {                      // O(log n)
+        a.add(value);
+        siftUp(a.size() - 1);
+    }
+
+    public int pop() {                                 // O(log n): remove the minimum
+        if (a.isEmpty()) throw new IllegalStateException(&quot;pop from empty heap&quot;);
+        int top = a.get(0);
+        int last = a.remove(a.size() - 1);
+        if (!a.isEmpty()) {
+            a.set(0, last);
+            siftDown(0);
+        }
+        return top;
+    }
+
+    public int peek() { return a.get(0); }             // O(1)
+
+    private void siftUp(int i) {
+        while (i &gt; 0) {
+            int parent = (i - 1) / 2;
+            if (a.get(parent) &lt;= a.get(i)) break;
+            Collections.swap(a, parent, i);
+            i = parent;
+        }
+    }
+
+    private void siftDown(int i) {
+        int n = a.size();
+        while (true) {
+            int smallest = i, left = 2 * i + 1, right = 2 * i + 2;
+            if (left &lt; n &amp;&amp; a.get(left) &lt; a.get(smallest)) smallest = left;
+            if (right &lt; n &amp;&amp; a.get(right) &lt; a.get(smallest)) smallest = right;
+            if (smallest == i) return;
+            Collections.swap(a, smallest, i);
+            i = smallest;
+        }
+    }
+
+    public static void main(String[] args) {
+        MinHeap heap = new MinHeap();
+        for (int v : new int[]{8, 3, 14, 5, 9}) heap.push(v);
+        for (int i = 0; i &lt; 5; i++) System.out.print(heap.pop() + &quot; &quot;);   // 3 5 8 9 14
+        System.out.println();
+
+        // In practice, use the standard library:
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;(List.of(8, 3, 14, 5, 9));
+        System.out.println(pq.poll());                                    // 3
+        PriorityQueue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+        maxHeap.addAll(List.of(8, 3, 14));
+        System.out.println(maxHeap.peek());                               // 14
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>// JavaScript has no built-in heap, so this class is worth keeping around.
+class MinHeap {
+  #a = [];
+
+  get size() { return this.#a.length; }
+  peek() { return this.#a[0]; }                    // O(1)
+
+  push(value) {                                    // O(log n)
+    this.#a.push(value);
+    this.#siftUp(this.#a.length - 1);
+  }
+
+  pop() {                                          // O(log n): remove the minimum
+    if (this.#a.length === 0) throw new Error(&#x27;pop from empty heap&#x27;);
+    const top = this.#a[0];
+    const last = this.#a.pop();
+    if (this.#a.length &gt; 0) {
+      this.#a[0] = last;
+      this.#siftDown(0);
+    }
+    return top;
+  }
+
+  #siftUp(i) {
+    const a = this.#a;
+    while (i &gt; 0) {
+      const parent = (i - 1) &gt;&gt; 1;
+      if (a[parent] &lt;= a[i]) break;
+      [a[parent], a[i]] = [a[i], a[parent]];
+      i = parent;
+    }
+  }
+
+  #siftDown(i) {
+    const a = this.#a, n = a.length;
+    for (;;) {
+      let smallest = i;
+      const left = 2 * i + 1, right = 2 * i + 2;
+      if (left &lt; n &amp;&amp; a[left] &lt; a[smallest]) smallest = left;
+      if (right &lt; n &amp;&amp; a[right] &lt; a[smallest]) smallest = right;
+      if (smallest === i) return;
+      [a[smallest], a[i]] = [a[i], a[smallest]];
+      i = smallest;
+    }
+  }
+}
+
+const heap = new MinHeap();
+[8, 3, 14, 5, 9].forEach(v =&gt; heap.push(v));
+const out = [];
+while (heap.size) out.push(heap.pop());
+console.log(out);                                  // [3, 5, 8, 9, 14]</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a heap when</h3><ul><li>You repeatedly need the smallest or largest item.</li><li>You need the top k of a large or streaming data set.</li><li>You are implementing a scheduler or a graph algorithm such as Dijkstra's.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>You need to search for arbitrary values or iterate in sorted order (use a <a href="../binary-search-tree/">balanced BST</a>).</li><li>Plain arrival order is enough (use a <a href="../queue/">queue</a>).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Expecting the heap array to be sorted. Only the root is guaranteed.</li><li>Sifting down by swapping with either child instead of the smaller one (min-heap), which breaks the order.</li><li>Forgetting that Python's <code>heapq</code> and Java's <code>PriorityQueue</code> are min-heaps by default. For a max-heap, negate the values in Python or pass <code>Collections.reverseOrder()</code> in Java.</li><li>Mixing 0-based and 1-based index formulas.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Find the k-th largest element in an array.</summary><p>Maintain a min-heap of size k; its root is the answer. O(n log k).</p></details><details><summary>Merge k sorted lists.</summary><p>Put the head of each list in a min-heap; pop the smallest and push its successor. O(n log k).</p></details><details><summary>Find the median of a data stream.</summary><p>A max-heap for the lower half and a min-heap for the upper half, kept within one element of each other in size.</p></details><details><summary>Return the k most frequent elements.</summary><p>Count with a hash map, then keep a size-k min-heap keyed on frequency.</p></details><details><summary>Why is building a heap O(n) and not O(n log n)?</summary><p>Sift-down cost is proportional to a node's height, and most nodes are near the bottom with small heights. The sum over all nodes is linear.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the difference between a heap and a binary search tree?</summary><p>A BST keeps all keys fully ordered (left < node < right) and supports searching for any key. A heap only guarantees that each parent beats its children, which is enough to find the minimum or maximum quickly and cheaper to maintain.</p></details><details><summary>What is the difference between a min-heap and a max-heap?</summary><p>In a min-heap each parent is smaller than or equal to its children, so the root is the minimum. In a max-heap each parent is larger, so the root is the maximum.</p></details><details><summary>Is a priority queue the same as a heap?</summary><p>A priority queue is the abstract behaviour: remove the highest-priority item first. A heap is the data structure normally used to implement it.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../binary-search-tree/" rel="prev"><small>Previous</small>Binary Search Trees</a><a class="next" href="../trie/" rel="next"><small>Next</small>Tries (Prefix Trees)</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

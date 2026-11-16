@@ -1,37 +1,51 @@
-# PremLabs DSA Playground
+# PremLabs DSA — Data structures, made visible
 
-A zero-build, GitHub Pages-ready interactive Python DSA learning page.
+Free, interactive data structures and algorithms tutorials: **https://premlabs.github.io/datastructure/**
 
-## Features
+Thirteen tutorials, each with a plain-language explanation, an interactive visualizer, a complexity table, tested code in **Python, Java and JavaScript**, common mistakes, interview questions and an FAQ.
 
-- Step-by-step visualizations for Bubble Sort, Selection Sort, Insertion Sort, and Merge Sort
-- Play, pause, step, reset, randomize, array-size, and speed controls
-- Comparison and swap/shift counters, progress, Python examples, and time/space complexity
-- Google Analytics 4 event tracking hooks
-- Public visitor badge in the footer
+| # | Tutorial | Visualizer |
+|---|----------|------------|
+| 1 | [Big-O Notation](https://premlabs.github.io/datastructure/big-o/) | Growth-rate slider |
+| 2 | [Arrays](https://premlabs.github.io/datastructure/arrays/) | Insert / delete / access / search with shifting |
+| 3 | [Linked Lists](https://premlabs.github.io/datastructure/linked-list/) | Nodes and pointers |
+| 4 | [Stacks](https://premlabs.github.io/datastructure/stack/) | Push / pop / peek |
+| 5 | [Queues](https://premlabs.github.io/datastructure/queue/) | Enqueue / dequeue |
+| 6 | [Hash Tables](https://premlabs.github.io/datastructure/hash-table/) | Hashing, buckets and collisions |
+| 7 | [Binary Trees & Traversals](https://premlabs.github.io/datastructure/binary-tree/) | In-, pre-, post- and level-order |
+| 8 | [Binary Search Trees](https://premlabs.github.io/datastructure/binary-search-tree/) | Insert / search / delete, unbalanced case |
+| 9 | [Heaps & Priority Queues](https://premlabs.github.io/datastructure/heap/) | Sift up / down in tree and array views |
+| 10 | [Tries](https://premlabs.github.io/datastructure/trie/) | Insert, search, prefix autocomplete |
+| 11 | [Graphs: BFS & DFS](https://premlabs.github.io/datastructure/graph/) | Animated BFS and DFS |
+| 12 | [Binary Search](https://premlabs.github.io/datastructure/binary-search/) | lo / mid / hi pointers |
+| 13 | [Sorting Algorithms](https://premlabs.github.io/datastructure/sorting-algorithms/) | Bubble, selection, insertion, merge, quick |
 
-## Publish with GitHub Pages
+## How the site is built
 
-1. Open **Settings → Pages** in this repository.
-2. Under **Build and deployment**, choose **Deploy from a branch**.
-3. Select branch **main** and folder **/(root)**, then save.
-4. Wait for the Pages deployment to finish. The site URL is normally `https://premlabs.github.io/datastructure/`.
+Static HTML, no framework, no build step needed to serve it.
 
-No build command or package installation is required; the site is a static `index.html`.
+```
+assets/site.css      shared styles (light/dark, reduced motion, high contrast)
+assets/viz.js        all visualizers, code tabs, search (no dependencies)
+tools/content.py     tutorial text
+tools/code/          runnable code samples: <slug>.py / .java / .js
+tools/build.py       generates <slug>/index.html, index.html and sitemap.xml
+```
 
-## Connect your existing Google Analytics 4 property
+To change a tutorial, edit `tools/content.py` or a file in `tools/code/`, then run:
 
-1. In Google Analytics, open **Admin → Data streams**, select the web stream for this site, and copy its Measurement ID (format: `G-XXXXXXXXXX`).
-2. Edit `index.html` and replace `G-XXXXXXXXXX` in `GA_MEASUREMENT_ID` with your actual ID.
-3. Commit the change and wait for Pages to redeploy.
-4. Verify events in **Reports → Realtime** or **Admin → DebugView**. The page tracks standard page views plus `select_algorithm`, `play_visualization`, `step_visualization`, and `randomize_array` when analytics is configured.
+```bash
+python3 tools/build.py
+```
 
-The Measurement ID was not supplied with this request, so the placeholder is intentionally left in place. Analytics will not send data until you replace it. Make sure your site's privacy notice and consent setup meet the requirements applicable to your audience.
+Every code sample runs as-is: `python3 tools/code/heap.py`, `node tools/code/heap.js`, or copy the `.java` file to its class name and `javac`/`java` it.
 
-## Public visit counter
+## SEO
 
-The footer uses a third-party visitor badge service with the key `PremLabs.datastructure`. It is separate from Google Analytics and shows a public count image. The badge service controls its own counting, availability, and privacy practices; the number may not match GA4 users or sessions.
+Each page has a unique title and description, canonical URL, Open Graph/Twitter cards, and JSON-LD (`TechArticle`, `BreadcrumbList`, `FAQPage`; the hub has `Course` and `ItemList`). `sitemap.xml` is referenced from `https://premlabs.github.io/robots.txt`.
 
-## Local preview
+Analytics: Google Tag Manager `GTM-TLJBPCN6` and GA4 `G-MZDBK7RPZJ`.
 
-Open `index.html` in a browser. Since this is a static page, no local development server is needed.
+## Author
+
+[Prem Sarojanand](https://premlabs.github.io/) — senior Java, Node.js and Python engineer, open to remote and freelance work.

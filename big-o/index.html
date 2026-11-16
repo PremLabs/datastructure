@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Big-O Notation Explained with Visual Examples (Time &amp; Space Complexity) | PremLabs</title>
+  <meta name="description" content="Learn Big-O notation with an interactive growth chart. Understand O(1), O(log n), O(n), O(n log n), O(n²) and O(2ⁿ) with code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/big-o/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Big-O Notation Explained with Visual Examples (Time &amp; Space Complexity) | PremLabs">
+  <meta property="og:description" content="Learn Big-O notation with an interactive growth chart. Understand O(1), O(log n), O(n), O(n log n), O(n²) and O(2ⁿ) with code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/big-o/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Big-O Notation Explained with Visual Examples (Time &amp; Space Complexity) | PremLabs">
+  <meta name="twitter:description" content="Learn Big-O notation with an interactive growth chart. Understand O(1), O(log n), O(n), O(n log n), O(n²) and O(2ⁿ) with code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/big-o/#article", "headline": "Big-O Notation Explained with Visual Examples (Time & Space Complexity)", "name": "Big-O Notation", "description": "Learn Big-O notation with an interactive growth chart. Understand O(1), O(log n), O(n), O(n log n), O(n²) and O(2ⁿ) with code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/big-o/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/big-o/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Beginner", "teaches": "Big-O Notation", "about": {"@type": "Thing", "name": "Big-O Notation"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Big-O Notation", "item": "https://premlabs.github.io/datastructure/big-o/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Big-O the same as the running time?", "acceptedAnswer": {"@type": "Answer", "text": "No. Big-O describes how the running time grows as the input grows. It ignores constant factors and hardware, so it tells you which algorithm scales better, not how many milliseconds either one takes."}}, {"@type": "Question", "name": "What is the difference between O(n) and O(log n)?", "acceptedAnswer": {"@type": "Answer", "text": "O(n) work grows in step with the input: double the data, double the work. O(log n) work grows by one step each time the data doubles, so a million items need about 20 steps."}}, {"@type": "Question", "name": "Do I need maths to learn Big-O?", "acceptedAnswer": {"@type": "Answer", "text": "Very little. Counting loops, recognising halving and knowing that nested loops multiply will cover most code you write or read."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/" aria-current="page">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Foundations</p>
+<h1>Big-O Notation</h1>
+<p class="lede">Big-O notation describes how the work an algorithm does grows as its input grows. It lets you compare two solutions without timing them, and it is the first thing an interviewer asks about any code you write.</p>
+<ul class="facts"><li>Level: <b>Beginner</b></li><li>Read time: <b>8 min</b></li><li>Prerequisites: <b>Loops and functions</b></li></ul>
+
+<h2 id="what">What Big-O actually measures</h2>
+<p>Suppose a function takes 2 milliseconds on 1,000 items. That number says very little: it depends on the machine, the language and what else was running. The useful question is different: <strong>if the input becomes ten times larger, how much more work is there?</strong> Big-O answers that question.</p>
+<p>We count basic steps (comparisons, assignments, array reads) as a function of the input size <code>n</code>, then keep only the part that dominates when <code>n</code> is large. A function that does <code>3n² + 5n + 20</code> steps is O(n²): for a million items the <code>n²</code> term is so large that the rest does not matter, and the constant 3 changes the speed but not the shape of the growth.</p>
+<div class="note"><p><strong>Two rules cover most cases.</strong> Drop constants (O(2n) is O(n)). Drop smaller terms (O(n² + n) is O(n²)).</p></div>
+<h2 id="visual">See the growth rates</h2>
+<p>Move the slider and watch how the number of operations changes for each complexity class. Notice how O(log n) barely moves while O(2ⁿ) leaves the chart almost immediately.</p>
+
+<div data-viz="bigo" aria-label="Interactive Big-O Notation visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="classes">The complexity classes you will meet</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Notation</th><th>Name</th><th>Typical example</th><th>n = 1,000,000</th></tr></thead>
+<tbody>
+<tr><td><code>O(1)</code></td><td>Constant</td><td>Read an array element by index, hash table lookup</td><td>1 step</td></tr>
+<tr><td><code>O(log n)</code></td><td>Logarithmic</td><td>Binary search, balanced tree lookup</td><td>about 20 steps</td></tr>
+<tr><td><code>O(n)</code></td><td>Linear</td><td>Scan a list once</td><td>1,000,000 steps</td></tr>
+<tr><td><code>O(n log n)</code></td><td>Linearithmic</td><td>Merge sort, heap sort</td><td>about 20,000,000 steps</td></tr>
+<tr><td><code>O(n²)</code></td><td>Quadratic</td><td>Compare every pair (nested loops)</td><td>1,000,000,000,000 steps</td></tr>
+<tr><td><code>O(2ⁿ)</code></td><td>Exponential</td><td>Try every subset</td><td>not feasible</td></tr>
+</tbody></table></div>
+<h2 id="how-to">How to work out the complexity of your code</h2>
+<ol>
+<li><strong>A single loop over the input is O(n).</strong> Two loops one after another are still O(n), because O(n + n) drops the constant.</li>
+<li><strong>A loop inside a loop multiplies.</strong> Two nested loops over the same input are O(n²).</li>
+<li><strong>Halving the problem each step is O(log n).</strong> If a loop divides <code>n</code> by two until it reaches one, it runs about log₂ n times.</li>
+<li><strong>Recursion: count the calls and the work per call.</strong> Merge sort makes log n levels of calls and does O(n) work per level, so O(n log n).</li>
+<li><strong>Check what library calls cost.</strong> <code>x in list</code> in Python and <code>list.contains(x)</code> in Java are O(n). Calling them inside a loop quietly gives you O(n²).</li>
+</ol>
+<h2 id="space">Space complexity</h2>
+<p>The same notation describes extra memory. An algorithm that sorts in place uses O(1) extra space; one that builds a second copy of the input uses O(n). Recursion uses stack space too: a recursive function that goes <code>n</code> calls deep uses O(n) memory even if it allocates nothing. Often you trade one for the other, as the two duplicate-finding functions in the code below show: the fast version buys O(n) time by spending O(n) memory on a set.</p>
+<h2 id="cases">Best, average and worst case</h2>
+<p>Big-O is usually quoted for the worst case, because that is the guarantee you can rely on. Quick sort is O(n log n) on average but O(n²) on its worst input. A hash table lookup is O(1) on average but O(n) if every key lands in the same bucket. <em>Amortised</em> cost is a related idea: appending to a dynamic array is occasionally O(n) when it resizes, but averaged over many appends each one costs O(1).</p>
+
+<h2 id="code">Big-O Notation in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>def first_item(items):            # O(1): one step, whatever the size
+    return items[0]
+
+def contains(items, target):      # O(n): may look at every item
+    for item in items:
+        if item == target:
+            return True
+    return False
+
+def has_duplicate(items):         # O(n^2): every pair is compared
+    for i in range(len(items)):
+        for j in range(i + 1, len(items)):
+            if items[i] == items[j]:
+                return True
+    return False
+
+def has_duplicate_fast(items):    # O(n) time, O(n) extra space
+    seen = set()
+    for item in items:
+        if item in seen:
+            return True
+        seen.add(item)
+    return False
+
+def halvings(n):                  # O(log n): n is halved each loop
+    steps = 0
+    while n &gt; 1:
+        n //= 2
+        steps += 1
+    return steps
+
+print(halvings(1_000_000))        # 19
+print(has_duplicate_fast([3, 1, 4, 1]))  # True</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.HashSet;
+import java.util.Set;
+
+public class BigO {
+    static int firstItem(int[] items) {            // O(1)
+        return items[0];
+    }
+
+    static boolean contains(int[] items, int target) {  // O(n)
+        for (int item : items) {
+            if (item == target) return true;
+        }
+        return false;
+    }
+
+    static boolean hasDuplicate(int[] items) {     // O(n^2)
+        for (int i = 0; i &lt; items.length; i++) {
+            for (int j = i + 1; j &lt; items.length; j++) {
+                if (items[i] == items[j]) return true;
+            }
+        }
+        return false;
+    }
+
+    static boolean hasDuplicateFast(int[] items) { // O(n) time, O(n) space
+        Set&lt;Integer&gt; seen = new HashSet&lt;&gt;();
+        for (int item : items) {
+            if (!seen.add(item)) return true;
+        }
+        return false;
+    }
+
+    static int halvings(int n) {                   // O(log n)
+        int steps = 0;
+        while (n &gt; 1) { n /= 2; steps++; }
+        return steps;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(halvings(1_000_000));                     // 19
+        System.out.println(hasDuplicateFast(new int[]{3, 1, 4, 1})); // true
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>const firstItem = items =&gt; items[0];              // O(1)
+
+function contains(items, target) {                // O(n)
+  for (const item of items) {
+    if (item === target) return true;
+  }
+  return false;
+}
+
+function hasDuplicate(items) {                    // O(n^2)
+  for (let i = 0; i &lt; items.length; i++) {
+    for (let j = i + 1; j &lt; items.length; j++) {
+      if (items[i] === items[j]) return true;
+    }
+  }
+  return false;
+}
+
+function hasDuplicateFast(items) {                // O(n) time, O(n) space
+  const seen = new Set();
+  for (const item of items) {
+    if (seen.has(item)) return true;
+    seen.add(item);
+  }
+  return false;
+}
+
+function halvings(n) {                            // O(log n)
+  let steps = 0;
+  while (n &gt; 1) { n = Math.floor(n / 2); steps++; }
+  return steps;
+}
+
+console.log(halvings(1_000_000));                 // 19
+console.log(hasDuplicateFast([3, 1, 4, 1]));      // true</code></pre></div>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Treating Big-O as speed. An O(n²) algorithm can beat an O(n log n) one on small inputs because its constant factors are smaller. That is why real sort implementations switch to insertion sort for short runs.</li><li>Forgetting hidden loops. String concatenation in a loop, <code>list.insert(0, x)</code>, <code>array.shift()</code> and <code>in</code> on a list are all O(n) each time.</li><li>Ignoring recursion depth when stating space complexity.</li><li>Using one variable for two different inputs. Comparing every item of list A with every item of list B is O(a × b), not O(n²).</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>What is the time complexity of two nested loops where the inner loop runs from i to n?</summary><p>Still O(n²). The total is n(n−1)/2 steps, and constants are dropped.</p></details><details><summary>Why is binary search O(log n)?</summary><p>Each comparison halves the remaining range, and you can halve n only log₂ n times before one element is left.</p></details><details><summary>What does amortised O(1) mean?</summary><p>Any single operation may be expensive, but a sequence of n operations costs O(n) in total, so the average per operation is constant.</p></details><details><summary>Is O(n + m) the same as O(n)?</summary><p>Only if m is known to be no larger than n. With two independent inputs, keep both.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is Big-O the same as the running time?</summary><p>No. Big-O describes how the running time grows as the input grows. It ignores constant factors and hardware, so it tells you which algorithm scales better, not how many milliseconds either one takes.</p></details><details><summary>What is the difference between O(n) and O(log n)?</summary><p>O(n) work grows in step with the input: double the data, double the work. O(log n) work grows by one step each time the data doubles, so a million items need about 20 steps.</p></details><details><summary>Do I need maths to learn Big-O?</summary><p>Very little. Counting loops, recognising halving and knowing that nested loops multiply will cover most code you write or read.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a class="next" href="../arrays/" rel="next"><small>Next</small>Arrays</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

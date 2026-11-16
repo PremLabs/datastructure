@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hash Table Explained Visually: Hashing, Collisions &amp; Chaining with Code | PremLabs</title>
+  <meta name="description" content="See how a hash table works: hash functions, buckets, collisions, chaining and load factor, animated step by step with code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/hash-table/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Hash Table Explained Visually: Hashing, Collisions &amp; Chaining with Code | PremLabs">
+  <meta property="og:description" content="See how a hash table works: hash functions, buckets, collisions, chaining and load factor, animated step by step with code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/hash-table/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hash Table Explained Visually: Hashing, Collisions &amp; Chaining with Code | PremLabs">
+  <meta name="twitter:description" content="See how a hash table works: hash functions, buckets, collisions, chaining and load factor, animated step by step with code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/hash-table/#article", "headline": "Hash Table Explained Visually: Hashing, Collisions & Chaining with Code", "name": "Hash Tables", "description": "See how a hash table works: hash functions, buckets, collisions, chaining and load factor, animated step by step with code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/hash-table/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/hash-table/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Intermediate", "teaches": "Hash Tables", "about": {"@type": "Thing", "name": "Hash Tables"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Hash Tables", "item": "https://premlabs.github.io/datastructure/hash-table/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why is a hash table lookup O(1)?", "acceptedAnswer": {"@type": "Answer", "text": "The hash function computes the bucket index directly from the key, so the table goes straight to one bucket instead of searching. With a good hash and a controlled load factor, each bucket holds only a few entries."}}, {"@type": "Question", "name": "What is a collision in hashing?", "acceptedAnswer": {"@type": "Answer", "text": "Two different keys mapping to the same bucket. It is handled by chaining (keeping a list in each bucket) or open addressing (probing for another free slot)."}}, {"@type": "Question", "name": "What is the difference between a hash map and a hash set?", "acceptedAnswer": {"@type": "Answer", "text": "A hash map stores key–value pairs. A hash set stores keys only and answers the question 'is this item present?'."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/" aria-current="page">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Key-value structures</p>
+<h1>Hash Tables</h1>
+<p class="lede">A hash table stores key–value pairs and finds a value from its key in constant time on average. It does this by running the key through a hash function that says which slot of an array to use.</p>
+<ul class="facts"><li>Level: <b>Intermediate</b></li><li>Read time: <b>11 min</b></li><li>Lookup: <b>O(1) average</b></li><li>Worst case: <b>O(n)</b></li></ul>
+
+<h2 id="what">What is a hash table?</h2>
+<p>An <a href="../arrays/">array</a> gives O(1) access, but only if you know the index. A hash table extends that speed to any kind of key: a name, an email address, a product ID. It needs two parts:</p>
+<ol>
+<li>An array of <strong>buckets</strong>.</li>
+<li>A <strong>hash function</strong> that turns a key into a number. That number, modulo the number of buckets, is the bucket index.</li>
+</ol>
+<p>To store <code>"cat" → 3</code>, hash <code>"cat"</code>, go to that bucket and put the pair there. To read it back, hash <code>"cat"</code> again. The same key always produces the same index, so you go directly to the right bucket without looking at any other. Dictionaries in Python, <code>HashMap</code> in Java, and <code>Map</code> and plain objects in JavaScript are all hash tables.</p>
+<h2 id="visual">Try it: hashing and collisions</h2>
+<p>This demo uses a deliberately simple hash (add up the character codes) with 7 buckets, so collisions are easy to produce. Put the key <code>tac</code> and see where it lands.</p>
+
+<div data-viz="hashtable" aria-label="Interactive Hash Tables visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="collisions">Collisions</h2>
+<p>There are far more possible keys than buckets, so two different keys will sometimes produce the same index. This is a <strong>collision</strong>, and handling it is the heart of hash table design.</p>
+<h3>Separate chaining</h3>
+<p>Each bucket holds a small list of entries. Colliding keys simply share the bucket, and a lookup scans that short list comparing keys. This is what the visualizer and the code below use. Java's <code>HashMap</code> uses chaining and converts long chains into balanced trees.</p>
+<h3>Open addressing</h3>
+<p>Every entry lives in the array itself. If the target slot is taken, probe the next slots according to a fixed rule (linear probing checks the next slot, then the next) until a free one is found. Python's <code>dict</code> uses open addressing. It is more cache-friendly but deletion is trickier, needing a marker for removed entries.</p>
+<h2 id="load">Load factor and resizing</h2>
+<p>The <strong>load factor</strong> is entries ÷ buckets. As it rises, chains lengthen and lookups slow down. When it passes a threshold (0.75 is common) the table allocates a bigger array, usually double, and <strong>rehashes</strong> every entry into it, because the bucket index depends on the array size. Rehashing is O(n) but rare, so insertion remains O(1) amortised, the same argument as for dynamic arrays.</p>
+<h2 id="good-hash">What makes a good hash function</h2>
+<ul>
+<li><strong>Deterministic:</strong> the same key always gives the same hash.</li>
+<li><strong>Uniform:</strong> keys spread evenly over the buckets. The character-sum hash in the demo is poor precisely because anagrams collide.</li>
+<li><strong>Fast:</strong> it runs on every operation.</li>
+</ul>
+<p>You rarely write one yourself, but you must respect one rule: <strong>keys must not change while they are in the table.</strong> If a key's hash changes after insertion it sits in the wrong bucket and can no longer be found. This is why Python allows only immutable objects as dictionary keys, and why Java requires <code>equals</code> and <code>hashCode</code> to be overridden together.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Insert / update</td><td><code>O(1)</code></td><td><code>O(n)</code></td><td>Worst case: all keys in one bucket, or a resize</td></tr><tr><td>Lookup</td><td><code>O(1)</code></td><td><code>O(n)</code></td><td></td></tr><tr><td>Delete</td><td><code>O(1)</code></td><td><code>O(n)</code></td><td></td></tr><tr><td>Iterate all entries</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td>Order is not sorted</td></tr></tbody></table></div>
+<h2 id="code">Hash Tables in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>class HashTable:
+    &quot;&quot;&quot;Hash table with separate chaining and automatic resizing.&quot;&quot;&quot;
+
+    def __init__(self, capacity=8):
+        self._buckets = [[] for _ in range(capacity)]
+        self._size = 0
+
+    def _index(self, key):
+        return hash(key) % len(self._buckets)
+
+    def put(self, key, value):            # O(1) average
+        bucket = self._buckets[self._index(key)]
+        for pair in bucket:
+            if pair[0] == key:
+                pair[1] = value           # key exists: overwrite
+                return
+        bucket.append([key, value])
+        self._size += 1
+        if self._size &gt; 0.75 * len(self._buckets):   # load factor too high
+            self._resize()
+
+    def get(self, key, default=None):     # O(1) average
+        for k, v in self._buckets[self._index(key)]:
+            if k == key:
+                return v
+        return default
+
+    def remove(self, key):                # O(1) average
+        bucket = self._buckets[self._index(key)]
+        for i, (k, _) in enumerate(bucket):
+            if k == key:
+                del bucket[i]
+                self._size -= 1
+                return True
+        return False
+
+    def _resize(self):                    # O(n): every key is rehashed
+        old = self._buckets
+        self._buckets = [[] for _ in range(len(old) * 2)]
+        self._size = 0
+        for bucket in old:
+            for k, v in bucket:
+                self.put(k, v)
+
+
+table = HashTable()
+for word in &quot;the quick brown fox jumps over the lazy dog the end&quot;.split():
+    table.put(word, table.get(word, 0) + 1)
+print(table.get(&quot;the&quot;), table.get(&quot;fox&quot;), table.get(&quot;cat&quot;))   # 3 1 None</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.ArrayList;
+import java.util.List;
+
+public class HashTable&lt;K, V&gt; {
+    private static class Entry&lt;K, V&gt; {
+        final K key; V value;
+        Entry(K key, V value) { this.key = key; this.value = value; }
+    }
+
+    private List&lt;List&lt;Entry&lt;K, V&gt;&gt;&gt; buckets = newBuckets(8);
+    private int size = 0;
+
+    private static &lt;K, V&gt; List&lt;List&lt;Entry&lt;K, V&gt;&gt;&gt; newBuckets(int n) {
+        List&lt;List&lt;Entry&lt;K, V&gt;&gt;&gt; list = new ArrayList&lt;&gt;();
+        for (int i = 0; i &lt; n; i++) list.add(new ArrayList&lt;&gt;());
+        return list;
+    }
+
+    private int index(K key) {
+        return Math.floorMod(key.hashCode(), buckets.size());   // floorMod: never negative
+    }
+
+    public void put(K key, V value) {                  // O(1) average
+        List&lt;Entry&lt;K, V&gt;&gt; bucket = buckets.get(index(key));
+        for (Entry&lt;K, V&gt; e : bucket) {
+            if (e.key.equals(key)) { e.value = value; return; }
+        }
+        bucket.add(new Entry&lt;&gt;(key, value));
+        if (++size &gt; 0.75 * buckets.size()) resize();
+    }
+
+    public V get(K key) {                              // O(1) average
+        for (Entry&lt;K, V&gt; e : buckets.get(index(key))) {
+            if (e.key.equals(key)) return e.value;
+        }
+        return null;
+    }
+
+    public boolean remove(K key) {                     // O(1) average
+        if (buckets.get(index(key)).removeIf(e -&gt; e.key.equals(key))) { size--; return true; }
+        return false;
+    }
+
+    private void resize() {                            // O(n): every key is rehashed
+        List&lt;List&lt;Entry&lt;K, V&gt;&gt;&gt; old = buckets;
+        buckets = newBuckets(old.size() * 2);
+        size = 0;
+        for (List&lt;Entry&lt;K, V&gt;&gt; bucket : old) for (Entry&lt;K, V&gt; e : bucket) put(e.key, e.value);
+    }
+
+    public static void main(String[] args) {
+        HashTable&lt;String, Integer&gt; table = new HashTable&lt;&gt;();
+        for (String word : &quot;the quick brown fox jumps over the lazy dog the end&quot;.split(&quot; &quot;)) {
+            Integer count = table.get(word);
+            table.put(word, count == null ? 1 : count + 1);
+        }
+        System.out.println(table.get(&quot;the&quot;) + &quot; &quot; + table.get(&quot;fox&quot;) + &quot; &quot; + table.get(&quot;cat&quot;)); // 3 1 null
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>// In real code use Map. This class shows how one works inside.
+class HashTable {
+  #buckets = Array.from({ length: 8 }, () =&gt; []);
+  #size = 0;
+
+  #hash(key) {                             // simple string hash
+    let h = 0;
+    for (const ch of String(key)) h = (h * 31 + ch.charCodeAt(0)) &gt;&gt;&gt; 0;
+    return h % this.#buckets.length;
+  }
+
+  put(key, value) {                        // O(1) average
+    const bucket = this.#buckets[this.#hash(key)];
+    const pair = bucket.find(p =&gt; p[0] === key);
+    if (pair) { pair[1] = value; return; } // key exists: overwrite
+    bucket.push([key, value]);
+    if (++this.#size &gt; 0.75 * this.#buckets.length) this.#resize();
+  }
+
+  get(key) {                               // O(1) average
+    const pair = this.#buckets[this.#hash(key)].find(p =&gt; p[0] === key);
+    return pair ? pair[1] : undefined;
+  }
+
+  remove(key) {                            // O(1) average
+    const bucket = this.#buckets[this.#hash(key)];
+    const i = bucket.findIndex(p =&gt; p[0] === key);
+    if (i &lt; 0) return false;
+    bucket.splice(i, 1);
+    this.#size--;
+    return true;
+  }
+
+  #resize() {                              // O(n): every key is rehashed
+    const old = this.#buckets;
+    this.#buckets = Array.from({ length: old.length * 2 }, () =&gt; []);
+    this.#size = 0;
+    for (const bucket of old) for (const [k, v] of bucket) this.put(k, v);
+  }
+}
+
+const table = new HashTable();
+for (const word of &#x27;the quick brown fox jumps over the lazy dog the end&#x27;.split(&#x27; &#x27;)) {
+  table.put(word, (table.get(word) ?? 0) + 1);
+}
+console.log(table.get(&#x27;the&#x27;), table.get(&#x27;fox&#x27;), table.get(&#x27;cat&#x27;)); // 3 1 undefined</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a hash table when</h3><ul><li>You look things up by key: caches, indexes, configuration.</li><li>You count occurrences or group items.</li><li>You need fast membership tests or de-duplication (a hash set).</li><li>You want to replace a nested loop with a single pass.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>You need keys in sorted order or range queries (use a <a href="../binary-search-tree/">balanced search tree</a>).</li><li>You search by prefix (use a <a href="../trie/">trie</a>).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Using mutable objects as keys and then modifying them.</li><li>In Java, overriding <code>equals</code> without <code>hashCode</code>, so equal objects land in different buckets.</li><li>Relying on iteration order where the language does not guarantee it.</li><li>In JavaScript, using a plain object as a map with untrusted keys such as <code>"__proto__"</code>. Use <code>Map</code>.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Two Sum: find two numbers that add to a target.</summary><p>For each number, check whether target − number is already in a hash map; otherwise store the number. O(n).</p></details><details><summary>Group words that are anagrams of each other.</summary><p>Use the sorted letters of each word as the key and append the word to that key's list.</p></details><details><summary>Find the first non-repeating character in a string.</summary><p>Count characters in one pass, then scan again for the first with count 1.</p></details><details><summary>Design an LRU cache.</summary><p>A hash map from key to node plus a doubly linked list ordered by recency gives O(1) get and put.</p></details><details><summary>How does a HashMap handle collisions?</summary><p>By chaining entries in the same bucket (or probing for another slot) and comparing keys with equals during lookup.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>Why is a hash table lookup O(1)?</summary><p>The hash function computes the bucket index directly from the key, so the table goes straight to one bucket instead of searching. With a good hash and a controlled load factor, each bucket holds only a few entries.</p></details><details><summary>What is a collision in hashing?</summary><p>Two different keys mapping to the same bucket. It is handled by chaining (keeping a list in each bucket) or open addressing (probing for another free slot).</p></details><details><summary>What is the difference between a hash map and a hash set?</summary><p>A hash map stores key–value pairs. A hash set stores keys only and answers the question 'is this item present?'.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../queue/" rel="prev"><small>Previous</small>Queues</a><a class="next" href="../binary-tree/" rel="next"><small>Next</small>Binary Trees &amp; Traversals</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

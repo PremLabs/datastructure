@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binary Search Tree (BST) Explained Visually: Insert, Search, Delete with Code | PremLabs</title>
+  <meta name="description" content="Interactive binary search tree tutorial. Watch insert, search and delete step by step, understand balance and O(log n), with BST code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/binary-search-tree/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Binary Search Tree (BST) Explained Visually: Insert, Search, Delete with Code | PremLabs">
+  <meta property="og:description" content="Interactive binary search tree tutorial. Watch insert, search and delete step by step, understand balance and O(log n), with BST code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/binary-search-tree/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Binary Search Tree (BST) Explained Visually: Insert, Search, Delete with Code | PremLabs">
+  <meta name="twitter:description" content="Interactive binary search tree tutorial. Watch insert, search and delete step by step, understand balance and O(log n), with BST code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/binary-search-tree/#article", "headline": "Binary Search Tree (BST) Explained Visually: Insert, Search, Delete with Code", "name": "Binary Search Trees", "description": "Interactive binary search tree tutorial. Watch insert, search and delete step by step, understand balance and O(log n), with BST code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/binary-search-tree/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/binary-search-tree/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Intermediate", "teaches": "Binary Search Trees", "about": {"@type": "Thing", "name": "Binary Search Trees"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Binary Search Trees", "item": "https://premlabs.github.io/datastructure/binary-search-tree/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the time complexity of a binary search tree?", "acceptedAnswer": {"@type": "Answer", "text": "Search, insert and delete are O(h), where h is the height. That is O(log n) for a balanced tree and O(n) in the worst case for an unbalanced one."}}, {"@type": "Question", "name": "What happens when you insert sorted data into a BST?", "acceptedAnswer": {"@type": "Answer", "text": "Each new key goes to the right of the previous one, producing a tree shaped like a linked list with O(n) operations. Self-balancing trees such as AVL and red-black trees prevent this."}}, {"@type": "Question", "name": "How do you delete a node with two children?", "acceptedAnswer": {"@type": "Answer", "text": "Replace its key with its in-order successor (the smallest key in its right subtree), then delete that successor node."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/" aria-current="page">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Trees</p>
+<h1>Binary Search Trees</h1>
+<p class="lede">A binary search tree (BST) is a binary tree with one rule: every key in a node's left subtree is smaller than the node, and every key in its right subtree is larger. That rule turns each comparison into a decision that discards half the tree.</p>
+<ul class="facts"><li>Level: <b>Intermediate</b></li><li>Read time: <b>12 min</b></li><li>Balanced: <b>O(log n)</b></li><li>Worst case: <b>O(n)</b></li></ul>
+
+<h2 id="what">What is a binary search tree?</h2>
+<p><a href="../binary-search/">Binary search</a> on a sorted array is fast, but inserting into a sorted array is O(n) because of shifting. A BST gives you the same halving search in a structure that is cheap to modify.</p>
+<p>The ordering rule holds at <em>every</em> node, not only the root. To find a key, start at the root: if the key is smaller go left, if larger go right, and repeat. Each step moves one level down, so the cost is the height of the tree. For a balanced tree of a million keys that is about 20 comparisons.</p>
+<h2 id="visual">Try it: insert, search, delete</h2>
+<p>Search for 60 and follow the path. Then press <em>Sorted insert</em> to see what goes wrong without balancing.</p>
+
+<div data-viz="bst" aria-label="Interactive Binary Search Trees visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="how">How the operations work</h2>
+<h3>Search</h3>
+<p>Compare with the current node and go left or right until you find the key or run out of tree.</p>
+<h3>Insert</h3>
+<p>Search for the key. The empty spot where the search fails is exactly where the new node belongs. New keys always become leaves.</p>
+<h3>Delete: three cases</h3>
+<ol>
+<li><strong>Leaf:</strong> remove it.</li>
+<li><strong>One child:</strong> replace the node with its child.</li>
+<li><strong>Two children:</strong> find the node's <em>in-order successor</em>, the smallest key in its right subtree. Copy that key into the node, then delete the successor (which has at most one child, so it falls under case 1 or 2). The successor is the next key in sorted order, so the ordering rule is preserved. In the visualizer, delete 50 from the starting tree to see it.</li>
+</ol>
+<h2 id="balance">Why balance matters</h2>
+<p>All three operations cost O(h), where h is the height. A BST's shape depends on insertion order. Insert 10, 20, 30, 40, 50 in that order and every node goes to the right of the last: the tree is a linked list of height n − 1 and every operation is O(n).</p>
+<p><strong>Self-balancing trees</strong> fix this by restructuring with <em>rotations</em> after insertions and deletions so the height stays O(log n):</p>
+<ul>
+<li><strong>AVL trees</strong> keep the heights of the two subtrees of every node within 1 of each other. Strictly balanced, fastest lookups.</li>
+<li><strong>Red-black trees</strong> allow slightly more imbalance in exchange for fewer rotations. Java's <code>TreeMap</code> and <code>TreeSet</code> and C++'s <code>std::map</code> are red-black trees.</li>
+<li><strong>B-trees</strong> store many keys per node and are what database indexes use.</li>
+</ul>
+<h2 id="vs-hash">BST or hash table?</h2>
+<p>A <a href="../hash-table/">hash table</a> has faster lookups (O(1) on average) but keeps no order. A balanced BST gives O(log n) lookups <em>and</em> sorted iteration, minimum and maximum, the next key above or below a value, and range queries such as "all orders between two dates".</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Search</td><td><code>O(log n)</code></td><td><code>O(n)</code></td><td>Worst case is an unbalanced tree</td></tr><tr><td>Insert</td><td><code>O(log n)</code></td><td><code>O(n)</code></td><td></td></tr><tr><td>Delete</td><td><code>O(log n)</code></td><td><code>O(n)</code></td><td></td></tr><tr><td>Min / max</td><td><code>O(log n)</code></td><td><code>O(n)</code></td><td>Follow left / right pointers</td></tr><tr><td>In-order traversal (sorted)</td><td><code>O(n)</code></td><td><code>O(n)</code></td><td></td></tr></tbody></table></div>
+<h2 id="code">Binary Search Trees in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>class Node:
+    def __init__(self, key):
+        self.key = key
+        self.left = None
+        self.right = None
+
+
+class BST:
+    def __init__(self):
+        self.root = None
+
+    def insert(self, key):                # O(h), h = height
+        self.root = self._insert(self.root, key)
+
+    def _insert(self, node, key):
+        if node is None:
+            return Node(key)
+        if key &lt; node.key:
+            node.left = self._insert(node.left, key)
+        elif key &gt; node.key:
+            node.right = self._insert(node.right, key)
+        return node                       # equal keys are ignored
+
+    def contains(self, key):              # O(h), iterative
+        node = self.root
+        while node:
+            if key == node.key:
+                return True
+            node = node.left if key &lt; node.key else node.right
+        return False
+
+    def delete(self, key):                # O(h)
+        self.root = self._delete(self.root, key)
+
+    def _delete(self, node, key):
+        if node is None:
+            return None
+        if key &lt; node.key:
+            node.left = self._delete(node.left, key)
+        elif key &gt; node.key:
+            node.right = self._delete(node.right, key)
+        else:
+            if node.left is None:         # zero or one child
+                return node.right
+            if node.right is None:
+                return node.left
+            successor = node.right        # two children: smallest in right subtree
+            while successor.left:
+                successor = successor.left
+            node.key = successor.key
+            node.right = self._delete(node.right, successor.key)
+        return node
+
+    def sorted_keys(self):                # in-order traversal
+        out = []
+        def walk(node):
+            if node:
+                walk(node.left); out.append(node.key); walk(node.right)
+        walk(self.root)
+        return out
+
+
+tree = BST()
+for key in (50, 30, 70, 20, 40, 60, 80):
+    tree.insert(key)
+tree.delete(50)                           # root with two children
+print(tree.sorted_keys())                 # [20, 30, 40, 60, 70, 80]
+print(tree.contains(60), tree.contains(50))   # True False</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.ArrayList;
+import java.util.List;
+
+public class BST {
+    private static class Node {
+        int key; Node left, right;
+        Node(int key) { this.key = key; }
+    }
+
+    private Node root;
+
+    public void insert(int key) { root = insert(root, key); }       // O(h), h = height
+
+    private Node insert(Node node, int key) {
+        if (node == null) return new Node(key);
+        if (key &lt; node.key) node.left = insert(node.left, key);
+        else if (key &gt; node.key) node.right = insert(node.right, key);
+        return node;                                                // equal keys are ignored
+    }
+
+    public boolean contains(int key) {                              // O(h), iterative
+        Node node = root;
+        while (node != null) {
+            if (key == node.key) return true;
+            node = key &lt; node.key ? node.left : node.right;
+        }
+        return false;
+    }
+
+    public void delete(int key) { root = delete(root, key); }       // O(h)
+
+    private Node delete(Node node, int key) {
+        if (node == null) return null;
+        if (key &lt; node.key) node.left = delete(node.left, key);
+        else if (key &gt; node.key) node.right = delete(node.right, key);
+        else {
+            if (node.left == null) return node.right;               // zero or one child
+            if (node.right == null) return node.left;
+            Node successor = node.right;                            // two children
+            while (successor.left != null) successor = successor.left;
+            node.key = successor.key;
+            node.right = delete(node.right, successor.key);
+        }
+        return node;
+    }
+
+    public List&lt;Integer&gt; sortedKeys() {                             // in-order traversal
+        List&lt;Integer&gt; out = new ArrayList&lt;&gt;();
+        walk(root, out);
+        return out;
+    }
+
+    private void walk(Node node, List&lt;Integer&gt; out) {
+        if (node == null) return;
+        walk(node.left, out); out.add(node.key); walk(node.right, out);
+    }
+
+    public static void main(String[] args) {
+        BST tree = new BST();
+        for (int key : new int[]{50, 30, 70, 20, 40, 60, 80}) tree.insert(key);
+        tree.delete(50);                                            // root with two children
+        System.out.println(tree.sortedKeys());                      // [20, 30, 40, 60, 70, 80]
+        System.out.println(tree.contains(60) + &quot; &quot; + tree.contains(50)); // true false
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>class Node {
+  constructor(key) { this.key = key; this.left = null; this.right = null; }
+}
+
+class BST {
+  root = null;
+
+  insert(key) { this.root = this.#insert(this.root, key); }   // O(h), h = height
+
+  #insert(node, key) {
+    if (!node) return new Node(key);
+    if (key &lt; node.key) node.left = this.#insert(node.left, key);
+    else if (key &gt; node.key) node.right = this.#insert(node.right, key);
+    return node;                                              // equal keys are ignored
+  }
+
+  contains(key) {                                             // O(h), iterative
+    let node = this.root;
+    while (node) {
+      if (key === node.key) return true;
+      node = key &lt; node.key ? node.left : node.right;
+    }
+    return false;
+  }
+
+  delete(key) { this.root = this.#delete(this.root, key); }   // O(h)
+
+  #delete(node, key) {
+    if (!node) return null;
+    if (key &lt; node.key) node.left = this.#delete(node.left, key);
+    else if (key &gt; node.key) node.right = this.#delete(node.right, key);
+    else {
+      if (!node.left) return node.right;                      // zero or one child
+      if (!node.right) return node.left;
+      let successor = node.right;                             // two children
+      while (successor.left) successor = successor.left;
+      node.key = successor.key;
+      node.right = this.#delete(node.right, successor.key);
+    }
+    return node;
+  }
+
+  sortedKeys() {                                              // in-order traversal
+    const out = [];
+    const walk = node =&gt; { if (node) { walk(node.left); out.push(node.key); walk(node.right); } };
+    walk(this.root);
+    return out;
+  }
+}
+
+const tree = new BST();
+[50, 30, 70, 20, 40, 60, 80].forEach(key =&gt; tree.insert(key));
+tree.delete(50);                                              // root with two children
+console.log(tree.sortedKeys());                               // [20, 30, 40, 60, 70, 80]
+console.log(tree.contains(60), tree.contains(50));            // true false</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a (balanced) BST when</h3><ul><li>You need keys kept in sorted order while inserting and deleting.</li><li>You need range queries, or floor and ceiling lookups.</li><li>You need predictable O(log n) worst-case behaviour.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>You only need exact-match lookups (a <a href="../hash-table/">hash table</a> is simpler and faster).</li><li>You only ever need the smallest or largest item (a <a href="../heap/">heap</a> is lighter).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Validating a BST by comparing each node only with its direct children. The rule applies to whole subtrees: pass down an allowed (min, max) range instead.</li><li>Forgetting the two-children case in delete.</li><li>Assuming O(log n) for a plain BST fed with sorted data.</li><li>Not deciding how duplicates are handled.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Validate that a binary tree is a BST.</summary><p>Recurse with a lower and upper bound for each node, or check that the in-order traversal is strictly increasing.</p></details><details><summary>Find the k-th smallest element.</summary><p>In-order traversal, stopping at the k-th node visited.</p></details><details><summary>Lowest common ancestor in a BST.</summary><p>Walk from the root: the first node whose key lies between the two targets is the answer.</p></details><details><summary>Convert a sorted array to a balanced BST.</summary><p>Make the middle element the root and build the left and right halves recursively.</p></details><details><summary>Find the in-order successor of a node.</summary><p>If it has a right child, the leftmost node of that subtree; otherwise the nearest ancestor for which the node is in the left subtree.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the time complexity of a binary search tree?</summary><p>Search, insert and delete are O(h), where h is the height. That is O(log n) for a balanced tree and O(n) in the worst case for an unbalanced one.</p></details><details><summary>What happens when you insert sorted data into a BST?</summary><p>Each new key goes to the right of the previous one, producing a tree shaped like a linked list with O(n) operations. Self-balancing trees such as AVL and red-black trees prevent this.</p></details><details><summary>How do you delete a node with two children?</summary><p>Replace its key with its in-order successor (the smallest key in its right subtree), then delete that successor node.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../binary-tree/" rel="prev"><small>Previous</small>Binary Trees &amp; Traversals</a><a class="next" href="../heap/" rel="next"><small>Next</small>Heaps &amp; Priority Queues</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

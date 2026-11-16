@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Graph Data Structure Explained Visually: BFS, DFS &amp; Adjacency List with Code | PremLabs</title>
+  <meta name="description" content="Learn graphs with an animated BFS and DFS visualizer. Covers vertices, edges, adjacency list vs matrix, shortest paths and code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/graph/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Graph Data Structure Explained Visually: BFS, DFS &amp; Adjacency List with Code | PremLabs">
+  <meta property="og:description" content="Learn graphs with an animated BFS and DFS visualizer. Covers vertices, edges, adjacency list vs matrix, shortest paths and code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/graph/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Graph Data Structure Explained Visually: BFS, DFS &amp; Adjacency List with Code | PremLabs">
+  <meta name="twitter:description" content="Learn graphs with an animated BFS and DFS visualizer. Covers vertices, edges, adjacency list vs matrix, shortest paths and code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/graph/#article", "headline": "Graph Data Structure Explained Visually: BFS, DFS & Adjacency List with Code", "name": "Graphs: BFS & DFS", "description": "Learn graphs with an animated BFS and DFS visualizer. Covers vertices, edges, adjacency list vs matrix, shortest paths and code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/graph/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/graph/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Intermediate", "teaches": "Graphs: BFS & DFS", "about": {"@type": "Thing", "name": "Graphs: BFS & DFS"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Graphs: BFS & DFS", "item": "https://premlabs.github.io/datastructure/graph/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between BFS and DFS?", "acceptedAnswer": {"@type": "Answer", "text": "BFS visits vertices level by level using a queue and finds shortest paths in unweighted graphs. DFS follows one path as deep as possible using a stack or recursion before backtracking."}}, {"@type": "Question", "name": "What is the difference between a graph and a tree?", "acceptedAnswer": {"@type": "Answer", "text": "A tree is a connected graph with no cycles and exactly one path between any two nodes. A general graph may have cycles, several components and no root."}}, {"@type": "Question", "name": "Should I use an adjacency list or an adjacency matrix?", "acceptedAnswer": {"@type": "Answer", "text": "Use an adjacency list for most graphs: it needs O(V + E) memory and is fast to traverse. Use a matrix when the graph is dense or you need constant-time edge checks."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/" aria-current="page">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Graphs</p>
+<h1>Graphs: BFS &amp; DFS</h1>
+<p class="lede">A graph is a set of vertices (nodes) joined by edges. It is the most general data structure in this series: trees and linked lists are special cases, and maps, social networks and dependency systems are all graphs.</p>
+<ul class="facts"><li>Level: <b>Intermediate</b></li><li>Read time: <b>13 min</b></li><li>BFS / DFS: <b>O(V + E)</b></li><li>Space: <b>O(V)</b></li></ul>
+
+<h2 id="what">What is a graph?</h2>
+<p>Whenever you have things and relationships between pairs of them, you have a graph. Cities and roads. People and friendships. Web pages and links. Tasks and their dependencies.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Term</th><th>Meaning</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Vertex (node)</td><td>An item</td><td>A city</td></tr>
+<tr><td>Edge</td><td>A connection between two vertices</td><td>A road</td></tr>
+<tr><td>Undirected</td><td>Edges go both ways</td><td>Friendship</td></tr>
+<tr><td>Directed</td><td>Edges have a direction</td><td>"Follows" on social media</td></tr>
+<tr><td>Weighted</td><td>Edges carry a cost</td><td>Road distance</td></tr>
+<tr><td>Cycle</td><td>A path that returns to its start</td><td>A ring road</td></tr>
+</tbody></table></div>
+<p>Unlike a tree, a graph has no root, may contain cycles, and may be in several disconnected pieces. Every graph algorithm therefore has to remember which vertices it has already visited, or it will go round in circles.</p>
+<h2 id="visual">Try it: BFS versus DFS</h2>
+<p>Run both from node A and compare the visiting order. BFS spreads outward in rings; DFS dives down one path and backtracks.</p>
+
+<div data-viz="graph" aria-label="Interactive Graphs: BFS &amp; DFS visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="represent">How to store a graph</h2>
+<h3>Adjacency list</h3>
+<p>A map from each vertex to the list of its neighbours. Memory is O(V + E), and iterating over a vertex's neighbours takes time proportional to how many it has. This is the default choice, because most real graphs are sparse.</p>
+<h3>Adjacency matrix</h3>
+<p>A V × V grid where cell (i, j) says whether an edge exists. Checking a specific edge is O(1), but memory is O(V²) and listing neighbours is O(V). It suits small or dense graphs.</p>
+<h2 id="bfs">Breadth-first search (BFS)</h2>
+<p>BFS explores in layers: the start vertex, then everything one edge away, then two edges away. It uses a <a href="../queue/">queue</a>.</p>
+<ol>
+<li>Put the start vertex in the queue and mark it visited.</li>
+<li>Dequeue a vertex. For each unvisited neighbour: mark it and enqueue it.</li>
+<li>Repeat until the queue is empty.</li>
+</ol>
+<p>Because vertices are reached in order of distance, <strong>BFS finds the shortest path in an unweighted graph</strong>. Record each vertex's parent as you discover it, and you can walk back from the goal to reconstruct the route, as <code>shortest_path</code> does in the code below.</p>
+<h2 id="dfs">Depth-first search (DFS)</h2>
+<p>DFS follows one path as far as it can, then backtracks to the most recent vertex with an unexplored neighbour. It uses a <a href="../stack/">stack</a>, most simply the call stack through recursion.</p>
+<p>DFS is the basis for detecting cycles, topological sorting (ordering tasks so that each comes after its dependencies), finding connected components, and solving mazes and puzzles by backtracking.</p>
+<h2 id="choose">BFS or DFS?</h2>
+<div class="tablewrap"><table>
+<thead><tr><th></th><th>BFS</th><th>DFS</th></tr></thead>
+<tbody>
+<tr><td>Data structure</td><td>Queue</td><td>Stack / recursion</td></tr>
+<tr><td>Shortest path (unweighted)</td><td>Yes</td><td>No</td></tr>
+<tr><td>Memory</td><td>O(width of the frontier)</td><td>O(depth of the path)</td></tr>
+<tr><td>Typical uses</td><td>Shortest path, nearest match, level order</td><td>Cycle detection, topological sort, backtracking</td></tr>
+</tbody></table></div>
+<p>For weighted graphs with non-negative weights, the shortest path needs <strong>Dijkstra's algorithm</strong>, which is BFS with the queue replaced by a <a href="../heap/">priority queue</a>.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>BFS / DFS traversal</td><td><code>O(V + E)</code></td><td><code>O(V + E)</code></td><td>Adjacency list; O(V²) with a matrix</td></tr><tr><td>Add vertex</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td>Adjacency list</td></tr><tr><td>Add edge</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td>Adjacency list</td></tr><tr><td>Check whether an edge exists</td><td><code>O(degree)</code></td><td><code>O(V)</code></td><td>O(1) with a matrix or neighbour sets</td></tr><tr><td>Space</td><td><code>O(V + E)</code></td><td><code>O(V + E)</code></td><td>O(V²) with a matrix</td></tr></tbody></table></div>
+<h2 id="code">Graphs: BFS &amp; DFS in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>from collections import deque
+
+
+class Graph:
+    &quot;&quot;&quot;Undirected graph stored as an adjacency list.&quot;&quot;&quot;
+
+    def __init__(self):
+        self.adj = {}
+
+    def add_edge(self, u, v):
+        self.adj.setdefault(u, []).append(v)
+        self.adj.setdefault(v, []).append(u)
+
+    def bfs(self, start):                 # O(V + E), uses a queue
+        order, seen, queue = [], {start}, deque([start])
+        while queue:
+            node = queue.popleft()
+            order.append(node)
+            for nxt in self.adj[node]:
+                if nxt not in seen:       # mark when queued, not when popped
+                    seen.add(nxt)
+                    queue.append(nxt)
+        return order
+
+    def dfs(self, start):                 # O(V + E), uses recursion
+        order, seen = [], set()
+        def visit(node):
+            seen.add(node)
+            order.append(node)
+            for nxt in self.adj[node]:
+                if nxt not in seen:
+                    visit(nxt)
+        visit(start)
+        return order
+
+    def shortest_path(self, start, goal):   # fewest edges, via BFS
+        parent, queue = {start: None}, deque([start])
+        while queue:
+            node = queue.popleft()
+            if node == goal:
+                path = []
+                while node is not None:
+                    path.append(node)
+                    node = parent[node]
+                return path[::-1]
+            for nxt in self.adj[node]:
+                if nxt not in parent:
+                    parent[nxt] = node
+                    queue.append(nxt)
+        return None
+
+
+g = Graph()
+for u, v in [&quot;AB&quot;, &quot;AD&quot;, &quot;BC&quot;, &quot;BE&quot;, &quot;DE&quot;, &quot;CF&quot;, &quot;EG&quot;, &quot;FG&quot;]:
+    g.add_edge(u, v)
+print(g.bfs(&quot;A&quot;))                 # [&#x27;A&#x27;, &#x27;B&#x27;, &#x27;D&#x27;, &#x27;C&#x27;, &#x27;E&#x27;, &#x27;F&#x27;, &#x27;G&#x27;]
+print(g.dfs(&quot;A&quot;))                 # [&#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;, &#x27;F&#x27;, &#x27;G&#x27;, &#x27;E&#x27;, &#x27;D&#x27;]
+print(g.shortest_path(&quot;A&quot;, &quot;G&quot;))  # [&#x27;A&#x27;, &#x27;B&#x27;, &#x27;E&#x27;, &#x27;G&#x27;]</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.*;
+
+public class Graph {
+    private final Map&lt;String, List&lt;String&gt;&gt; adj = new LinkedHashMap&lt;&gt;();
+
+    public void addEdge(String u, String v) {              // undirected
+        adj.computeIfAbsent(u, k -&gt; new ArrayList&lt;&gt;()).add(v);
+        adj.computeIfAbsent(v, k -&gt; new ArrayList&lt;&gt;()).add(u);
+    }
+
+    public List&lt;String&gt; bfs(String start) {                // O(V + E), uses a queue
+        List&lt;String&gt; order = new ArrayList&lt;&gt;();
+        Set&lt;String&gt; seen = new HashSet&lt;&gt;(List.of(start));
+        Queue&lt;String&gt; queue = new ArrayDeque&lt;&gt;(List.of(start));
+        while (!queue.isEmpty()) {
+            String node = queue.poll();
+            order.add(node);
+            for (String next : adj.get(node)) {
+                if (seen.add(next)) queue.offer(next);     // mark when queued
+            }
+        }
+        return order;
+    }
+
+    public List&lt;String&gt; dfs(String start) {                // O(V + E), uses recursion
+        List&lt;String&gt; order = new ArrayList&lt;&gt;();
+        visit(start, new HashSet&lt;&gt;(), order);
+        return order;
+    }
+
+    private void visit(String node, Set&lt;String&gt; seen, List&lt;String&gt; order) {
+        seen.add(node);
+        order.add(node);
+        for (String next : adj.get(node)) {
+            if (!seen.contains(next)) visit(next, seen, order);
+        }
+    }
+
+    public List&lt;String&gt; shortestPath(String start, String goal) {   // fewest edges, via BFS
+        Map&lt;String, String&gt; parent = new HashMap&lt;&gt;();
+        parent.put(start, null);
+        Queue&lt;String&gt; queue = new ArrayDeque&lt;&gt;(List.of(start));
+        while (!queue.isEmpty()) {
+            String node = queue.poll();
+            if (node.equals(goal)) {
+                LinkedList&lt;String&gt; path = new LinkedList&lt;&gt;();
+                for (String n = goal; n != null; n = parent.get(n)) path.addFirst(n);
+                return path;
+            }
+            for (String next : adj.get(node)) {
+                if (!parent.containsKey(next)) { parent.put(next, node); queue.offer(next); }
+            }
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Graph g = new Graph();
+        for (String e : new String[]{&quot;AB&quot;, &quot;AD&quot;, &quot;BC&quot;, &quot;BE&quot;, &quot;DE&quot;, &quot;CF&quot;, &quot;EG&quot;, &quot;FG&quot;}) {
+            g.addEdge(e.substring(0, 1), e.substring(1));
+        }
+        System.out.println(g.bfs(&quot;A&quot;));                // [A, B, D, C, E, F, G]
+        System.out.println(g.dfs(&quot;A&quot;));                // [A, B, C, F, G, E, D]
+        System.out.println(g.shortestPath(&quot;A&quot;, &quot;G&quot;));  // [A, B, E, G]
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>class Graph {
+  adj = new Map();                         // adjacency list
+
+  addEdge(u, v) {                          // undirected
+    if (!this.adj.has(u)) this.adj.set(u, []);
+    if (!this.adj.has(v)) this.adj.set(v, []);
+    this.adj.get(u).push(v);
+    this.adj.get(v).push(u);
+  }
+
+  bfs(start) {                             // O(V + E), uses a queue
+    const order = [], seen = new Set([start]), queue = [start];
+    for (let head = 0; head &lt; queue.length; head++) {
+      const node = queue[head];
+      order.push(node);
+      for (const next of this.adj.get(node)) {
+        if (!seen.has(next)) { seen.add(next); queue.push(next); }  // mark when queued
+      }
+    }
+    return order;
+  }
+
+  dfs(start) {                             // O(V + E), uses recursion
+    const order = [], seen = new Set();
+    const visit = node =&gt; {
+      seen.add(node);
+      order.push(node);
+      for (const next of this.adj.get(node)) if (!seen.has(next)) visit(next);
+    };
+    visit(start);
+    return order;
+  }
+
+  shortestPath(start, goal) {              // fewest edges, via BFS
+    const parent = new Map([[start, null]]), queue = [start];
+    for (let head = 0; head &lt; queue.length; head++) {
+      const node = queue[head];
+      if (node === goal) {
+        const path = [];
+        for (let n = goal; n !== null; n = parent.get(n)) path.unshift(n);
+        return path;
+      }
+      for (const next of this.adj.get(node)) {
+        if (!parent.has(next)) { parent.set(next, node); queue.push(next); }
+      }
+    }
+    return null;
+  }
+}
+
+const g = new Graph();
+[&#x27;AB&#x27;, &#x27;AD&#x27;, &#x27;BC&#x27;, &#x27;BE&#x27;, &#x27;DE&#x27;, &#x27;CF&#x27;, &#x27;EG&#x27;, &#x27;FG&#x27;].forEach(([u, v]) =&gt; g.addEdge(u, v));
+console.log(g.bfs(&#x27;A&#x27;));                   // A B D C E F G
+console.log(g.dfs(&#x27;A&#x27;));                   // A B C F G E D
+console.log(g.shortestPath(&#x27;A&#x27;, &#x27;G&#x27;));     // A B E G</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use a graph when</h3><ul><li>Relationships between items matter as much as the items.</li><li>You need routes, reachability or dependencies.</li><li>The connections are many-to-many and may contain cycles.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>The data is strictly hierarchical with one parent per item (a <a href="../binary-tree/">tree</a> is simpler).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Not tracking visited vertices, causing an infinite loop on any cycle.</li><li>In BFS, marking a vertex visited when it is dequeued rather than when it is enqueued, so the same vertex is queued many times.</li><li>Adding only one direction of an undirected edge.</li><li>Using DFS to find a shortest path.</li><li>Assuming the graph is connected. Loop over all vertices and start a search from each unvisited one.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Count the number of islands in a grid.</summary><p>Treat each land cell as a vertex connected to its four neighbours; run BFS or DFS from every unvisited land cell and count the searches.</p></details><details><summary>Detect a cycle in a directed graph.</summary><p>DFS with three states: unvisited, in the current path, finished. Reaching a vertex that is in the current path means a cycle.</p></details><details><summary>Course schedule: can all courses be finished given prerequisites?</summary><p>Topological sort. With Kahn's algorithm, repeatedly remove vertices with no incoming edges; if any remain, there is a cycle.</p></details><details><summary>Find the shortest path in an unweighted graph or maze.</summary><p>BFS, recording parents or distances.</p></details><details><summary>Clone a graph.</summary><p>Traverse with a hash map from each original vertex to its copy.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the difference between BFS and DFS?</summary><p>BFS visits vertices level by level using a queue and finds shortest paths in unweighted graphs. DFS follows one path as deep as possible using a stack or recursion before backtracking.</p></details><details><summary>What is the difference between a graph and a tree?</summary><p>A tree is a connected graph with no cycles and exactly one path between any two nodes. A general graph may have cycles, several components and no root.</p></details><details><summary>Should I use an adjacency list or an adjacency matrix?</summary><p>Use an adjacency list for most graphs: it needs O(V + E) memory and is fast to traverse. Use a matrix when the graph is dense or you need constant-time edge checks.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../trie/" rel="prev"><small>Previous</small>Tries (Prefix Trees)</a><a class="next" href="../binary-search/" rel="next"><small>Next</small>Binary Search</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

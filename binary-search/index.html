@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Binary Search Explained Visually: Step-by-Step Algorithm with Code | PremLabs</title>
+  <meta name="description" content="Interactive binary search tutorial. Watch lo, mid and hi move as the search space halves, learn lower bound and common bugs, with code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/binary-search/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Binary Search Explained Visually: Step-by-Step Algorithm with Code | PremLabs">
+  <meta property="og:description" content="Interactive binary search tutorial. Watch lo, mid and hi move as the search space halves, learn lower bound and common bugs, with code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/binary-search/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Binary Search Explained Visually: Step-by-Step Algorithm with Code | PremLabs">
+  <meta name="twitter:description" content="Interactive binary search tutorial. Watch lo, mid and hi move as the search space halves, learn lower bound and common bugs, with code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/binary-search/#article", "headline": "Binary Search Explained Visually: Step-by-Step Algorithm with Code", "name": "Binary Search", "description": "Interactive binary search tutorial. Watch lo, mid and hi move as the search space halves, learn lower bound and common bugs, with code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/binary-search/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/binary-search/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Beginner", "teaches": "Binary Search", "about": {"@type": "Thing", "name": "Binary Search"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Binary Search", "item": "https://premlabs.github.io/datastructure/binary-search/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does binary search work on unsorted arrays?", "acceptedAnswer": {"@type": "Answer", "text": "No. It depends on knowing that everything left of the middle is smaller and everything right is larger. On unsorted data use a linear scan, or sort first if you will search many times."}}, {"@type": "Question", "name": "What is the time complexity of binary search?", "acceptedAnswer": {"@type": "Answer", "text": "O(log n) time and O(1) extra space for the iterative version. A million sorted items need at most about 20 comparisons."}}, {"@type": "Question", "name": "Why write lo + (hi - lo) / 2 instead of (lo + hi) / 2?", "acceptedAnswer": {"@type": "Answer", "text": "Both give the same middle, but lo + hi can exceed the maximum value of a fixed-size integer for very large arrays. The first form cannot overflow."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/" aria-current="page">Binary Search</a></li><li><a href="../sorting-algorithms/">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Algorithms</p>
+<h1>Binary Search</h1>
+<p class="lede">Binary search finds a value in a sorted array by repeatedly comparing with the middle element and discarding the half that cannot contain the target. Each step halves the remaining work.</p>
+<ul class="facts"><li>Level: <b>Beginner</b></li><li>Read time: <b>8 min</b></li><li>Time: <b>O(log n)</b></li><li>Requires: <b>Sorted data</b></li></ul>
+
+<h2 id="what">The idea</h2>
+<p>You are looking for a word in a printed dictionary. You do not start at page one. You open near the middle, see whether your word comes before or after that page, and ignore the other half. Then you repeat on what is left. That is binary search.</p>
+<p>It keeps two boundaries, <code>lo</code> and <code>hi</code>, around the part of the array that could still contain the target:</p>
+<ol>
+<li>Look at the middle element, <code>mid</code>.</li>
+<li>If it is the target, stop.</li>
+<li>If it is smaller than the target, the target must be to the right: set <code>lo = mid + 1</code>.</li>
+<li>If it is larger, the target must be to the left: set <code>hi = mid − 1</code>.</li>
+<li>Repeat until found or until <code>lo</code> passes <code>hi</code>.</li>
+</ol>
+<h2 id="visual">Try it: watch the range shrink</h2>
+<p>Search for a value in the array, then for one that is not there. Count the steps.</p>
+
+<div data-viz="binarysearch" aria-label="Interactive Binary Search visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="why">Why it is O(log n)</h2>
+<p>Every comparison halves the candidates. Starting from n, after k steps n / 2<sup>k</sup> remain; the search ends when that reaches 1, so k = log₂ n.</p>
+<div class="tablewrap"><table>
+<thead><tr><th>Array size</th><th>Linear search (worst)</th><th>Binary search (worst)</th></tr></thead>
+<tbody>
+<tr><td>1,000</td><td>1,000</td><td>10</td></tr>
+<tr><td>1,000,000</td><td>1,000,000</td><td>20</td></tr>
+<tr><td>1,000,000,000</td><td>1,000,000,000</td><td>30</td></tr>
+</tbody></table></div>
+<p>The requirement is that the data is <strong>sorted</strong> and supports <strong>random access</strong>. On unsorted data the comparison with the middle tells you nothing about which half to discard, and on a linked list reaching the middle is itself O(n).</p>
+<h2 id="details">Three details that cause most bugs</h2>
+<ul>
+<li><strong>The loop condition.</strong> With an inclusive range <code>[lo, hi]</code> use <code>while lo &lt;= hi</code>. With <code>&lt;</code> you skip the case of one remaining element.</li>
+<li><strong>Moving the boundaries.</strong> Use <code>mid + 1</code> and <code>mid − 1</code>. Setting <code>lo = mid</code> can loop forever when two elements are left.</li>
+<li><strong>Computing the middle.</strong> In languages with fixed-size integers, <code>(lo + hi) / 2</code> can overflow for very large arrays. Write <code>lo + (hi − lo) / 2</code>.</li>
+</ul>
+<h2 id="lower-bound">Lower bound: binary search beyond exact match</h2>
+<p>A more general version finds the <em>first position whose value is at least the target</em>. It answers "where would this value be inserted?", locates the first occurrence among duplicates, and is the form behind Python's <code>bisect_left</code>. It uses a half-open range <code>[lo, hi)</code> and never returns early; see <code>lower_bound</code> in the code below.</p>
+<p>The same halving idea works on any <em>monotonic</em> condition: one that is false up to some point and true afterwards. "What is the smallest capacity that ships all packages within D days?" has no array in it, yet it is solved by binary search over the possible answers.</p>
+
+<h2 id="complexity">Time complexity</h2>
+<div class="tablewrap"><table><thead><tr><th>Operation</th><th>Average</th><th>Worst</th><th>Notes</th></tr></thead><tbody><tr><td>Search</td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td>Best case O(1): found at the first middle</td></tr><tr><td>Space (iterative)</td><td><code>O(1)</code></td><td><code>O(1)</code></td><td></td></tr><tr><td>Space (recursive)</td><td><code>O(log n)</code></td><td><code>O(log n)</code></td><td>Call stack</td></tr><tr><td>Prerequisite: sorting</td><td><code>O(n log n)</code></td><td><code>O(n log n)</code></td><td>Only worth it for repeated searches</td></tr></tbody></table></div>
+<h2 id="code">Binary Search in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>import bisect
+
+
+def binary_search(items, target):         # O(log n); items must be sorted
+    lo, hi = 0, len(items) - 1
+    while lo &lt;= hi:
+        mid = lo + (hi - lo) // 2
+        if items[mid] == target:
+            return mid
+        if items[mid] &lt; target:
+            lo = mid + 1                  # target is in the right half
+        else:
+            hi = mid - 1                  # target is in the left half
+    return -1
+
+
+def lower_bound(items, target):
+    &quot;&quot;&quot;First index whose value is &gt;= target (the insertion point).&quot;&quot;&quot;
+    lo, hi = 0, len(items)                # note: hi is one past the end
+    while lo &lt; hi:
+        mid = lo + (hi - lo) // 2
+        if items[mid] &lt; target:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo
+
+
+nums = [3, 8, 15, 15, 15, 23, 42, 57]
+print(binary_search(nums, 23))            # 5
+print(binary_search(nums, 9))             # -1
+print(lower_bound(nums, 15))              # 2  (first 15)
+print(bisect.bisect_left(nums, 15))       # 2  (standard library equivalent)</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.Arrays;
+
+public class BinarySearch {
+    static int binarySearch(int[] items, int target) {     // O(log n); items must be sorted
+        int lo = 0, hi = items.length - 1;
+        while (lo &lt;= hi) {
+            int mid = lo + (hi - lo) / 2;                  // avoids int overflow of (lo + hi)
+            if (items[mid] == target) return mid;
+            if (items[mid] &lt; target) lo = mid + 1;         // target is in the right half
+            else hi = mid - 1;                             // target is in the left half
+        }
+        return -1;
+    }
+
+    /** First index whose value is &gt;= target (the insertion point). */
+    static int lowerBound(int[] items, int target) {
+        int lo = 0, hi = items.length;                     // note: hi is one past the end
+        while (lo &lt; hi) {
+            int mid = lo + (hi - lo) / 2;
+            if (items[mid] &lt; target) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {3, 8, 15, 15, 15, 23, 42, 57};
+        System.out.println(binarySearch(nums, 23));        // 5
+        System.out.println(binarySearch(nums, 9));         // -1
+        System.out.println(lowerBound(nums, 15));          // 2  (first 15)
+        System.out.println(Arrays.binarySearch(nums, 42)); // 6  (standard library)
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>function binarySearch(items, target) {     // O(log n); items must be sorted
+  let lo = 0, hi = items.length - 1;
+  while (lo &lt;= hi) {
+    const mid = lo + Math.floor((hi - lo) / 2);
+    if (items[mid] === target) return mid;
+    if (items[mid] &lt; target) lo = mid + 1; // target is in the right half
+    else hi = mid - 1;                     // target is in the left half
+  }
+  return -1;
+}
+
+// First index whose value is &gt;= target (the insertion point).
+function lowerBound(items, target) {
+  let lo = 0, hi = items.length;           // note: hi is one past the end
+  while (lo &lt; hi) {
+    const mid = lo + Math.floor((hi - lo) / 2);
+    if (items[mid] &lt; target) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
+const nums = [3, 8, 15, 15, 15, 23, 42, 57];
+console.log(binarySearch(nums, 23));       // 5
+console.log(binarySearch(nums, 9));        // -1
+console.log(lowerBound(nums, 15));         // 2  (first 15)</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Use binary search when</h3><ul><li>The data is sorted and stored in an array.</li><li>You search the same data many times.</li><li>The answer lies in a numeric range and you can test whether a guess is too low or too high.</li></ul>
+<h3>Look elsewhere when</h3><ul><li>The data is unsorted and searched only once (a linear scan is cheaper than sorting first).</li><li>The data changes constantly (use a <a href="../binary-search-tree/">balanced tree</a> or a <a href="../hash-table/">hash table</a>).</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Running it on unsorted data. It returns wrong answers silently.</li><li><code>while lo &lt; hi</code> with an inclusive <code>hi</code>, missing the last candidate.</li><li><code>lo = mid</code> instead of <code>lo = mid + 1</code>, causing an infinite loop.</li><li>Integer overflow in <code>(lo + hi) / 2</code> in Java, C or C++.</li><li>Expecting the first occurrence when duplicates exist. Plain binary search returns any match; use lower bound.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Find the first and last position of a target in a sorted array.</summary><p>Lower bound of the target, and lower bound of target + 1 minus one.</p></details><details><summary>Search in a rotated sorted array.</summary><p>At each step one half is still sorted; check whether the target lies in that half and discard accordingly.</p></details><details><summary>Find the square root of an integer, rounded down.</summary><p>Binary search on the answer between 0 and x.</p></details><details><summary>Find a peak element.</summary><p>If the middle is smaller than its right neighbour a peak lies to the right; otherwise to the left.</p></details><details><summary>Find the minimum eating speed / shipping capacity.</summary><p>Binary search over the answer with a feasibility check that is monotonic.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>Does binary search work on unsorted arrays?</summary><p>No. It depends on knowing that everything left of the middle is smaller and everything right is larger. On unsorted data use a linear scan, or sort first if you will search many times.</p></details><details><summary>What is the time complexity of binary search?</summary><p>O(log n) time and O(1) extra space for the iterative version. A million sorted items need at most about 20 comparisons.</p></details><details><summary>Why write lo + (hi - lo) / 2 instead of (lo + hi) / 2?</summary><p>Both give the same middle, but lo + hi can exceed the maximum value of a fixed-size integer for very large arrays. The first form cannot overflow.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../graph/" rel="prev"><small>Previous</small>Graphs: BFS &amp; DFS</a><a class="next" href="../sorting-algorithms/" rel="next"><small>Next</small>Sorting Algorithms</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>

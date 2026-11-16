@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sorting Algorithms Visualized: Bubble, Selection, Insertion, Merge &amp; Quick Sort | PremLabs</title>
+  <meta name="description" content="Interactive sorting visualizer. Step through bubble, selection, insertion, merge and quick sort, compare time complexity and stability, with code in Python, Java and JavaScript.">
+  <meta name="author" content="Prem Sarojanand">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://premlabs.github.io/datastructure/sorting-algorithms/">
+  <meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="PremLabs">
+  <meta property="og:title" content="Sorting Algorithms Visualized: Bubble, Selection, Insertion, Merge &amp; Quick Sort | PremLabs">
+  <meta property="og:description" content="Interactive sorting visualizer. Step through bubble, selection, insertion, merge and quick sort, compare time complexity and stability, with code in Python, Java and JavaScript.">
+  <meta property="og:url" content="https://premlabs.github.io/datastructure/sorting-algorithms/">
+  <meta property="og:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sorting Algorithms Visualized: Bubble, Selection, Insertion, Merge &amp; Quick Sort | PremLabs">
+  <meta name="twitter:description" content="Interactive sorting visualizer. Step through bubble, selection, insertion, merge and quick sort, compare time complexity and stability, with code in Python, Java and JavaScript.">
+  <meta name="twitter:image" content="https://premlabs.github.io/datastructure/assets/og.png">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css?v=2">
+  <script src="../assets/viz.js?v=2" defer></script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["TechArticle", "LearningResource"], "@id": "https://premlabs.github.io/datastructure/sorting-algorithms/#article", "headline": "Sorting Algorithms Visualized: Bubble, Selection, Insertion, Merge & Quick Sort", "name": "Sorting Algorithms", "description": "Interactive sorting visualizer. Step through bubble, selection, insertion, merge and quick sort, compare time complexity and stability, with code in Python, Java and JavaScript.", "url": "https://premlabs.github.io/datastructure/sorting-algorithms/", "mainEntityOfPage": "https://premlabs.github.io/datastructure/sorting-algorithms/", "image": "https://premlabs.github.io/datastructure/assets/og.png", "author": {"@type": "Person", "name": "Prem Sarojanand", "url": "https://premlabs.github.io/", "jobTitle": "Senior Software Engineer"}, "publisher": {"@type": "Organization", "name": "PremLabs", "url": "https://premlabs.github.io/", "logo": {"@type": "ImageObject", "url": "https://premlabs.github.io/datastructure/assets/og.png"}}, "datePublished": "2026-11-16", "dateModified": "2026-11-16", "inLanguage": "en", "learningResourceType": "Tutorial", "educationalLevel": "Beginner to intermediate", "teaches": "Sorting Algorithms", "about": {"@type": "Thing", "name": "Sorting Algorithms"}, "isAccessibleForFree": true, "programmingLanguage": ["Python", "Java", "JavaScript"], "isPartOf": {"@id": "https://premlabs.github.io/datastructure/#course"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "PremLabs", "item": "https://premlabs.github.io/"}, {"@type": "ListItem", "position": 2, "name": "Data Structures & Algorithms", "item": "https://premlabs.github.io/datastructure/"}, {"@type": "ListItem", "position": 3, "name": "Sorting Algorithms", "item": "https://premlabs.github.io/datastructure/sorting-algorithms/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Which sorting algorithm is the fastest?", "acceptedAnswer": {"@type": "Answer", "text": "For general data, O(n log n) algorithms such as quick sort, merge sort and Timsort. Quick sort is often fastest in memory on average; merge sort and Timsort guarantee O(n log n) and are stable."}}, {"@type": "Question", "name": "What is a stable sorting algorithm?", "acceptedAnswer": {"@type": "Answer", "text": "One that keeps items with equal keys in their original order. Bubble, insertion and merge sort are stable; selection sort and quick sort are not."}}, {"@type": "Question", "name": "What is the difference between merge sort and quick sort?", "acceptedAnswer": {"@type": "Answer", "text": "Merge sort splits first and does its work while merging, always O(n log n), using O(n) extra space. Quick sort does its work while partitioning around a pivot, sorts in place, and is O(n log n) on average but O(n²) in the worst case."}}]}]}</script>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-TLJBPCN6');</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MZDBK7RPZJ"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MZDBK7RPZJ');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TLJBPCN6" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="../">PremLabs <span>DSA</span></a>
+  <nav class="nav-links" aria-label="Main">
+    <a href="../#tutorials">Tutorials</a>
+    <a class="opt" href="../sorting-algorithms/">Visualizer</a>
+    <a class="opt" href="https://github.com/PremLabs/datastructure">GitHub</a>
+    <a class="pill-link" href="https://premlabs.github.io/">Hire me</a>
+  </nav>
+</div></header>
+
+<div class="layout">
+<nav class="side" aria-label="All tutorials"><h2>Foundations</h2><ol><li><a href="../big-o/">Big-O Notation</a></li></ol><h2 style="margin-top:1.2rem">Linear structures</h2><ol><li><a href="../arrays/">Arrays</a></li><li><a href="../linked-list/">Linked Lists</a></li><li><a href="../stack/">Stacks</a></li><li><a href="../queue/">Queues</a></li></ol><h2 style="margin-top:1.2rem">Key-value structures</h2><ol><li><a href="../hash-table/">Hash Tables</a></li></ol><h2 style="margin-top:1.2rem">Trees</h2><ol><li><a href="../binary-tree/">Binary Trees &amp; Traversals</a></li><li><a href="../binary-search-tree/">Binary Search Trees</a></li><li><a href="../heap/">Heaps &amp; Priority Queues</a></li><li><a href="../trie/">Tries (Prefix Trees)</a></li></ol><h2 style="margin-top:1.2rem">Graphs</h2><ol><li><a href="../graph/">Graphs: BFS &amp; DFS</a></li></ol><h2 style="margin-top:1.2rem">Algorithms</h2><ol><li><a href="../binary-search/">Binary Search</a></li><li><a href="../sorting-algorithms/" aria-current="page">Sorting Algorithms</a></li></ol></nav>
+<article id="main">
+<p class="crumbs"><a href="../">Data Structures &amp; Algorithms</a> › Algorithms</p>
+<h1>Sorting Algorithms</h1>
+<p class="lede">Sorting puts items in order, and it is the gateway to faster algorithms: binary search, duplicate detection and merging all start from sorted data. These five algorithms cover the ideas every other sort is built from.</p>
+<ul class="facts"><li>Level: <b>Beginner to intermediate</b></li><li>Read time: <b>14 min</b></li><li>Algorithms: <b>5</b></li><li>Best general: <b>O(n log n)</b></li></ul>
+
+<h2 id="visual">Try it: watch them sort</h2>
+<p>Pick an algorithm and press Play, or use Step to move one operation at a time. Switch algorithms on the same data and compare the comparison counter: at 22 values the gap between the O(n²) sorts and the O(n log n) sorts is already plain.</p>
+
+<div data-viz="sorting" aria-label="Interactive Sorting Algorithms visualizer"><noscript><p class="note">The interactive visualizer needs JavaScript. Everything else on this page works without it.</p></noscript></div>
+
+<h2 id="compare">Comparison at a glance</h2>
+<div class="tablewrap"><table>
+<thead><tr><th>Algorithm</th><th>Best</th><th>Average</th><th>Worst</th><th>Space</th><th>Stable</th></tr></thead>
+<tbody>
+<tr><td>Bubble sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>Yes</td></tr>
+<tr><td>Selection sort</td><td>O(n²)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>No</td></tr>
+<tr><td>Insertion sort</td><td>O(n)</td><td>O(n²)</td><td>O(n²)</td><td>O(1)</td><td>Yes</td></tr>
+<tr><td>Merge sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>Yes</td></tr>
+<tr><td>Quick sort</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n²)</td><td>O(log n)</td><td>No</td></tr>
+</tbody></table></div>
+<p>A sort is <strong>stable</strong> if items that compare equal keep their original relative order. It matters when you sort records by one field after another: sort by name, then stably by department, and names stay alphabetical within each department.</p>
+<h2 id="bubble">Bubble sort</h2>
+<p>Walk through the array comparing each pair of neighbours and swapping them if they are out of order. After one pass the largest value has "bubbled" to the end. Repeat for the rest. If a pass makes no swaps the array is sorted and you can stop, which gives the O(n) best case. It is simple to understand and almost never the right choice in practice.</p>
+<h2 id="selection">Selection sort</h2>
+<p>Find the smallest value in the unsorted part and swap it into the first unsorted position. Repeat. It always does about n²/2 comparisons, even on sorted input, but makes at most n − 1 swaps, which is its one advantage when writes are expensive.</p>
+<h2 id="insertion">Insertion sort</h2>
+<p>Grow a sorted section from the left. Take the next value and slide it leftward past every larger value until it is in place, the way most people sort a hand of cards. On nearly sorted data very little sliding is needed and it runs in close to O(n). That, and its low overhead, is why production sorts switch to insertion sort for small sub-arrays.</p>
+<h2 id="merge">Merge sort</h2>
+<p>Divide and conquer. Split the array in half, sort each half recursively, then <em>merge</em> the two sorted halves by repeatedly taking the smaller front element. Splitting gives log n levels and each level does O(n) merging work, so it is O(n log n) in every case. It is stable and predictable; the cost is O(n) extra memory. It is also the natural choice for linked lists and for data too large to fit in memory.</p>
+<h2 id="quick">Quick sort</h2>
+<p>Also divide and conquer, but the work happens before the recursion. Choose a <strong>pivot</strong>, then <strong>partition</strong> the array so everything smaller is on its left and everything larger on its right. The pivot is now in its final position. Recurse on the two sides. On average the partitions are reasonably even and it runs in O(n log n) with excellent constant factors and no extra array.</p>
+<p>The weakness is a bad pivot. If the pivot is always the smallest or largest value, as happens with a last-element pivot on already sorted data, each partition removes only one element and the cost becomes O(n²). Choosing a random pivot or the median of three makes that practically impossible.</p>
+<h2 id="real">What real libraries use</h2>
+<ul>
+<li><strong>Python</strong> <code>sorted()</code> and <code>list.sort()</code>: Timsort, a hybrid of merge sort and insertion sort that exploits existing runs in the data. Stable.</li>
+<li><strong>Java</strong>: Timsort for objects (stable), dual-pivot quick sort for primitives.</li>
+<li><strong>JavaScript</strong> <code>Array.prototype.sort</code>: stable by specification since ES2019; V8 uses Timsort. Remember that without a comparator it sorts as strings, so <code>[10, 9, 1].sort()</code> gives <code>[1, 10, 9]</code>.</li>
+</ul>
+<p>In real code, call the built-in sort. Learn these algorithms for the ideas (divide and conquer, partitioning, merging, stability) that reappear throughout algorithm design.</p>
+
+<h2 id="code">Sorting Algorithms in Python, Java and JavaScript</h2>
+<p>Every sample below runs as is and prints the results shown in its comments. Switch language with the tabs; your choice is remembered on every page.</p>
+<div class="code"><div class="tabs" role="tablist" aria-label="Language"><button type="button" role="tab" data-lang="py" aria-selected="true" tabindex="0">Python</button><button type="button" role="tab" data-lang="java" aria-selected="false" tabindex="-1">Java</button><button type="button" role="tab" data-lang="js" aria-selected="false" tabindex="-1">JavaScript</button><button type="button" class="copy">Copy</button></div><pre data-lang="py" role="tabpanel" aria-label="Python code"><code>def bubble_sort(a):                       # O(n^2), stable, in place
+    n = len(a)
+    for i in range(n):
+        swapped = False
+        for j in range(n - i - 1):
+            if a[j] &gt; a[j + 1]:
+                a[j], a[j + 1] = a[j + 1], a[j]
+                swapped = True
+        if not swapped:                   # already sorted: stop early
+            break
+    return a
+
+def selection_sort(a):                    # O(n^2), not stable, in place
+    for i in range(len(a) - 1):
+        smallest = i
+        for j in range(i + 1, len(a)):
+            if a[j] &lt; a[smallest]:
+                smallest = j
+        a[i], a[smallest] = a[smallest], a[i]
+    return a
+
+def insertion_sort(a):                    # O(n^2) worst, O(n) if nearly sorted, stable
+    for i in range(1, len(a)):
+        key, j = a[i], i - 1
+        while j &gt;= 0 and a[j] &gt; key:
+            a[j + 1] = a[j]
+            j -= 1
+        a[j + 1] = key
+    return a
+
+def merge_sort(a):                        # O(n log n) always, stable, O(n) extra space
+    if len(a) &lt;= 1:
+        return a
+    mid = len(a) // 2
+    left, right = merge_sort(a[:mid]), merge_sort(a[mid:])
+    merged, i, j = [], 0, 0
+    while i &lt; len(left) and j &lt; len(right):
+        if left[i] &lt;= right[j]:           # &lt;= keeps equal items in order (stable)
+            merged.append(left[i]); i += 1
+        else:
+            merged.append(right[j]); j += 1
+    return merged + left[i:] + right[j:]
+
+def quick_sort(a, lo=0, hi=None):         # O(n log n) average, O(n^2) worst, in place
+    if hi is None:
+        hi = len(a) - 1
+    if lo &lt; hi:
+        pivot, i = a[hi], lo
+        for j in range(lo, hi):           # Lomuto partition
+            if a[j] &lt; pivot:
+                a[i], a[j] = a[j], a[i]
+                i += 1
+        a[i], a[hi] = a[hi], a[i]
+        quick_sort(a, lo, i - 1)
+        quick_sort(a, i + 1, hi)
+    return a
+
+
+data = [38, 27, 43, 3, 9, 82, 10]
+for sort in (bubble_sort, selection_sort, insertion_sort, merge_sort, quick_sort):
+    print(sort.__name__, sort(data[:]))   # each prints [3, 9, 10, 27, 38, 43, 82]</code></pre><pre data-lang="java" role="tabpanel" aria-label="Java code" hidden><code>import java.util.Arrays;
+
+public class Sorting {
+    static void bubbleSort(int[] a) {                  // O(n^2), stable, in place
+        for (int i = 0; i &lt; a.length; i++) {
+            boolean swapped = false;
+            for (int j = 0; j &lt; a.length - i - 1; j++) {
+                if (a[j] &gt; a[j + 1]) { swap(a, j, j + 1); swapped = true; }
+            }
+            if (!swapped) break;                       // already sorted: stop early
+        }
+    }
+
+    static void selectionSort(int[] a) {               // O(n^2), not stable, in place
+        for (int i = 0; i &lt; a.length - 1; i++) {
+            int smallest = i;
+            for (int j = i + 1; j &lt; a.length; j++) if (a[j] &lt; a[smallest]) smallest = j;
+            swap(a, i, smallest);
+        }
+    }
+
+    static void insertionSort(int[] a) {               // O(n^2) worst, O(n) if nearly sorted
+        for (int i = 1; i &lt; a.length; i++) {
+            int key = a[i], j = i - 1;
+            while (j &gt;= 0 &amp;&amp; a[j] &gt; key) { a[j + 1] = a[j]; j--; }
+            a[j + 1] = key;
+        }
+    }
+
+    static void mergeSort(int[] a) {                   // O(n log n) always, stable, O(n) space
+        if (a.length &lt;= 1) return;
+        int[] left = Arrays.copyOfRange(a, 0, a.length / 2);
+        int[] right = Arrays.copyOfRange(a, a.length / 2, a.length);
+        mergeSort(left);
+        mergeSort(right);
+        int i = 0, j = 0, k = 0;
+        while (i &lt; left.length &amp;&amp; j &lt; right.length) a[k++] = left[i] &lt;= right[j] ? left[i++] : right[j++];
+        while (i &lt; left.length) a[k++] = left[i++];
+        while (j &lt; right.length) a[k++] = right[j++];
+    }
+
+    static void quickSort(int[] a, int lo, int hi) {   // O(n log n) average, O(n^2) worst
+        if (lo &gt;= hi) return;
+        int pivot = a[hi], i = lo;
+        for (int j = lo; j &lt; hi; j++) {                // Lomuto partition
+            if (a[j] &lt; pivot) swap(a, i++, j);
+        }
+        swap(a, i, hi);
+        quickSort(a, lo, i - 1);
+        quickSort(a, i + 1, hi);
+    }
+
+    private static void swap(int[] a, int i, int j) { int t = a[i]; a[i] = a[j]; a[j] = t; }
+
+    public static void main(String[] args) {
+        int[] data = {38, 27, 43, 3, 9, 82, 10};
+        int[] a = data.clone(); bubbleSort(a);              System.out.println(Arrays.toString(a));
+        a = data.clone(); selectionSort(a);                 System.out.println(Arrays.toString(a));
+        a = data.clone(); insertionSort(a);                 System.out.println(Arrays.toString(a));
+        a = data.clone(); mergeSort(a);                     System.out.println(Arrays.toString(a));
+        a = data.clone(); quickSort(a, 0, a.length - 1);    System.out.println(Arrays.toString(a));
+    }
+}</code></pre><pre data-lang="js" role="tabpanel" aria-label="JavaScript code" hidden><code>function bubbleSort(a) {                   // O(n^2), stable, in place
+  for (let i = 0; i &lt; a.length; i++) {
+    let swapped = false;
+    for (let j = 0; j &lt; a.length - i - 1; j++) {
+      if (a[j] &gt; a[j + 1]) { [a[j], a[j + 1]] = [a[j + 1], a[j]]; swapped = true; }
+    }
+    if (!swapped) break;                   // already sorted: stop early
+  }
+  return a;
+}
+
+function selectionSort(a) {                // O(n^2), not stable, in place
+  for (let i = 0; i &lt; a.length - 1; i++) {
+    let smallest = i;
+    for (let j = i + 1; j &lt; a.length; j++) if (a[j] &lt; a[smallest]) smallest = j;
+    [a[i], a[smallest]] = [a[smallest], a[i]];
+  }
+  return a;
+}
+
+function insertionSort(a) {                // O(n^2) worst, O(n) if nearly sorted, stable
+  for (let i = 1; i &lt; a.length; i++) {
+    const key = a[i];
+    let j = i - 1;
+    while (j &gt;= 0 &amp;&amp; a[j] &gt; key) { a[j + 1] = a[j]; j--; }
+    a[j + 1] = key;
+  }
+  return a;
+}
+
+function mergeSort(a) {                    // O(n log n) always, stable, O(n) extra space
+  if (a.length &lt;= 1) return a;
+  const mid = a.length &gt;&gt; 1;
+  const left = mergeSort(a.slice(0, mid)), right = mergeSort(a.slice(mid));
+  const merged = [];
+  let i = 0, j = 0;
+  while (i &lt; left.length &amp;&amp; j &lt; right.length) merged.push(left[i] &lt;= right[j] ? left[i++] : right[j++]);
+  return merged.concat(left.slice(i), right.slice(j));
+}
+
+function quickSort(a, lo = 0, hi = a.length - 1) {   // O(n log n) average, O(n^2) worst
+  if (lo &lt; hi) {
+    const pivot = a[hi];
+    let i = lo;
+    for (let j = lo; j &lt; hi; j++) {        // Lomuto partition
+      if (a[j] &lt; pivot) { [a[i], a[j]] = [a[j], a[i]]; i++; }
+    }
+    [a[i], a[hi]] = [a[hi], a[i]];
+    quickSort(a, lo, i - 1);
+    quickSort(a, i + 1, hi);
+  }
+  return a;
+}
+
+const data = [38, 27, 43, 3, 9, 82, 10];
+for (const sort of [bubbleSort, selectionSort, insertionSort, mergeSort, quickSort]) {
+  console.log(sort.name, sort([...data])); // each prints [3, 9, 10, 27, 38, 43, 82]
+}
+// Note: the built-in a.sort() compares as strings unless you pass (x, y) =&gt; x - y.</code></pre></div>
+<h2 id="when">When to use it</h2>
+<h3>Which one to reach for</h3><ul><li><strong>Small or nearly sorted input:</strong> insertion sort.</li><li><strong>Need stability or a guaranteed O(n log n):</strong> merge sort.</li><li><strong>General in-memory sorting, memory matters:</strong> quick sort with a good pivot.</li><li><strong>Anything in production:</strong> the language's built-in sort.</li></ul>
+<h3>Beyond comparison sorts</h3><ul><li>Comparison-based sorting cannot beat O(n log n) in the worst case.</li><li>When keys are small integers, counting sort and radix sort run in O(n + k) by not comparing at all.</li></ul>
+<h2 id="mistakes">Common mistakes</h2><ul><li>Calling JavaScript's <code>sort()</code> on numbers without <code>(a, b) =&gt; a - b</code>.</li><li>Writing a comparator that returns a boolean instead of a negative, zero or positive number.</li><li>Assuming quick sort is always O(n log n) while using a fixed first or last pivot on sorted input.</li><li>Assuming a sort is stable when it is not, then losing an earlier ordering.</li><li>Using <code>&lt;</code> instead of <code>&lt;=</code> in the merge step, which makes merge sort unstable.</li></ul>
+<h2 id="interview">Interview questions</h2><p>Classic problems built on this topic, with the approach to each. Try them yourself before opening the hint.</p>
+<details><summary>Which sorting algorithm would you use, and why?</summary><p>Usually the built-in one. If pressed: merge sort for stability and guarantees, quick sort for in-place speed, insertion sort for small or nearly sorted data.</p></details><details><summary>Sort an array of 0s, 1s and 2s in one pass.</summary><p>Dutch national flag: three pointers partition the array into three regions in O(n) time and O(1) space.</p></details><details><summary>Find the k-th largest element without fully sorting.</summary><p>Quickselect: partition as in quick sort but recurse into only one side. O(n) on average.</p></details><details><summary>Merge overlapping intervals.</summary><p>Sort by start time, then sweep once, extending the current interval or starting a new one.</p></details><details><summary>Why can no comparison sort be faster than O(n log n)?</summary><p>There are n! possible orderings and each comparison distinguishes at most two outcomes, so at least log₂(n!) ≈ n log n comparisons are needed.</p></details>
+<h2 id="faq">Frequently asked questions</h2>
+<details><summary>Which sorting algorithm is the fastest?</summary><p>For general data, O(n log n) algorithms such as quick sort, merge sort and Timsort. Quick sort is often fastest in memory on average; merge sort and Timsort guarantee O(n log n) and are stable.</p></details><details><summary>What is a stable sorting algorithm?</summary><p>One that keeps items with equal keys in their original order. Bubble, insertion and merge sort are stable; selection sort and quick sort are not.</p></details><details><summary>What is the difference between merge sort and quick sort?</summary><p>Merge sort splits first and does its work while merging, always O(n log n), using O(n) extra space. Quick sort does its work while partitioning around a pivot, sorts in place, and is O(n log n) on average but O(n²) in the worst case.</p></details>
+<nav class="pager" aria-label="Next and previous tutorials"><a href="../binary-search/" rel="prev"><small>Previous</small>Binary Search</a></nav>
+<aside class="hire"><p><b>Written by Prem Sarojanand</b>Senior software engineer with 13+ years of Java, Node.js and Python experience. Open to remote and freelance work.</p><a class="btn primary" href="https://premlabs.github.io/#contact">Work with me</a></aside>
+</article></div>
+<footer><div class="foot">
+  <span>© 2026 PremLabs · Free data structures and algorithms tutorials by <a href="https://premlabs.github.io/">Prem Sarojanand</a></span>
+  <span><a href="https://www.youtube.com/@PremLabs-s05w" rel="me">YouTube</a> · <a href="https://www.instagram.com/tech.coders/" rel="me">Instagram</a> · <a href="https://github.com/PremLabs" rel="me">GitHub</a> · <a href="https://premlabs.github.io/datastructure/sitemap.xml">Sitemap</a></span>
+</div></footer>
+</body>
+</html>
